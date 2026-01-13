@@ -1,0 +1,623 @@
+/*
+ * The New Masses Style - 1920s/30s Radical Newspaper Aesthetic
+ * A portfolio for Maurice J. Casey
+ */
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette - Classic newspaper colors with a touch of radical red */
+    --ink-black: #1a1a1a;
+    --newsprint-white: #f5f5f0;
+    --radical-red: #c41e3a;
+    --gray-rule: #4a4a4a;
+    --light-gray: #d4d4d0;
+
+    /* Typography */
+    --font-display: 'Playfair Display', 'Georgia', serif;
+    --font-body: 'Libre Baskerville', 'Georgia', serif;
+    --font-sans: 'Franklin Gothic Medium', 'Arial Narrow', sans-serif;
+}
+
+/* Import classic serif fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-black);
+    background-color: var(--newsprint-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   NEWSPAPER WRAPPER
+   ============================================ */
+
+.newspaper-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background-color: var(--newsprint-white);
+}
+
+/* ============================================
+   MASTHEAD
+   ============================================ */
+
+.masthead {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+    border-top: 4px solid var(--ink-black);
+    border-bottom: 1px solid var(--gray-rule);
+    margin-bottom: 1rem;
+}
+
+.issue-date {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: var(--gray-rule);
+}
+
+.masthead-title {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin: 0.5rem 0;
+    text-transform: uppercase;
+}
+
+.masthead-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-rule);
+    margin-top: 0.75rem;
+}
+
+.decorative-line {
+    width: 100px;
+    height: 2px;
+    background-color: var(--radical-red);
+    margin: 1rem auto 0;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.navigation {
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 3px double var(--gray-rule);
+    margin-bottom: 2rem;
+    font-family: var(--font-sans);
+}
+
+.nav-link {
+    color: var(--ink-black);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    padding: 0 0.5rem;
+}
+
+.nav-link:hover {
+    color: var(--radical-red);
+}
+
+.nav-divider {
+    color: var(--gray-rule);
+    padding: 0 0.25rem;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--light-gray);
+    margin-bottom: 3rem;
+}
+
+.section-headline {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--radical-red);
+    padding-left: 1rem;
+}
+
+.column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.column {
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.drop-cap::first-letter {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 0.8;
+    float: left;
+    margin: 0.1rem 0.5rem 0 0;
+    font-family: var(--font-display);
+}
+
+/* ============================================
+   CONTENT SECTIONS
+   ============================================ */
+
+.content-section {
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.decorative-line-thin {
+    width: 100%;
+    height: 1px;
+    background-color: var(--gray-rule);
+    margin: 1rem 0 2rem;
+}
+
+/* ============================================
+   WRITING SECTION
+   ============================================ */
+
+.article-item {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.article-item:last-child {
+    border-bottom: none;
+}
+
+.article-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: var(--ink-black);
+}
+
+.article-meta {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-rule);
+    margin-bottom: 1rem;
+}
+
+.article-excerpt {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--radical-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.read-more:hover {
+    color: var(--ink-black);
+}
+
+/* ============================================
+   CV SECTION
+   ============================================ */
+
+.cv-section {
+    margin-bottom: 2.5rem;
+}
+
+.cv-heading {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--ink-black);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cv-item {
+    margin-bottom: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--light-gray);
+}
+
+.cv-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.cv-institution {
+    font-style: italic;
+    color: var(--gray-rule);
+    margin-bottom: 0.5rem;
+}
+
+.cv-detail {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.cv-publication {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.cv-download {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.download-link {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--newsprint-white);
+    background-color: var(--ink-black);
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.download-link:hover {
+    background-color: var(--radical-red);
+}
+
+/* ============================================
+   DOCUMENTARIES SECTION
+   ============================================ */
+
+.documentary-item {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.documentary-item:last-child {
+    border-bottom: none;
+}
+
+.documentary-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.documentary-meta {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-rule);
+    margin-bottom: 0.5rem;
+}
+
+.documentary-role {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.documentary-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.watch-link {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--radical-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.watch-link:hover {
+    color: var(--ink-black);
+}
+
+/* ============================================
+   BOOKS SECTION
+   ============================================ */
+
+.book-item {
+    margin-bottom: 3rem;
+}
+
+.book-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+}
+
+.book-cover-placeholder {
+    width: 200px;
+    height: 300px;
+    background-color: var(--ink-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--ink-black);
+}
+
+.book-cover-text {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--newsprint-white);
+    text-align: center;
+    line-height: 1.2;
+}
+
+.book-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.book-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.book-publisher {
+    font-style: italic;
+    color: var(--gray-rule);
+    margin-bottom: 1rem;
+}
+
+.book-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.book-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.book-link {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--radical-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.book-link:hover {
+    color: var(--ink-black);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 3px double var(--gray-rule);
+    text-align: center;
+}
+
+.footer-content {
+    margin: 1.5rem 0;
+}
+
+.footer-contact {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-contact a {
+    color: var(--ink-black);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.footer-contact a:hover {
+    color: var(--radical-red);
+}
+
+.footer-social {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+.social-link {
+    color: var(--ink-black);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--radical-red);
+}
+
+.colophon {
+    font-size: 0.75rem;
+    color: var(--gray-rule);
+    margin-top: 1.5rem;
+    font-style: italic;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .masthead-title {
+        font-size: 3rem;
+    }
+
+    .column-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .section-headline {
+        font-size: 2rem;
+    }
+
+    .book-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .book-cover-placeholder {
+        margin: 0 auto;
+    }
+
+    .nav-link {
+        display: inline-block;
+        margin: 0.25rem 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .newspaper-wrapper {
+        padding: 1rem;
+    }
+
+    .masthead-title {
+        font-size: 2.25rem;
+        letter-spacing: 0.02em;
+    }
+
+    .masthead-subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+
+    .section-headline {
+        font-size: 1.75rem;
+    }
+
+    .article-title,
+    .documentary-title {
+        font-size: 1.5rem;
+    }
+
+    .book-title {
+        font-size: 1.6rem;
+    }
+
+    .drop-cap::first-letter {
+        font-size: 3rem;
+    }
+
+    .navigation {
+        padding: 0.75rem 0;
+    }
+
+    .nav-link {
+        font-size: 0.75rem;
+        padding: 0.25rem;
+    }
+
+    .nav-divider {
+        display: none;
+    }
+
+    .nav-link::after {
+        content: " |";
+        color: var(--gray-rule);
+    }
+
+    .nav-link:last-child::after {
+        content: "";
+    }
+}
+
+/* ============================================
+   SMOOTH SCROLLING
+   ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    body {
+        background-color: white;
+    }
+
+    .newspaper-wrapper {
+        max-width: 100%;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+}
