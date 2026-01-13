@@ -1,0 +1,340 @@
+/*
+ * Landing Page - Vintage Photo Fade-In
+ * Dr Maurice J. Casey Portfolio
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --sepia-tone: #f5f5e8;
+    --aged-black: #1a1612;
+    --vintage-red: #c41e3a;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Playfair Display', serif;
+}
+
+.landing-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--aged-black);
+    overflow: hidden;
+}
+
+/* Photo Backdrop with Fade-In Sequence */
+.photo-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.photo-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    filter: grayscale(100%) sepia(20%) brightness(0.8);
+}
+
+/* Staggered fade-in animation for each photo */
+.photo-1 {
+    animation: fadeInOut 15s ease-in-out 0s infinite;
+}
+
+.photo-2 {
+    animation: fadeInOut 15s ease-in-out 3s infinite;
+}
+
+.photo-3 {
+    animation: fadeInOut 15s ease-in-out 6s infinite;
+}
+
+.photo-4 {
+    animation: fadeInOut 15s ease-in-out 9s infinite;
+}
+
+.photo-5 {
+    animation: fadeInOut 15s ease-in-out 12s infinite;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    10% {
+        opacity: 0.6;
+    }
+    30% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+    40% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+/* Dark overlay for text contrast */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+    z-index: 2;
+}
+
+/* Content Emergence */
+.content-emergence {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    opacity: 0;
+    animation: emergeContent 3s ease-out 2s forwards;
+}
+
+@keyframes emergeContent {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Title Block */
+.title-block {
+    background: linear-gradient(135deg, rgba(26,22,18,0.95) 0%, rgba(26,22,18,0.85) 100%);
+    border: 3px solid var(--vintage-red);
+    padding: 3rem 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    position: relative;
+}
+
+/* Corner ornaments */
+.title-block::before,
+.title-block::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--vintage-red);
+}
+
+.title-block::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.title-block::after {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.name-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--sepia-tone);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+}
+
+/* Decorative ornament between title and subtitle */
+.decorative-ornament {
+    width: 100px;
+    height: 3px;
+    background-color: var(--vintage-red);
+    margin: 1.5rem auto;
+    position: relative;
+}
+
+.decorative-ornament::before,
+.decorative-ornament::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--vintage-red);
+    transform: rotate(45deg);
+    top: -3.5px;
+}
+
+.decorative-ornament::before {
+    left: -15px;
+}
+
+.decorative-ornament::after {
+    right: -15px;
+}
+
+.subtitle {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.5rem;
+    color: var(--sepia-tone);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+
+/* Bottom corner ornaments */
+.title-block {
+    overflow: visible;
+}
+
+.title-block .name-title::before,
+.title-block .subtitle::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--vintage-red);
+}
+
+/* Enter Button */
+.enter-button {
+    margin-top: 3rem;
+    padding: 1rem 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sepia-tone);
+    background-color: transparent;
+    border: 3px solid var(--vintage-red);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.enter-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--vintage-red);
+    transition: left 0.4s ease;
+    z-index: -1;
+}
+
+.enter-button:hover::before {
+    left: 0;
+}
+
+.enter-button:hover {
+    color: var(--sepia-tone);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(196, 30, 58, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .name-title {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .title-block {
+        padding: 2rem 1.5rem;
+    }
+
+    .enter-button {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .name-title {
+        font-size: 2rem;
+        letter-spacing: 0.03em;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+    }
+
+    .title-block {
+        padding: 1.5rem 1rem;
+        border-width: 2px;
+    }
+
+    .title-block::before,
+    .title-block::after {
+        width: 25px;
+        height: 25px;
+    }
+
+    .decorative-ornament {
+        width: 60px;
+        margin: 1rem auto;
+    }
+}
+
+/* Additional ornamental elements that emerge */
+.content-emergence::before,
+.content-emergence::after {
+    content: '◆';
+    position: absolute;
+    font-size: 2rem;
+    color: var(--vintage-red);
+    opacity: 0.6;
+}
+
+.content-emergence::before {
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.content-emergence::after {
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
