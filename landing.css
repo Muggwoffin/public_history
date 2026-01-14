@@ -70,122 +70,55 @@ body, html {
     font-style: italic;
 }
 
-/* Image Network Graph */
+/* Image Grid - Photo Artifacts on Desk */
 .image-grid {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
     margin: 0 auto;
-    height: 700px;
+    padding: 2rem;
     opacity: 0;
     animation: fadeIn 1.5s ease-out 1s forwards;
 }
 
-/* Connecting Lines */
-.image-grid::before,
-.image-grid::after {
-    content: '';
-    position: absolute;
-    background-color: var(--dark-gray);
-    opacity: 0.3;
-    z-index: 0;
-}
-
-/* Line from About to Contact */
-.image-grid::before {
-    top: 150px;
-    left: 25%;
-    width: 2px;
-    height: 180px;
-    transform: rotate(-45deg);
-    transform-origin: top left;
-}
-
-/* Line from About to Books */
-.image-grid::after {
-    top: 150px;
-    right: 25%;
-    width: 2px;
-    height: 180px;
-    transform: rotate(45deg);
-    transform-origin: top right;
-}
-
 .image-card {
-    position: absolute;
     text-decoration: none;
     color: var(--dark-gray);
     transition: transform 0.3s ease;
-    z-index: 1;
+    display: block;
 }
 
 .image-card:hover {
-    transform: scale(1.1);
-    z-index: 10;
-}
-
-/* Network Graph Positioning */
-/* Top center - About */
-.image-card:nth-child(1) {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Left middle - Contact */
-.image-card:nth-child(2) {
-    top: 200px;
-    left: 10%;
-}
-
-/* Right middle - Books */
-.image-card:nth-child(3) {
-    top: 200px;
-    right: 10%;
-}
-
-/* Center - Public History */
-.image-card:nth-child(4) {
-    top: 350px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Bottom center - Newsletter */
-.image-card:nth-child(5) {
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translateY(-5px);
 }
 
 .image-wrapper {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
-    border: 2px solid var(--dark-gray);
-    border-radius: 50%;
-    margin-bottom: 1rem;
     background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 8px solid white;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 4px 8px rgba(0, 0, 0, 0.08),
+        0 8px 16px rgba(0, 0, 0, 0.06);
+    margin-bottom: 1rem;
     position: relative;
+    transform: rotate(-0.5deg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.image-wrapper::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.image-card:nth-child(even) .image-wrapper {
+    transform: rotate(0.5deg);
 }
 
-.image-card:hover .image-wrapper::after {
-    opacity: 1;
+.image-card:hover .image-wrapper {
+    transform: rotate(0deg);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.1),
+        0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
 .image-wrapper img {
@@ -193,12 +126,11 @@ body, html {
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%) sepia(20%);
-    transition: filter 0.3s ease, transform 0.3s ease;
+    transition: filter 0.3s ease;
 }
 
 .image-card:hover .image-wrapper img {
     filter: grayscale(80%) sepia(10%);
-    transform: scale(1.1);
 }
 
 .image-caption {
@@ -209,69 +141,7 @@ body, html {
     color: var(--dark-gray);
 }
 
-/* Connection Lines - Using pseudo-elements on cards */
-.image-card:nth-child(2)::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    width: 150px;
-    height: 2px;
-    background-color: var(--dark-gray);
-    opacity: 0.3;
-    transform: translateY(-50%) rotate(20deg);
-    transform-origin: left center;
-}
-
-.image-card:nth-child(3)::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    width: 150px;
-    height: 2px;
-    background-color: var(--dark-gray);
-    opacity: 0.3;
-    transform: translateY(-50%) rotate(-20deg);
-    transform-origin: right center;
-}
-
-.image-card:nth-child(4)::before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    width: 2px;
-    height: 100px;
-    background-color: var(--dark-gray);
-    opacity: 0.3;
-    transform: translateX(-50%);
-}
-
-.image-card:nth-child(4)::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    width: 2px;
-    height: 100px;
-    background-color: var(--dark-gray);
-    opacity: 0.3;
-    transform: translateX(-50%);
-}
-
 /* Responsive Design */
-@media (max-width: 1200px) {
-    .image-grid {
-        height: 600px;
-    }
-
-    .image-wrapper {
-        width: 160px;
-        height: 160px;
-    }
-}
-
 @media (max-width: 768px) {
     .landing-container {
         padding: 3rem 1.5rem;
@@ -286,48 +156,9 @@ body, html {
     }
 
     .image-grid {
-        height: 800px;
-    }
-
-    /* Stack vertically on mobile */
-    .image-card:nth-child(1) {
-        top: 0;
-        left: 50%;
-    }
-
-    .image-card:nth-child(2) {
-        top: 160px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .image-card:nth-child(3) {
-        top: 320px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .image-card:nth-child(4) {
-        top: 480px;
-        left: 50%;
-    }
-
-    .image-card:nth-child(5) {
-        top: 640px;
-        left: 50%;
-    }
-
-    /* Hide connecting lines on mobile */
-    .image-grid::before,
-    .image-grid::after,
-    .image-card::before,
-    .image-card::after {
-        display: none;
-    }
-
-    .image-wrapper {
-        width: 140px;
-        height: 140px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
     }
 
     .image-caption {
@@ -352,9 +183,9 @@ body, html {
         margin-bottom: 3rem;
     }
 
-    .image-wrapper {
-        width: 120px;
-        height: 120px;
+    .image-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
     .image-caption {
