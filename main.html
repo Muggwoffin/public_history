@@ -28,6 +28,10 @@
                         </div>
                     </div>
                     <div class="intro-text">
+                        <p class="drop-cap">Dr Maurice J. Casey is a historian specializing in labor, politics, and social movements in the twentieth century. His work brings historical scholarship to contemporary audiences, illuminating the radical traditions that shaped our present.</p>
+                        <p class="reading-link-container">
+                            <a href="#" class="reading-link" id="readingLink">📖 What I'm Currently Reading</a>
+                        </p>
                         <p class="drop-cap">I am an Irish historian based in Belfast, where I am a Research Fellow at Queen’s University. My work traces how early twentieth century revolutionaries navigated the messiness of day-to-day life. This has led me to explore topics as varied as the anti-Nazi underground, Irish nationalism, the Comintern and queer sexuality.</p>
                     </div>
                 </div>
@@ -227,6 +231,32 @@
                     <a href="#" class="watch-link">WATCH →</a>
                 </div>
 
+                <h3 class="subsection-heading">Upcoming Events</h3>
+
+                <div class="events-calendar">
+                    <div class="event-card">
+                        <div class="event-header">
+                            <h4 class="event-title">The Long View: Kennan Institute Discussion</h4>
+                            <span class="event-badge">Online</span>
+                        </div>
+                        <div class="event-details">
+                            <p class="event-date">
+                                <strong>📅 February 26, 2026</strong>
+                            </p>
+                            <p class="event-time">
+                                <strong>🕐 2:00 PM EST</strong>
+                            </p>
+                            <p class="event-timezone-note">
+                                <em><a href="https://www.timeanddate.com/worldclock/converter.html?iso=20260226T190000&p1=263" target="_blank" rel="noopener noreferrer">Convert to your timezone →</a></em>
+                            </p>
+                        </div>
+                        <p class="event-description">Join Dr Casey for a discussion on the intersection of labor history and modern political movements at the Kennan Institute's Long View series.</p>
+                        <a href="#" class="event-link">REGISTER →</a>
+                    </div>
+
+                    <!-- Add more events by copying the event-card structure above -->
+                </div>
+
                 <h3 class="subsection-heading">Podcast Appearances</h3>
 
                 <div class="podcast-embed">
@@ -329,5 +359,56 @@
             </div>
         </footer>
     </div>
+
+    <!-- Reading Modal -->
+    <div id="readingModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <h3 class="modal-title">What I'm Currently Reading</h3>
+            <div class="modal-book">
+                <img src="images/current-reading.jpg" alt="Current Book Cover" class="modal-book-cover">
+                <div class="modal-book-info">
+                    <h4 class="modal-book-title">Book Title Here</h4>
+                    <p class="modal-book-author">by Author Name</p>
+                    <p class="modal-book-description">A brief note about why you're reading this book or what you find interesting about it...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Reading Modal functionality
+        const readingLink = document.getElementById('readingLink');
+        const readingModal = document.getElementById('readingModal');
+        const modalClose = document.getElementById('modalClose');
+
+        if (readingLink && readingModal && modalClose) {
+            readingLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                readingModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+
+            modalClose.addEventListener('click', function() {
+                readingModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            readingModal.addEventListener('click', function(e) {
+                if (e.target === readingModal) {
+                    readingModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Close on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && readingModal.style.display === 'flex') {
+                    readingModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
