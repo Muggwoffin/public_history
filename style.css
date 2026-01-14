@@ -1037,6 +1037,83 @@ html {
 }
 
 /* ============================================
+   BLUESKY EMBED
+   ============================================ */
+
+.bluesky-embed {
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.bluesky-card {
+    padding: 2rem;
+    background-color: white;
+    border: 2px solid var(--light-gray);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.bluesky-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.bluesky-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.bluesky-icon {
+    width: 48px;
+    height: 48px;
+    fill: #1185fe;
+    flex-shrink: 0;
+}
+
+.bluesky-name {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--ink-black);
+}
+
+.bluesky-handle {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--gray-rule);
+}
+
+.bluesky-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--dark-gray);
+}
+
+.bluesky-follow-btn {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: white;
+    background-color: #1185fe;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 4px;
+}
+
+.bluesky-follow-btn:hover {
+    background-color: #0d6ecd;
+    transform: translateY(-2px);
+}
+
+/* ============================================
    FOOTER ENHANCEMENTS
    ============================================ */
 
