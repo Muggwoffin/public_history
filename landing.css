@@ -28,15 +28,15 @@ body {
     background-size: 110%;
     background-position: center;
     background-attachment: fixed;
-    animation: slowPan 60s ease-in-out infinite alternate;
+    animation: slowPan 48s linear infinite alternate;
 }
 
 @keyframes slowPan {
     0% {
-        background-position: 40% 50%;
+        background-position: 35% 50%;
     }
     100% {
-        background-position: 60% 50%;
+        background-position: 65% 50%;
     }
 }
 
@@ -163,7 +163,7 @@ body::before {
 }
 
 .image-card:hover .image-wrapper img {
-    filter: grayscale(80%) sepia(2%);
+    filter: grayscale(40%) sepia(0%);
 }
 
 .image-caption {
