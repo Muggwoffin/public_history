@@ -600,6 +600,515 @@ html {
 }
 
 /* ============================================
+   ORNATE MASTHEAD ENHANCEMENTS
+   ============================================ */
+
+.masthead-ornament-top {
+    font-size: 1rem;
+    color: var(--radical-red);
+    letter-spacing: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.decorative-line-ornate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem auto 0;
+    color: var(--radical-red);
+}
+
+.ornament-left,
+.ornament-right {
+    font-size: 1.2rem;
+}
+
+.ornament-center {
+    font-size: 1.5rem;
+}
+
+/* ============================================
+   TABBED NAVIGATION
+   ============================================ */
+
+.navigation-tabs {
+    text-align: center;
+    padding: 1.5rem 0;
+    border-top: 2px solid var(--gray-rule);
+    border-bottom: 3px double var(--gray-rule);
+    margin-bottom: 2rem;
+    font-family: var(--font-sans);
+    background: linear-gradient(180deg, var(--newsprint-white) 0%, rgba(212,212,208,0.2) 100%);
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    color: var(--ink-black);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    position: relative;
+}
+
+.tab-button:hover {
+    color: var(--radical-red);
+}
+
+.tab-button.active {
+    color: var(--radical-red);
+    font-weight: bold;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background-color: var(--radical-red);
+}
+
+.tab-divider {
+    color: var(--gray-rule);
+    padding: 0 0.25rem;
+}
+
+/* ============================================
+   TAB CONTENT
+   ============================================ */
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   VINTAGE PHOTO GALLERY STRIP
+   ============================================ */
+
+.photo-gallery-strip {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-top: 1px solid var(--light-gray);
+    border-bottom: 1px solid var(--light-gray);
+    overflow-x: auto;
+    justify-content: center;
+}
+
+.gallery-frame {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border: 3px solid var(--ink-black);
+    padding: 0.25rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-frame:hover {
+    transform: translateY(-5px) rotate(2deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.gallery-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) sepia(20%);
+    transition: filter 0.3s ease;
+}
+
+.gallery-frame:hover .gallery-thumb {
+    filter: grayscale(80%) sepia(10%);
+}
+
+/* ============================================
+   SECTION HEADLINE ORNAMENTS
+   ============================================ */
+
+.section-headline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.headline-ornament-left,
+.headline-ornament-right {
+    font-size: 1.5rem;
+    color: var(--radical-red);
+    font-weight: normal;
+}
+
+/* ============================================
+   SUBSECTION HEADINGS
+   ============================================ */
+
+.subsection-heading {
+    font-family: var(--font-sans);
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 3rem 0 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--ink-black);
+    position: relative;
+}
+
+.subsection-heading::before {
+    content: '◆';
+    color: var(--radical-red);
+    margin-right: 0.75rem;
+}
+
+/* ============================================
+   INTRO TEXT
+   ============================================ */
+
+.intro-text {
+    background-color: rgba(196, 30, 58, 0.05);
+    border-left: 4px solid var(--radical-red);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* ============================================
+   MEDIA ITEMS (TV & RADIO)
+   ============================================ */
+
+.media-item {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.media-item:last-child {
+    border-bottom: none;
+}
+
+.media-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.media-meta {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-rule);
+    margin-bottom: 0.5rem;
+}
+
+.media-role {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.media-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.contact-box {
+    border: 2px solid var(--ink-black);
+    padding: 2rem;
+    background-color: rgba(212, 212, 208, 0.2);
+    position: relative;
+}
+
+.contact-box::before {
+    content: '✦';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--newsprint-white);
+    color: var(--radical-red);
+    font-size: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+.contact-heading {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.contact-detail {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.contact-detail a {
+    color: var(--radical-red);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.contact-detail a:hover {
+    color: var(--ink-black);
+}
+
+.social-link-block {
+    display: inline-block;
+    margin: 0.25rem 0;
+    color: var(--ink-black);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.social-link-block:hover {
+    color: var(--radical-red);
+}
+
+/* ============================================
+   NEWSLETTER SECTION
+   ============================================ */
+
+.newsletter-box {
+    background-color: rgba(196, 30, 58, 0.05);
+    border: 3px double var(--ink-black);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.newsletter-intro {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.newsletter-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border: 2px solid var(--ink-black);
+    background-color: var(--newsprint-white);
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--radical-red);
+}
+
+.subscribe-button {
+    width: 100%;
+    padding: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--newsprint-white);
+    background-color: var(--ink-black);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.subscribe-button:hover {
+    background-color: var(--radical-red);
+}
+
+.newsletter-note {
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    color: var(--gray-rule);
+}
+
+/* ============================================
+   NEWSLETTER ARCHIVE
+   ============================================ */
+
+.newsletter-archive {
+    display: grid;
+    gap: 2rem;
+}
+
+.archive-item {
+    padding: 1.5rem;
+    border-left: 3px solid var(--radical-red);
+    background-color: rgba(212, 212, 208, 0.1);
+}
+
+.archive-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.archive-date {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-rule);
+    margin-bottom: 0.75rem;
+}
+
+.archive-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+/* ============================================
+   FOOTER ENHANCEMENTS
+   ============================================ */
+
+.footer-ornament-bottom {
+    font-size: 1rem;
+    color: var(--radical-red);
+    letter-spacing: 1rem;
+    margin-top: 1rem;
+}
+
+/* ============================================
+   RESPONSIVE ENHANCEMENTS FOR TABS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .navigation-tabs {
+        padding: 1rem 0;
+    }
+
+    .tab-button {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.75rem;
+    }
+
+    .photo-gallery-strip {
+        justify-content: flex-start;
+        padding: 1.5rem 0;
+    }
+
+    .gallery-frame {
+        width: 100px;
+        height: 100px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .masthead-ornament-top,
+    .footer-ornament-bottom {
+        letter-spacing: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-button {
+        display: block;
+        margin: 0.25rem auto;
+        padding: 0.5rem;
+    }
+
+    .tab-divider {
+        display: none;
+    }
+
+    .section-headline {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .headline-ornament-left,
+    .headline-ornament-right {
+        display: none;
+    }
+
+    .photo-gallery-strip {
+        gap: 0.75rem;
+    }
+
+    .gallery-frame {
+        width: 80px;
+        height: 80px;
+    }
+
+    .newsletter-box {
+        padding: 1.5rem;
+    }
+}
+
+/* ============================================
    PRINT STYLES
    ============================================ */
 
@@ -612,8 +1121,15 @@ html {
         max-width: 100%;
     }
 
-    .navigation {
+    .navigation,
+    .navigation-tabs,
+    .photo-gallery-strip {
         display: none;
+    }
+
+    .tab-content {
+        display: block !important;
+        page-break-before: always;
     }
 
     a {
