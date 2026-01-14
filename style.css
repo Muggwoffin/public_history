@@ -1153,7 +1153,7 @@ html {
 }
 
 .author-photo:hover img {
-    filter: grayscale(80%) sepia(10%);
+    filter: none;
     transform: scale(1.05);
 }
 
