@@ -70,32 +70,122 @@ body, html {
     font-style: italic;
 }
 
-/* Image Grid */
+/* Image Network Graph */
 .image-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2rem;
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 700px;
     opacity: 0;
     animation: fadeIn 1.5s ease-out 1s forwards;
 }
 
+/* Connecting Lines */
+.image-grid::before,
+.image-grid::after {
+    content: '';
+    position: absolute;
+    background-color: var(--dark-gray);
+    opacity: 0.3;
+    z-index: 0;
+}
+
+/* Line from About to Contact */
+.image-grid::before {
+    top: 150px;
+    left: 25%;
+    width: 2px;
+    height: 180px;
+    transform: rotate(-45deg);
+    transform-origin: top left;
+}
+
+/* Line from About to Books */
+.image-grid::after {
+    top: 150px;
+    right: 25%;
+    width: 2px;
+    height: 180px;
+    transform: rotate(45deg);
+    transform-origin: top right;
+}
+
 .image-card {
+    position: absolute;
     text-decoration: none;
     color: var(--dark-gray);
     transition: transform 0.3s ease;
-    display: block;
+    z-index: 1;
 }
 
 .image-card:hover {
-    transform: translateY(-10px);
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+/* Network Graph Positioning */
+/* Top center - About */
+.image-card:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Left middle - Contact */
+.image-card:nth-child(2) {
+    top: 200px;
+    left: 10%;
+}
+
+/* Right middle - Books */
+.image-card:nth-child(3) {
+    top: 200px;
+    right: 10%;
+}
+
+/* Center - Public History */
+.image-card:nth-child(4) {
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Bottom center - Newsletter */
+.image-card:nth-child(5) {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .image-wrapper {
-    width: 100%;
-    aspect-ratio: 4 / 5;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
-    border: 1px solid var(--dark-gray);
+    border: 2px solid var(--dark-gray);
+    border-radius: 50%;
     margin-bottom: 1rem;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.image-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-card:hover .image-wrapper::after {
+    opacity: 1;
 }
 
 .image-wrapper img {
@@ -108,7 +198,7 @@ body, html {
 
 .image-card:hover .image-wrapper img {
     filter: grayscale(80%) sepia(10%);
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .image-caption {
@@ -119,10 +209,66 @@ body, html {
     color: var(--dark-gray);
 }
 
+/* Connection Lines - Using pseudo-elements on cards */
+.image-card:nth-child(2)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 150px;
+    height: 2px;
+    background-color: var(--dark-gray);
+    opacity: 0.3;
+    transform: translateY(-50%) rotate(20deg);
+    transform-origin: left center;
+}
+
+.image-card:nth-child(3)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 150px;
+    height: 2px;
+    background-color: var(--dark-gray);
+    opacity: 0.3;
+    transform: translateY(-50%) rotate(-20deg);
+    transform-origin: right center;
+}
+
+.image-card:nth-child(4)::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 2px;
+    height: 100px;
+    background-color: var(--dark-gray);
+    opacity: 0.3;
+    transform: translateX(-50%);
+}
+
+.image-card:nth-child(4)::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 2px;
+    height: 100px;
+    background-color: var(--dark-gray);
+    opacity: 0.3;
+    transform: translateX(-50%);
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .image-grid {
-        grid-template-columns: repeat(3, 1fr);
+        height: 600px;
+    }
+
+    .image-wrapper {
+        width: 160px;
+        height: 160px;
     }
 }
 
@@ -140,8 +286,48 @@ body, html {
     }
 
     .image-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        height: 800px;
+    }
+
+    /* Stack vertically on mobile */
+    .image-card:nth-child(1) {
+        top: 0;
+        left: 50%;
+    }
+
+    .image-card:nth-child(2) {
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .image-card:nth-child(3) {
+        top: 320px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .image-card:nth-child(4) {
+        top: 480px;
+        left: 50%;
+    }
+
+    .image-card:nth-child(5) {
+        top: 640px;
+        left: 50%;
+    }
+
+    /* Hide connecting lines on mobile */
+    .image-grid::before,
+    .image-grid::after,
+    .image-card::before,
+    .image-card::after {
+        display: none;
+    }
+
+    .image-wrapper {
+        width: 140px;
+        height: 140px;
     }
 
     .image-caption {
@@ -166,12 +352,12 @@ body, html {
         margin-bottom: 3rem;
     }
 
-    .image-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+    .image-wrapper {
+        width: 120px;
+        height: 120px;
     }
 
     .image-caption {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
