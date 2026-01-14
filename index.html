@@ -8,30 +8,49 @@
 </head>
 <body>
     <div class="landing-container">
-        <!-- Photo slideshow backdrop -->
-        <div class="photo-backdrop">
-            <div class="photo-layer photo-1" style="background-image: url('images/street-scene.jpg');"></div>
-            <div class="photo-layer photo-2" style="background-image: url('images/children-garden.jpg');"></div>
-            <div class="photo-layer photo-3" style="background-image: url('images/mother-child.jpg');"></div>
-            <div class="photo-layer photo-4" style="background-image: url('images/guinguette.jpg');"></div>
-            <div class="photo-layer photo-5" style="background-image: url('images/isk-1926.jpg');"></div>
-        </div>
+        <!-- Title Section -->
+        <header class="title-section">
+            <h1 class="main-title">Dr Maurice J. Casey</h1>
+            <p class="subtitle">Historian & Writer</p>
+        </header>
 
-        <!-- Overlay gradient -->
-        <div class="overlay"></div>
+        <!-- Image Navigation Grid -->
+        <nav class="image-grid">
+            <a href="main.html#about" class="image-card">
+                <div class="image-wrapper">
+                    <img src="images/street-scene.jpg" alt="About">
+                </div>
+                <h2 class="image-caption">About</h2>
+            </a>
 
-        <!-- Content that emerges after photos -->
-        <div class="content-emergence">
-            <div class="title-block">
-                <h1 class="name-title">Dr Maurice J. Casey</h1>
-                <div class="decorative-ornament"></div>
-                <p class="subtitle">Historian & Writer</p>
-            </div>
+            <a href="main.html#contact" class="image-card">
+                <div class="image-wrapper">
+                    <img src="images/children-garden.jpg" alt="Contact">
+                </div>
+                <h2 class="image-caption">Contact</h2>
+            </a>
 
-            <button class="enter-button" onclick="window.location.href='main.html'">
-                Enter
-            </button>
-        </div>
+            <a href="main.html#books" class="image-card">
+                <div class="image-wrapper">
+                    <img src="images/mother-child.jpg" alt="Books">
+                </div>
+                <h2 class="image-caption">Books</h2>
+            </a>
+
+            <a href="main.html#public-history" class="image-card">
+                <div class="image-wrapper">
+                    <img src="images/guinguette.jpg" alt="Public History">
+                </div>
+                <h2 class="image-caption">Public History</h2>
+            </a>
+
+            <a href="main.html#newsletter" class="image-card">
+                <div class="image-wrapper">
+                    <img src="images/isk-1926.jpg" alt="Newsletter">
+                </div>
+                <h2 class="image-caption">Newsletter</h2>
+            </a>
+        </nav>
     </div>
 </body>
 </html>
