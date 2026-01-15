@@ -22,12 +22,12 @@ const timelineData = [
     // Books & Publications
     {
         id: 'hotel-lux-2024',
-        title: 'Hotel Lux: An Intimate History of Communism's Forgotten Radicals',
+        title: 'Hotel Lux: An Intimate History of Communism\'s Forgotten Radicals',
         type: 'book',
         date: '2024',
         sortDate: '2024-01-01',
         scope: 'international',
-        description: 'First English-language account of the Communist International's Moscow dormitory, drawing on 25+ archives in multiple languages. Shortlisted for Irish Book Awards 2024 (History Book of Year).',
+        description: 'First English-language account of the Communist International\'s Moscow dormitory, drawing on 25+ archives in multiple languages. Shortlisted for Irish Book Awards 2024 (History Book of Year).',
         link: 'https://footnotepress.com',
         venue: 'Footnote Press'
     },
@@ -114,12 +114,12 @@ const timelineData = [
     },
     {
         id: 'out-in-world-2021',
-        title: 'Out in the World: Ireland's LGBTQ+ Diaspora',
+        title: 'Out in the World: Ireland\'s LGBTQ+ Diaspora',
         type: 'exhibition',
         date: '2021',
         sortDate: '2021-01-01',
         scope: 'public',
-        description: 'Groundbreaking exhibition documenting Ireland's LGBTQ+ diaspora experience, combining personal narratives with historical research and visual storytelling.',
+        description: 'Groundbreaking exhibition documenting Ireland\'s LGBTQ+ diaspora experience, combining personal narratives with historical research and visual storytelling.',
         link: 'https://epicchq.com',
         venue: 'EPIC Irish Emigration Museum, Dublin'
     },
