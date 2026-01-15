@@ -256,13 +256,41 @@ function switchSection(sectionName) {
     document.querySelectorAll('.nav-tab').forEach(tab => {
         tab.classList.remove('active');
     });
-    document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+    const activeTab = document.querySelector(`[data-section="${sectionName}"]`);
+    if (activeTab) {
+        activeTab.classList.add('active');
+    }
 
-    // Update sections
+    // Update sections - try with -section suffix first (old sections), then without (new sections)
     document.querySelectorAll('.admin-section').forEach(section => {
         section.classList.remove('active');
     });
-    document.getElementById(`${sectionName}-section`).classList.add('active');
+
+    let targetSection = document.getElementById(`${sectionName}-section`);
+    if (!targetSection) {
+        targetSection = document.getElementById(sectionName);
+    }
+
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+
+    // Initialize new admin sections when needed
+    switch(sectionName) {
+        case 'events-manager':
+            if (typeof initEventsManager === 'function') initEventsManager();
+            break;
+        case 'content-boxes':
+            if (typeof initReadingEditor === 'function') initReadingEditor();
+            if (typeof initBooksManager === 'function') initBooksManager();
+            break;
+        case 'landing-images':
+            if (typeof initLandingImagesManager === 'function') initLandingImagesManager();
+            break;
+        case 'statistics':
+            if (typeof initStatisticsDashboard === 'function') initStatisticsDashboard();
+            break;
+    }
 }
 
 // ============================================
@@ -1005,6 +1033,91 @@ function formatBytes(bytes) {
     const sizes = ['Bytes', 'KB', 'MB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+}
+
+/**
+ * Fetch file from GitHub (wrapper for new admin extensions)
+ * @param {string} path - File path relative to repo root
+ * @returns {Promise<{content: string, sha: string}>}
+ */
+async function fetchFileFromGitHub(path) {
+    const data = await githubAPI(`/repos/${AdminApp.repo}/contents/${path}?ref=${AdminApp.branch}`);
+    return {
+        content: data.content, // Base64 encoded
+        sha: data.sha
+    };
+}
+
+/**
+ * Update file on GitHub (wrapper for new admin extensions)
+ * @param {string} path - File path relative to repo root
+ * @param {string} content - New file content (plain text)
+ * @param {string} sha - Current file SHA
+ * @param {string} message - Commit message
+ * @returns {Promise<object>}
+ */
+async function updateFileOnGitHub(path, content, sha, message) {
+    const response = await githubAPI(`/repos/${AdminApp.repo}/contents/${path}`, 'PUT', {
+        message,
+        content: btoa(unescape(encodeURIComponent(content))),
+        sha: sha,
+        branch: AdminApp.branch
+    });
+
+    // Update cache
+    AdminApp.fileCache[path] = {
+        content,
+        sha: response.content.sha
+    };
+
+    return response;
+}
+
+/**
+ * Show notification message to user
+ * @param {string} message - Notification text
+ * @param {string} type - Notification type: 'success', 'error', or 'info'
+ */
+function showNotification(message, type = 'success') {
+    // Create notification element if it doesn't exist
+    let notification = document.getElementById('global-notification');
+
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'global-notification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: opacity 0.3s ease;
+        `;
+        document.body.appendChild(notification);
+    }
+
+    // Set color based on type
+    const colors = {
+        success: '#28a745',
+        error: '#dc3545',
+        info: '#17a2b8'
+    };
+    notification.style.backgroundColor = colors[type] || colors.info;
+    notification.style.opacity = '1';
+    notification.textContent = message;
+    notification.style.display = 'block';
+
+    // Auto-hide after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 300);
+    }, 3000);
 }
 
 // ============================================

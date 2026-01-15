@@ -26,7 +26,7 @@
                 <div class="about-layout">
                     <div class="author-photo-container">
                         <div class="author-photo">
-                            <img src="images/author-photo.jpg" alt="Dr Maurice J. Casey">
+                            <img src="images/author-photo.jpg" data-alt-src="images/author-photo-alt.jpg" alt="Dr Maurice J. Casey" class="author-photo-img">
                         </div>
                     </div>
                     <div class="intro-text">
@@ -45,22 +45,31 @@
          <!-- Timeline Section -->
         <section id="timeline">
             <div class="content-section">
-                <div class="timeline-header-wrapper">
-                    <h2 class="section-headline">CAREER TIMELINE</h2>
-                    <button id="timeline-toggle" class="timeline-toggle-btn" aria-expanded="true" aria-controls="timeline-content">
-                        <span class="toggle-text">Collapse</span>
+                <!-- UPDATED: Centered heading -->
+                <h2 class="section-headline" style="text-align: center;">CAREER TIMELINE</h2>
+                <div class="decorative-line-thin"></div>
+
+                <!-- Intro text at top -->
+                <div class="intro-text">
+                    <p>Explore my CV as an interactive timeline, from archival research and book publications to exhibitions, teaching, and media engagement.</p>
+                </div>
+
+                <!-- UPDATED: Toggle button moved below intro, centered -->
+                <div class="timeline-toggle-container">
+                    <button
+                        id="timeline-toggle"
+                        class="timeline-toggle-btn"
+                        aria-expanded="false"
+                        aria-controls="timeline-content">
+                        <span class="toggle-text">View Timeline</span>
                         <svg class="toggle-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
                 </div>
-                <div class="decorative-line-thin"></div>
 
-                <div id="timeline-content" class="timeline-content-wrapper">
-                    <div class="intro-text">
-                        <p>Explore my CV as an interactive timeline, from archival research and book publications to exhibitions, teaching, and media engagement.</p>
-                    </div>
-
+                <!-- UPDATED: Content wrapper starts collapsed -->
+                <div id="timeline-content" class="timeline-content-wrapper collapsed">
                     <div id="timeline-container"></div>
                 </div>
             </div>
@@ -165,28 +174,9 @@
 
                 <h3 class="subsection-heading">Upcoming Events</h3>
 
+                <!-- UPDATED: Events will be dynamically rendered by events-renderer.js -->
                 <div class="events-calendar">
-                    <div class="event-card">
-                        <div class="event-header">
-                            <h4 class="event-title">The Long View: Kennan Institute Discussion</h4>
-                            <span class="event-badge">Online</span>
-                        </div>
-                        <div class="event-details">
-                            <p class="event-date">
-                                <strong>ð February 26, 2026</strong>
-                            </p>
-                            <p class="event-time">
-                                <strong>ð 2:00 PM EST</strong>
-                            </p>
-                            <p class="event-timezone-note">
-                                <em><a href="https://www.timeanddate.com/worldclock/converter.html?iso=20260226T190000&p1=263" target="_blank" rel="noopener noreferrer">Convert to your timezone →</a></em>
-                            </p>
-                        </div>
-                        <p class="event-description">Join Dr Casey for a discussion on the intersection of labor history and modern political movements at the Kennan Institute's Long View series.</p>
-                        <a href="#" class="event-link">REGISTER →</a>
-                    </div>
-
-                    <!-- Add more events by copying the event-card structure above -->
+                    <!-- Events dynamically inserted here -->
                 </div>
 
                 <h3 class="subsection-heading">Recent Podcast Appearances</h3>
@@ -301,57 +291,19 @@
         </footer>
     </div>
 
-    <!-- Reading Modal -->
-    <div id="readingModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" id="modalClose">&times;</span>
-            <h3 class="modal-title">What I'm Currently Reading</h3>
-            <div class="modal-book">
-                <img src="images/current-reading.jpg" alt="Current Book Cover" class="modal-book-cover">
-                <div class="modal-book-info">
-                    <h4 class="modal-book-title">Book Title Here</h4>
-                    <p class="modal-book-author">by Author Name</p>
-                    <p class="modal-book-description">A brief note about why you're reading this book or what you find interesting about it...</p>
-                </div>
-            </div>
+    <!-- What I'm Reading Modal -->
+    <div id="reading-modal" style="display: none;">
+        <div class="reading-modal-content">
+            <button id="close-reading-modal" class="reading-modal-close" aria-label="Close modal">&times;</button>
+            <h2 class="reading-book-title">Loading...</h2>
+            <p class="reading-author">by Author Name</p>
+            <img src="" alt="" class="reading-cover">
+            <p class="reading-note"></p>
         </div>
     </div>
 
     <script>
-        // Reading Modal functionality
-        const readingLink = document.getElementById('readingLink');
-        const readingModal = document.getElementById('readingModal');
-        const modalClose = document.getElementById('modalClose');
-
-        if (readingLink && readingModal && modalClose) {
-            readingLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                readingModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-
-            modalClose.addEventListener('click', function() {
-                readingModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            });
-
-            readingModal.addEventListener('click', function(e) {
-                if (e.target === readingModal) {
-                    readingModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // Close on ESC key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && readingModal.style.display === 'flex') {
-                    readingModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
-
-        // Timeline toggle functionality
+        // Timeline toggle functionality - collapsed by default
         const timelineToggle = document.getElementById('timeline-toggle');
         const timelineContent = document.getElementById('timeline-content');
 
@@ -360,21 +312,36 @@
                 const isExpanded = timelineToggle.getAttribute('aria-expanded') === 'true';
 
                 if (isExpanded) {
+                    // Collapse
                     timelineContent.classList.add('collapsed');
                     timelineToggle.setAttribute('aria-expanded', 'false');
-                    timelineToggle.querySelector('.toggle-text').textContent = 'Expand';
+                    timelineToggle.querySelector('.toggle-text').textContent = 'View Timeline';
                 } else {
+                    // Expand
                     timelineContent.classList.remove('collapsed');
                     timelineToggle.setAttribute('aria-expanded', 'true');
-                    timelineToggle.querySelector('.toggle-text').textContent = 'Collapse';
+                    timelineToggle.querySelector('.toggle-text').textContent = 'Collapse Timeline';
                 }
             });
         }
     </script>
 
+    <!-- Data files -->
+    <script src="events.js"></script>
+    <script src="reading.js"></script>
+    <script src="books.js"></script>
+    <script src="landing-config.js"></script>
+
     <!-- Timeline scripts -->
     <script src="projects.js"></script>
     <script src="timeline.js"></script>
+
+    <!-- New feature scripts -->
+    <script src="events-renderer.js"></script>
+    <script src="books-renderer.js"></script>
+    <script src="reading-modal.js"></script>
+    <script src="author-easter-egg.js"></script>
+    <script src="carousel.js"></script>
 </body>
 </html>
 <!-- UTF-8 encoding fix applied Thu Jan 15 16:53:58 UTC 2026 -->
