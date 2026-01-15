@@ -25,7 +25,7 @@ const timelineData = [
     {
         id: 'ba-trinity-2011-2015',
         title: 'BA in English Literature and History',
-        type: 'fellowship',
+        type: 'education',
         date: '2011-2015',
         sortDate: '2011-09-01',
         scope: 'academic',
@@ -36,7 +36,7 @@ const timelineData = [
     {
         id: 'mphil-cambridge-2015-2016',
         title: 'MPhil in Modern European History',
-        type: 'fellowship',
+        type: 'education',
         date: '2015-2016',
         sortDate: '2015-09-01',
         scope: 'academic',
@@ -47,7 +47,7 @@ const timelineData = [
     {
         id: 'dphil-oxford-2016-2020',
         title: 'DPhil in History',
-        type: 'fellowship',
+        type: 'education',
         date: '2016-2020',
         sortDate: '2016-09-01',
         scope: 'academic',
