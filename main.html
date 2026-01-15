@@ -37,24 +37,58 @@
                         </div>
                     </div>
                 </div>
-
-                 <!-- Timeline Section -->
-        <section id="timeline">
-            <div class="content-section">
-                <h2 class="section-headline">CAREER TIMELINE</h2>
-                <div class="decorative-line-thin"></div>
-
-                <div class="intro-text">
-                    <p>Explore my CV as a timeline, from archival research and book publications to exhibitions, teaching, and media engagement. Filter by category to see specific types of projects.</p>
-                </div>
-
-                <div id="timeline-container"></div>
-            </div>
-        </section>
                 
             </div>
         </section>
 
+         <!-- Timeline Section -->
+        <section id="timeline">
+            <div class="content-section">
+                <div class="timeline-header-wrapper">
+                    <h2 class="section-headline">CAREER TIMELINE</h2>
+                    <button id="timeline-toggle" class="timeline-toggle-btn" aria-expanded="true" aria-controls="timeline-content">
+                        <span class="toggle-text">Collapse</span>
+                        <svg class="toggle-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="decorative-line-thin"></div>
+
+                <div id="timeline-content" class="timeline-content-wrapper">
+                    <div class="intro-text">
+                        <p>Explore my work as a public-facing historian, from archival research and book publications to exhibitions, teaching, and media engagement. Filter by category to see specific types of projects and milestones.</p>
+                    </div>
+
+                    <div id="timeline-container"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Books Section -->
+        <section id="books">
+            <div class="content-section">
+                <h2 class="section-headline">BOOKS</h2>
+                <div class="decorative-line-thin"></div>
+
+                <div class="book-item">
+                    <div class="book-layout">
+                        <img src="images/book-cover-1.png" alt="Hotel Lux: An Intimate History of Communism's Forgotten Radicals" class="book-cover">
+                        <div class="book-details">
+                            <h3 class="book-title">Hotel Lux: An Intimate History of Communism's Forgotten Radicals</h3>
+                            <p class="book-publisher">Footnote Press, 2024</p>
+                            <p class="book-description">Three revolutionary families converge on a single Moscow hotel in the 1920s.</p>
+                            <div class="book-links">
+                                <a href="#" class="book-link">PUBLISHER →</a>
+                                <a href="#" class="book-link">REVIEWS →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
         <!-- Selected Writing Section -->
         <section id="selected-writing">
             <div class="content-section">
@@ -91,29 +125,6 @@
                         <p class="writing-excerpt">Brief excerpt or summary...</p>
                         <a href="#" class="read-more">READ →</a>
                     </article>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Books Section -->
-        <section id="books">
-            <div class="content-section">
-                <h2 class="section-headline">BOOKS</h2>
-                <div class="decorative-line-thin"></div>
-
-                <div class="book-item">
-                    <div class="book-layout">
-                        <img src="images/book-cover-1.png" alt="Hotel Lux: An Intimate History of Communism's Forgotten Radicals" class="book-cover">
-                        <div class="book-details">
-                            <h3 class="book-title">Hotel Lux: An Intimate History of Communism's Forgotten Radicals</h3>
-                            <p class="book-publisher">Footnote Press, 2024</p>
-                            <p class="book-description">Three revolutionary families converge on a single Moscow hotel in the 1920s.</p>
-                            <div class="book-links">
-                                <a href="#" class="book-link">PUBLISHER →</a>
-                                <a href="#" class="book-link">REVIEWS →</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -232,64 +243,6 @@
                     <p class="podcast-meta">The Rest Is History • 2024</p>
                     <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/gb/podcast/special-episode-gavin-arthur-with-maurice-casey/id1455620224?i=1000712193181"></iframe>
                     <p class="podcast-description">Exploring the life of Gavin Arthur, grandson of President Chester A. Arthur, who became a bohemian astrologer and countercultural figure in San Francisco.</p>
-                </div>
-
-                <h3 class="subsection-heading">Popular Writing</h3>
-
-                <div class="writing-grid">
-                    <article class="writing-item">
-                        <div class="outlet-logo">
-                            <img src="images/outlet-logo-1.png" alt="Outlet Name">
-                        </div>
-                        <h4 class="writing-title">Article Title for Popular Outlet</h4>
-                        <p class="writing-meta">Date Published</p>
-                        <p class="writing-excerpt">Brief excerpt or summary of the article...</p>
-                        <a href="#" class="read-more">READ →</a>
-                    </article>
-
-                    <article class="writing-item">
-                        <div class="outlet-logo">
-                            <img src="images/outlet-logo-2.png" alt="Outlet Name">
-                        </div>
-                        <h4 class="writing-title">Another Article Title</h4>
-                        <p class="writing-meta">Date Published</p>
-                        <p class="writing-excerpt">Brief excerpt or summary...</p>
-                        <a href="#" class="read-more">READ →</a>
-                    </article>
-
-                    <article class="writing-item">
-                        <div class="outlet-logo">
-                            <img src="images/outlet-logo-3.png" alt="Outlet Name">
-                        </div>
-                        <h4 class="writing-title">Third Article Title</h4>
-                        <p class="writing-meta">Date Published</p>
-                        <p class="writing-excerpt">Brief excerpt or summary...</p>
-                        <a href="#" class="read-more">READ →</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline Section -->
-        <section id="timeline">
-            <div class="content-section">
-                <div class="timeline-header-wrapper">
-                    <h2 class="section-headline">CAREER TIMELINE</h2>
-                    <button id="timeline-toggle" class="timeline-toggle-btn" aria-expanded="true" aria-controls="timeline-content">
-                        <span class="toggle-text">Collapse</span>
-                        <svg class="toggle-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="decorative-line-thin"></div>
-
-                <div id="timeline-content" class="timeline-content-wrapper">
-                    <div class="intro-text">
-                        <p>Explore my work as a public-facing historian, from archival research and book publications to exhibitions, teaching, and media engagement. Filter by category to see specific types of projects and milestones.</p>
-                    </div>
-
-                    <div id="timeline-container"></div>
                 </div>
             </div>
         </section>
