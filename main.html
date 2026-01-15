@@ -29,12 +29,14 @@
                         </div>
                     </div>
                     <div class="intro-text">
-                        <p class="drop-cap">I am an Irish historian based in Belfast, where I am a AHRC-funded Research Fellow at Queen’s University. My work traces how early twentieth century revolutionaries navigated the messiness of day-to-day life. This has led me to explore topics as varied as the anti-Nazi underground, Irish nationalism, the Comintern and queer sexuality.</p>
-                        </p>
-                    </div>
-                    <p class="reading-link-container">
-                        <a href="#" class="reading-link" id="readingLink">📖 What I'm Reading 🤔 </a>
+                        <p class="drop-cap">I am an Irish historian based in Belfast, where I am a AHRC-funded Research Fellow at Queen's University. My work traces how early twentieth century revolutionaries navigated the messiness of day-to-day life. This has led me to explore topics as varied as the anti-Nazi underground, Irish nationalism, the Comintern and queer sexuality.</p>
+
+                        <div class="reading-links-container">
+                            <a href="#" class="reading-link" id="readingLink">📖 What I'm Reading</a>
+                            <a href="YOUR_GOOGLE_DOC_URL_HERE" target="_blank" rel="noopener noreferrer" class="reading-link archive-link">🍽️ The Archive Food Guide</a>
                         </div>
+                    </div>
+                </div>
 
                  <!-- Timeline Section -->
         <section id="timeline">
@@ -171,6 +173,9 @@
 <h3 class="subsection-heading">Documentaries & Film</h3>
 
                 <div class="media-item">
+                    <div class="documentary-logo">
+                        <img src="images/documentary-logo-1.png" alt="Documentary Logo">
+                    </div>
                     <h3 class="media-title">Documentary Title</h3>
                     <p class="media-meta">Production Company • Year • Runtime</p>
                     <p class="media-role">Role: Producer / Researcher / Historical Consultant</p>
@@ -179,6 +184,9 @@
                 </div>
 
                 <div class="media-item">
+                    <div class="documentary-logo">
+                        <img src="images/documentary-logo-2.png" alt="Documentary Logo">
+                    </div>
                     <h3 class="media-title">Another Documentary</h3>
                     <p class="media-meta">Production Company • Year • Runtime</p>
                     <p class="media-role">Role: Producer / Researcher / Historical Consultant</p>
@@ -224,6 +232,64 @@
                     <p class="podcast-meta">The Rest Is History • 2024</p>
                     <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/gb/podcast/special-episode-gavin-arthur-with-maurice-casey/id1455620224?i=1000712193181"></iframe>
                     <p class="podcast-description">Exploring the life of Gavin Arthur, grandson of President Chester A. Arthur, who became a bohemian astrologer and countercultural figure in San Francisco.</p>
+                </div>
+
+                <h3 class="subsection-heading">Popular Writing</h3>
+
+                <div class="writing-grid">
+                    <article class="writing-item">
+                        <div class="outlet-logo">
+                            <img src="images/outlet-logo-1.png" alt="Outlet Name">
+                        </div>
+                        <h4 class="writing-title">Article Title for Popular Outlet</h4>
+                        <p class="writing-meta">Date Published</p>
+                        <p class="writing-excerpt">Brief excerpt or summary of the article...</p>
+                        <a href="#" class="read-more">READ →</a>
+                    </article>
+
+                    <article class="writing-item">
+                        <div class="outlet-logo">
+                            <img src="images/outlet-logo-2.png" alt="Outlet Name">
+                        </div>
+                        <h4 class="writing-title">Another Article Title</h4>
+                        <p class="writing-meta">Date Published</p>
+                        <p class="writing-excerpt">Brief excerpt or summary...</p>
+                        <a href="#" class="read-more">READ →</a>
+                    </article>
+
+                    <article class="writing-item">
+                        <div class="outlet-logo">
+                            <img src="images/outlet-logo-3.png" alt="Outlet Name">
+                        </div>
+                        <h4 class="writing-title">Third Article Title</h4>
+                        <p class="writing-meta">Date Published</p>
+                        <p class="writing-excerpt">Brief excerpt or summary...</p>
+                        <a href="#" class="read-more">READ →</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline">
+            <div class="content-section">
+                <div class="timeline-header-wrapper">
+                    <h2 class="section-headline">CAREER TIMELINE</h2>
+                    <button id="timeline-toggle" class="timeline-toggle-btn" aria-expanded="true" aria-controls="timeline-content">
+                        <span class="toggle-text">Collapse</span>
+                        <svg class="toggle-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="decorative-line-thin"></div>
+
+                <div id="timeline-content" class="timeline-content-wrapper">
+                    <div class="intro-text">
+                        <p>Explore my work as a public-facing historian, from archival research and book publications to exhibitions, teaching, and media engagement. Filter by category to see specific types of projects and milestones.</p>
+                    </div>
+
+                    <div id="timeline-container"></div>
                 </div>
             </div>
         </section>
@@ -325,6 +391,26 @@
                 if (e.key === 'Escape' && readingModal.style.display === 'flex') {
                     readingModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Timeline toggle functionality
+        const timelineToggle = document.getElementById('timeline-toggle');
+        const timelineContent = document.getElementById('timeline-content');
+
+        if (timelineToggle && timelineContent) {
+            timelineToggle.addEventListener('click', function() {
+                const isExpanded = timelineToggle.getAttribute('aria-expanded') === 'true';
+
+                if (isExpanded) {
+                    timelineContent.classList.add('collapsed');
+                    timelineToggle.setAttribute('aria-expanded', 'false');
+                    timelineToggle.querySelector('.toggle-text').textContent = 'Expand';
+                } else {
+                    timelineContent.classList.remove('collapsed');
+                    timelineToggle.setAttribute('aria-expanded', 'true');
+                    timelineToggle.querySelector('.toggle-text').textContent = 'Collapse';
                 }
             });
         }

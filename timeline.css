@@ -225,6 +225,11 @@
     color: #00695c;
 }
 
+.timeline-badge-education {
+    background-color: #fff8e1;
+    color: #f57c00;
+}
+
 /* Scope badges */
 .timeline-scope-academic {
     background-color: #f5f5f5;

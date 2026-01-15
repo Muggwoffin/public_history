@@ -825,6 +825,21 @@ html {
     border-bottom: none;
 }
 
+.documentary-logo {
+    float: right;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    max-width: 150px;
+}
+
+.documentary-logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .media-title {
     font-family: var(--font-display);
     font-size: 1.8rem;
@@ -1380,6 +1395,73 @@ html {
 
     .event-badge {
         align-self: flex-start;
+    }
+}
+
+/* ============================================
+   TIMELINE COLLAPSIBLE
+   ============================================ */
+
+.timeline-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.timeline-toggle-btn {
+    background: none;
+    border: 2px solid var(--ink-black);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.timeline-toggle-btn:hover {
+    background-color: var(--ink-black);
+    color: white;
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.timeline-toggle-btn[aria-expanded="false"] .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.timeline-content-wrapper {
+    max-height: 10000px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease;
+    opacity: 1;
+}
+
+.timeline-content-wrapper.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    .timeline-header-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .timeline-toggle-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 
