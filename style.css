@@ -1224,15 +1224,18 @@ html {
    READING MODAL
    ============================================ */
 
-.reading-link-container {
+.reading-links-container {
     margin-top: 1.5rem;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
 }
 
 .reading-link {
     display: inline-block;
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--ink-black);
     text-decoration: none;
