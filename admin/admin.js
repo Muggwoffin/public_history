@@ -315,24 +315,83 @@ async function loadContentForEditing() {
 
     try {
         const mainHTML = await getFile('main.html');
+        const content = mainHTML.content;
 
-        // Extract about text (between <p class="drop-cap"> tags)
-        const aboutMatch = mainHTML.content.match(/<p class="drop-cap">([\s\S]*?)<\/p>/);
-        if (aboutMatch) {
-            document.getElementById('about-text').value = aboutMatch[1].trim();
-            updateMarkdownPreview();
+        // General Settings
+        const taglineMatch = content.match(/<div class="masthead-subtitle">(.*?)<\/div>/);
+        if (taglineMatch) document.getElementById('site-tagline').value = taglineMatch[1].trim();
+
+        const aboutMatch = content.match(/<p class="drop-cap">([\s\S]*?)<\/p>/);
+        if (aboutMatch) document.getElementById('about-text').value = aboutMatch[1].trim();
+
+        const archiveGuideMatch = content.match(/class="reading-link archive-link"[^>]*href="([^"]+)"/);
+        if (archiveGuideMatch && archiveGuideMatch[1] !== 'YOUR_GOOGLE_DOC_URL_HERE') {
+            document.getElementById('archive-food-guide-url').value = archiveGuideMatch[1];
         }
 
-        // Extract contact email (this is a placeholder - adjust based on your HTML structure)
-        const emailMatch = mainHTML.content.match(/mailto:([^"]+)/);
-        if (emailMatch) {
-            document.getElementById('contact-email').value = emailMatch[1];
+        // Contact Information
+        const academicEmailMatch = content.match(/Academic Inquiries[\s\S]*?mailto:([^"]+)/);
+        if (academicEmailMatch) document.getElementById('academic-email').value = academicEmailMatch[1];
+
+        const institutionMatch = content.match(/<strong>Institution:<\/strong><br>\s*(.*?)<br>/);
+        if (institutionMatch) document.getElementById('institution-name').value = institutionMatch[1].trim();
+
+        const departmentMatch = content.match(/<strong>Institution:<\/strong><br>\s*.*?<br>\s*(.*?)\s*<\/p>/);
+        if (departmentMatch) document.getElementById('department-name').value = departmentMatch[1].trim();
+
+        const mediaEmailMatch = content.match(/Media & Speaking[\s\S]*?mailto:([^"]+)/);
+        if (mediaEmailMatch) document.getElementById('media-email').value = mediaEmailMatch[1];
+
+        const twitterMatch = content.match(/Twitter\/X[\s\S]*?href="([^"#]+)"[^>]*>Twitter\/X/);
+        if (twitterMatch && twitterMatch[1] !== '#') document.getElementById('twitter-url').value = twitterMatch[1];
+
+        const academiaMatch = content.match(/Academia\.edu[\s\S]*?href="([^"#]+)"[^>]*>Academia\.edu/);
+        if (academiaMatch && academiaMatch[1] !== '#') document.getElementById('academia-url').value = academiaMatch[1];
+
+        const orcidMatch = content.match(/ORCID[\s\S]*?href="([^"#]+)"[^>]*>ORCID/);
+        if (orcidMatch && orcidMatch[1] !== '#') document.getElementById('orcid-url').value = orcidMatch[1];
+
+        const linkedinMatch = content.match(/LinkedIn[\s\S]*?href="([^"#]+)"[^>]*>LinkedIn/);
+        if (linkedinMatch && linkedinMatch[1] !== '#') document.getElementById('linkedin-url').value = linkedinMatch[1];
+
+        // Newsletter
+        const substackMatch = content.match(/src="https:\/\/([^.]+)\.substack\.com\/embed"/);
+        if (substackMatch) document.getElementById('substack-username').value = substackMatch[1];
+
+        // Podcasts
+        const podcastMatches = content.matchAll(/<div class="podcast-embed">\s*<h4 class="podcast-title">(.*?)<\/h4>\s*<p class="podcast-meta">(.*?)<\/p>\s*<iframe[^>]*src="([^"]+)"[\s\S]*?<p class="podcast-description">(.*?)<\/p>/g);
+        const podcasts = Array.from(podcastMatches);
+
+        if (podcasts[0]) {
+            document.getElementById('podcast1-title').value = podcasts[0][1].trim();
+            document.getElementById('podcast1-meta').value = podcasts[0][2].trim();
+            document.getElementById('podcast1-embed').value = podcasts[0][3].trim();
+            document.getElementById('podcast1-description').value = podcasts[0][4].trim();
+        }
+        if (podcasts[1]) {
+            document.getElementById('podcast2-title').value = podcasts[1][1].trim();
+            document.getElementById('podcast2-meta').value = podcasts[1][2].trim();
+            document.getElementById('podcast2-embed').value = podcasts[1][3].trim();
+            document.getElementById('podcast2-description').value = podcasts[1][4].trim();
         }
 
-        // Extract site tagline (from masthead-subtitle)
-        const taglineMatch = mainHTML.content.match(/<div class="masthead-subtitle">(.*?)<\/div>/);
-        if (taglineMatch) {
-            document.getElementById('site-tagline').value = taglineMatch[1].trim();
+        // Documentaries
+        const docMatches = content.matchAll(/<div class="media-item">[\s\S]*?<h3 class="media-title">(.*?)<\/h3>\s*<p class="media-meta">(.*?)<\/p>\s*<p class="media-role">Role: (.*?)<\/p>\s*<p class="media-description">(.*?)<\/p>\s*<a href="([^"]+)"/g);
+        const docs = Array.from(docMatches);
+
+        if (docs[0]) {
+            document.getElementById('doc1-title').value = docs[0][1].trim();
+            document.getElementById('doc1-meta').value = docs[0][2].trim();
+            document.getElementById('doc1-role').value = docs[0][3].trim();
+            document.getElementById('doc1-description').value = docs[0][4].trim();
+            if (docs[0][5] !== '#') document.getElementById('doc1-watch-url').value = docs[0][5];
+        }
+        if (docs[1]) {
+            document.getElementById('doc2-title').value = docs[1][1].trim();
+            document.getElementById('doc2-meta').value = docs[1][2].trim();
+            document.getElementById('doc2-role').value = docs[1][3].trim();
+            document.getElementById('doc2-description').value = docs[1][4].trim();
+            if (docs[1][5] !== '#') document.getElementById('doc2-watch-url').value = docs[1][5];
         }
 
         statusDiv.textContent = 'Content loaded successfully!';
@@ -356,27 +415,113 @@ async function saveContent() {
         const mainHTML = await getFile('main.html');
         let updatedHTML = mainHTML.content;
 
-        // Update about text
-        const aboutText = document.getElementById('about-text').value.trim();
-        updatedHTML = updatedHTML.replace(
-            /<p class="drop-cap">[\s\S]*?<\/p>/,
-            `<p class="drop-cap">${aboutText}</p>`
-        );
-
-        // Update tagline
+        // General Settings
         const tagline = document.getElementById('site-tagline').value.trim();
-        updatedHTML = updatedHTML.replace(
-            /<div class="masthead-subtitle">.*?<\/div>/,
-            `<div class="masthead-subtitle">${tagline}</div>`
-        );
+        updatedHTML = updatedHTML.replace(/<div class="masthead-subtitle">.*?<\/div>/, `<div class="masthead-subtitle">${tagline}</div>`);
 
-        // Update contact email (if exists in format)
-        const email = document.getElementById('contact-email').value.trim();
-        if (email) {
-            updatedHTML = updatedHTML.replace(
-                /mailto:[^"]+/g,
-                `mailto:${email}`
-            );
+        const aboutText = document.getElementById('about-text').value.trim();
+        updatedHTML = updatedHTML.replace(/<p class="drop-cap">[\s\S]*?<\/p>/, `<p class="drop-cap">${aboutText}</p>`);
+
+        const archiveGuideUrl = document.getElementById('archive-food-guide-url').value.trim();
+        if (archiveGuideUrl) {
+            updatedHTML = updatedHTML.replace(/(class="reading-link archive-link"[^>]*href=")[^"]+/, `$1${archiveGuideUrl}`);
+        }
+
+        // Contact Information
+        const academicEmail = document.getElementById('academic-email').value.trim();
+        if (academicEmail) {
+            updatedHTML = updatedHTML.replace(/(Academic Inquiries[\s\S]*?mailto:)[^"]+/, `$1${academicEmail}`);
+        }
+
+        const institution = document.getElementById('institution-name').value.trim();
+        const department = document.getElementById('department-name').value.trim();
+        if (institution && department) {
+            updatedHTML = updatedHTML.replace(/(<strong>Institution:<\/strong><br>\s*)(.*?)(<br>\s*)(.*?)(\s*<\/p>)/, `$1${institution}$3${department}$5`);
+        }
+
+        const mediaEmail = document.getElementById('media-email').value.trim();
+        if (mediaEmail) {
+            updatedHTML = updatedHTML.replace(/(Media & Speaking[\s\S]*?mailto:)[^"]+/, `$1${mediaEmail}`);
+        }
+
+        const twitterUrl = document.getElementById('twitter-url').value.trim();
+        if (twitterUrl) {
+            updatedHTML = updatedHTML.replace(/(>Twitter\/X[\s\S]{0,50}?href=")[^"]+("[^>]*>Twitter\/X)/, `$1${twitterUrl}$2`);
+        }
+
+        const academiaUrl = document.getElementById('academia-url').value.trim();
+        if (academiaUrl) {
+            updatedHTML = updatedHTML.replace(/(>Academia\.edu[\s\S]{0,50}?href=")[^"]+("[^>]*>Academia\.edu)/, `$1${academiaUrl}$2`);
+        }
+
+        const orcidUrl = document.getElementById('orcid-url').value.trim();
+        if (orcidUrl) {
+            updatedHTML = updatedHTML.replace(/(>ORCID[\s\S]{0,50}?href=")[^"]+("[^>]*>ORCID)/, `$1${orcidUrl}$2`);
+        }
+
+        const linkedinUrl = document.getElementById('linkedin-url').value.trim();
+        if (linkedinUrl) {
+            updatedHTML = updatedHTML.replace(/(>LinkedIn[\s\S]{0,50}?href=")[^"]+("[^>]*>LinkedIn)/, `$1${linkedinUrl}$2`);
+        }
+
+        // Newsletter
+        const substackUsername = document.getElementById('substack-username').value.trim();
+        if (substackUsername) {
+            updatedHTML = updatedHTML.replace(/src="https:\/\/[^.]+\.substack\.com\/embed"/, `src="https://${substackUsername}.substack.com/embed"`);
+        }
+
+        // Podcasts
+        const podcast1Title = document.getElementById('podcast1-title').value.trim();
+        const podcast1Meta = document.getElementById('podcast1-meta').value.trim();
+        const podcast1Embed = document.getElementById('podcast1-embed').value.trim();
+        const podcast1Desc = document.getElementById('podcast1-description').value.trim();
+
+        if (podcast1Title && podcast1Embed) {
+            const podcast1Pattern = /(<div class="podcast-embed">\s*<h4 class="podcast-title">).*?(<\/h4>\s*<p class="podcast-meta">).*?(<\/p>\s*<iframe[^>]*src=")([^"]+)("[\s\S]*?<p class="podcast-description">).*?(<\/p>)/;
+            updatedHTML = updatedHTML.replace(podcast1Pattern, `$1${podcast1Title}$2${podcast1Meta}$3${podcast1Embed}$5${podcast1Desc}$6`);
+        }
+
+        const podcast2Title = document.getElementById('podcast2-title').value.trim();
+        const podcast2Meta = document.getElementById('podcast2-meta').value.trim();
+        const podcast2Embed = document.getElementById('podcast2-embed').value.trim();
+        const podcast2Desc = document.getElementById('podcast2-description').value.trim();
+
+        if (podcast2Title && podcast2Embed) {
+            const podcasts = updatedHTML.match(/<div class="podcast-embed">/g);
+            if (podcasts && podcasts.length >= 2) {
+                const parts = updatedHTML.split(/<div class="podcast-embed">/);
+                const podcast2Pattern = /(\s*<h4 class="podcast-title">).*?(<\/h4>\s*<p class="podcast-meta">).*?(<\/p>\s*<iframe[^>]*src=")([^"]+)("[\s\S]*?<p class="podcast-description">).*?(<\/p>)/;
+                parts[2] = parts[2].replace(podcast2Pattern, `$1${podcast2Title}$2${podcast2Meta}$3${podcast2Embed}$5${podcast2Desc}$6`);
+                updatedHTML = parts.join('<div class="podcast-embed">');
+            }
+        }
+
+        // Documentaries
+        const doc1Title = document.getElementById('doc1-title').value.trim();
+        const doc1Meta = document.getElementById('doc1-meta').value.trim();
+        const doc1Role = document.getElementById('doc1-role').value.trim();
+        const doc1Desc = document.getElementById('doc1-description').value.trim();
+        const doc1WatchUrl = document.getElementById('doc1-watch-url').value.trim();
+
+        if (doc1Title) {
+            const doc1Pattern = /(<div class="media-item">[\s\S]*?<h3 class="media-title">).*?(<\/h3>\s*<p class="media-meta">).*?(<\/p>\s*<p class="media-role">Role: ).*?(<\/p>\s*<p class="media-description">).*?(<\/p>\s*<a href=")([^"]+)/;
+            updatedHTML = updatedHTML.replace(doc1Pattern, `$1${doc1Title}$2${doc1Meta}$3${doc1Role}$4${doc1Desc}$5${doc1WatchUrl || '#'}`);
+        }
+
+        const doc2Title = document.getElementById('doc2-title').value.trim();
+        const doc2Meta = document.getElementById('doc2-meta').value.trim();
+        const doc2Role = document.getElementById('doc2-role').value.trim();
+        const doc2Desc = document.getElementById('doc2-description').value.trim();
+        const doc2WatchUrl = document.getElementById('doc2-watch-url').value.trim();
+
+        if (doc2Title) {
+            const mediaDivs = updatedHTML.match(/<div class="media-item">/g);
+            if (mediaDivs && mediaDivs.length >= 2) {
+                const parts = updatedHTML.split(/<div class="media-item">/);
+                const doc2Pattern = /([\s\S]*?<h3 class="media-title">).*?(<\/h3>\s*<p class="media-meta">).*?(<\/p>\s*<p class="media-role">Role: ).*?(<\/p>\s*<p class="media-description">).*?(<\/p>\s*<a href=")([^"]+)/;
+                parts[2] = parts[2].replace(doc2Pattern, `$1${doc2Title}$2${doc2Meta}$3${doc2Role}$4${doc2Desc}$5${doc2WatchUrl || '#'}`);
+                updatedHTML = parts.join('<div class="media-item">');
+            }
         }
 
         // Commit changes

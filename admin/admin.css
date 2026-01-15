@@ -350,16 +350,33 @@ body {
    ============================================ */
 
 .editor-container {
-    background: var(--bg-white);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
     margin-bottom: 2rem;
+}
+
+.editor-category {
+    background: var(--bg-white);
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.category-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
 }
 
 .editor-field {
     margin-bottom: 1.5rem;
+}
+
+.field-separator {
+    margin: 1.5rem 0;
+    border: none;
+    border-top: 1px solid var(--border-color);
 }
 
 .editor-field label {

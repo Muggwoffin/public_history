@@ -74,7 +74,7 @@ class Timeline {
 
         const filters = [
             { value: 'all', label: 'All' },
-            { value: 'book', label: 'Books' },
+            { value: 'book', label: 'Publications' },
             { value: 'exhibition', label: 'Exhibitions' },
             { value: 'fellowship', label: 'Fellowships & Awards' },
             { value: 'education', label: 'Education' },
@@ -254,7 +254,7 @@ class Timeline {
 
     formatType(type) {
         const typeLabels = {
-            'book': 'Book',
+            'book': 'Publication',
             'exhibition': 'Exhibition',
             'fellowship': 'Fellowship',
             'education': 'Education',
