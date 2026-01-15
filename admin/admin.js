@@ -186,7 +186,8 @@ async function getFile(path) {
     }
 
     const data = await githubAPI(`/repos/${AdminApp.repo}/contents/${path}?ref=${AdminApp.branch}`);
-    const content = atob(data.content);
+    // Properly decode UTF-8 content
+    const content = decodeURIComponent(escape(atob(data.content)));
 
     AdminApp.fileCache[path] = {
         content,
@@ -329,6 +330,11 @@ async function loadContentForEditing() {
             document.getElementById('archive-food-guide-url').value = archiveGuideMatch[1];
         }
 
+        const whatsReadingMatch = content.match(/id="readingLink"[^>]*href="([^"#]+)"/);
+        if (whatsReadingMatch && whatsReadingMatch[1] !== '#') {
+            document.getElementById('whats-reading-url').value = whatsReadingMatch[1];
+        }
+
         // Contact Information
         const academicEmailMatch = content.match(/Academic Inquiries[\s\S]*?mailto:([^"]+)/);
         if (academicEmailMatch) document.getElementById('academic-email').value = academicEmailMatch[1];
@@ -425,6 +431,11 @@ async function saveContent() {
         const archiveGuideUrl = document.getElementById('archive-food-guide-url').value.trim();
         if (archiveGuideUrl) {
             updatedHTML = updatedHTML.replace(/(class="reading-link archive-link"[^>]*href=")[^"]+/, `$1${archiveGuideUrl}`);
+        }
+
+        const whatsReadingUrl = document.getElementById('whats-reading-url').value.trim();
+        if (whatsReadingUrl) {
+            updatedHTML = updatedHTML.replace(/(id="readingLink"[^>]*href=")[^"#]+/, `$1${whatsReadingUrl}`);
         }
 
         // Contact Information
