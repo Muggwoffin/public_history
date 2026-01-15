@@ -274,11 +274,19 @@ class Timeline {
     }
 }
 
-// Initialize timeline when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize timeline when DOM is ready (or immediately if already loaded)
+function initTimeline() {
     if (typeof timelineData !== 'undefined') {
         new Timeline(timelineData, 'timeline-container');
     } else {
         console.error('Timeline data not found. Make sure projects.js is loaded before timeline.js');
     }
-});
+}
+
+// Check if DOM is already loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTimeline);
+} else {
+    // DOM already loaded, initialize immediately
+    initTimeline();
+}
