@@ -104,35 +104,195 @@
                 <h2>Content Editor</h2>
 
                 <div class="editor-container">
-                    <div class="editor-field">
-                        <label for="about-text">About Section</label>
-                        <textarea id="about-text" rows="6" placeholder="Loading..."></textarea>
-                        <small class="help-text">Supports markdown formatting</small>
+                    <!-- General Settings -->
+                    <div class="editor-category">
+                        <h3 class="category-title">General Settings</h3>
+
+                        <div class="editor-field">
+                            <label for="site-tagline">Site Tagline</label>
+                            <input type="text" id="site-tagline" placeholder="Loading...">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="about-text">About Section</label>
+                            <textarea id="about-text" rows="6" placeholder="Loading..."></textarea>
+                            <small class="help-text">Supports markdown formatting</small>
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="archive-food-guide-url">Archive Food Guide URL</label>
+                            <input type="url" id="archive-food-guide-url" placeholder="https://docs.google.com/...">
+                        </div>
                     </div>
 
-                    <div class="editor-field">
-                        <label for="contact-email">Contact Email</label>
-                        <input type="email" id="contact-email" placeholder="Loading...">
+                    <!-- Contact Information -->
+                    <div class="editor-category">
+                        <h3 class="category-title">Contact Information</h3>
+
+                        <div class="editor-field">
+                            <label for="academic-email">Academic Email</label>
+                            <input type="email" id="academic-email" placeholder="your.email@university.edu">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="institution-name">Institution Name</label>
+                            <input type="text" id="institution-name" placeholder="Queen's University Belfast">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="department-name">Department Name</label>
+                            <input type="text" id="department-name" placeholder="School of History">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="media-email">Media & Speaking Email</label>
+                            <input type="email" id="media-email" placeholder="media@email.com">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="twitter-url">Twitter/X Profile URL</label>
+                            <input type="url" id="twitter-url" placeholder="https://twitter.com/username">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="academia-url">Academia.edu Profile URL</label>
+                            <input type="url" id="academia-url" placeholder="https://academia.edu/...">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="orcid-url">ORCID Profile URL</label>
+                            <input type="url" id="orcid-url" placeholder="https://orcid.org/...">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="linkedin-url">LinkedIn Profile URL</label>
+                            <input type="url" id="linkedin-url" placeholder="https://linkedin.com/in/...">
+                        </div>
                     </div>
 
-                    <div class="editor-field">
-                        <label for="site-tagline">Site Tagline</label>
-                        <input type="text" id="site-tagline" placeholder="Loading...">
+                    <!-- Newsletter -->
+                    <div class="editor-category">
+                        <h3 class="category-title">Newsletter</h3>
+
+                        <div class="editor-field">
+                            <label for="substack-username">Substack Username</label>
+                            <input type="text" id="substack-username" placeholder="yourusername">
+                            <small class="help-text">This will generate the embed URL: https://yourusername.substack.com/embed</small>
+                        </div>
                     </div>
 
+                    <!-- Podcast Episodes -->
+                    <div class="editor-category">
+                        <h3 class="category-title">Podcast Appearances</h3>
+
+                        <div class="editor-field">
+                            <label for="podcast1-title">Podcast 1 - Title</label>
+                            <input type="text" id="podcast1-title" placeholder="Episode title">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="podcast1-meta">Podcast 1 - Meta Info</label>
+                            <input type="text" id="podcast1-meta" placeholder="Podcast Name • Year">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="podcast1-embed">Podcast 1 - Apple Podcasts Embed URL</label>
+                            <input type="url" id="podcast1-embed" placeholder="https://embed.podcasts.apple.com/...">
+                            <small class="help-text">Full embed URL from Apple Podcasts</small>
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="podcast1-description">Podcast 1 - Description</label>
+                            <textarea id="podcast1-description" rows="3" placeholder="Brief description of the episode"></textarea>
+                        </div>
+
+                        <hr class="field-separator">
+
+                        <div class="editor-field">
+                            <label for="podcast2-title">Podcast 2 - Title</label>
+                            <input type="text" id="podcast2-title" placeholder="Episode title">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="podcast2-meta">Podcast 2 - Meta Info</label>
+                            <input type="text" id="podcast2-meta" placeholder="Podcast Name • Year">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="podcast2-embed">Podcast 2 - Apple Podcasts Embed URL</label>
+                            <input type="url" id="podcast2-embed" placeholder="https://embed.podcasts.apple.com/...">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="podcast2-description">Podcast 2 - Description</label>
+                            <textarea id="podcast2-description" rows="3" placeholder="Brief description of the episode"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Documentary Projects -->
+                    <div class="editor-category">
+                        <h3 class="category-title">Documentary Projects</h3>
+
+                        <div class="editor-field">
+                            <label for="doc1-title">Documentary 1 - Title</label>
+                            <input type="text" id="doc1-title" placeholder="Documentary title">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc1-meta">Documentary 1 - Meta Info</label>
+                            <input type="text" id="doc1-meta" placeholder="Production Company • Year • Runtime">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc1-role">Documentary 1 - Your Role</label>
+                            <input type="text" id="doc1-role" placeholder="Producer / Researcher / Historical Consultant">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc1-description">Documentary 1 - Description</label>
+                            <textarea id="doc1-description" rows="3" placeholder="Brief description of the documentary"></textarea>
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc1-watch-url">Documentary 1 - Watch Link URL</label>
+                            <input type="url" id="doc1-watch-url" placeholder="https://...">
+                        </div>
+
+                        <hr class="field-separator">
+
+                        <div class="editor-field">
+                            <label for="doc2-title">Documentary 2 - Title</label>
+                            <input type="text" id="doc2-title" placeholder="Documentary title">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc2-meta">Documentary 2 - Meta Info</label>
+                            <input type="text" id="doc2-meta" placeholder="Production Company • Year • Runtime">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc2-role">Documentary 2 - Your Role</label>
+                            <input type="text" id="doc2-role" placeholder="Producer / Researcher / Historical Consultant">
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc2-description">Documentary 2 - Description</label>
+                            <textarea id="doc2-description" rows="3" placeholder="Brief description of the documentary"></textarea>
+                        </div>
+
+                        <div class="editor-field">
+                            <label for="doc2-watch-url">Documentary 2 - Watch Link URL</label>
+                            <input type="url" id="doc2-watch-url" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <!-- Save Actions -->
                     <div class="editor-actions">
                         <button id="load-content-btn" class="btn btn-secondary">Reload Content</button>
-                        <button id="save-content-btn" class="btn btn-primary">Save Changes</button>
+                        <button id="save-content-btn" class="btn btn-primary">Save All Changes</button>
                     </div>
 
                     <div id="content-status" class="status-message"></div>
-                </div>
-
-                <div class="preview-container">
-                    <h3>Markdown Preview</h3>
-                    <div id="markdown-preview" class="preview-box">
-                        <p class="help-text">Type in the About section to see preview</p>
-                    </div>
                 </div>
             </section>
 
