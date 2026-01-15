@@ -77,6 +77,7 @@ class Timeline {
             { value: 'book', label: 'Books' },
             { value: 'exhibition', label: 'Exhibitions' },
             { value: 'fellowship', label: 'Fellowships & Awards' },
+            { value: 'education', label: 'Education' },
             { value: 'teaching', label: 'Teaching' },
             { value: 'media', label: 'Media' },
             { value: 'talk', label: 'Talks' }
@@ -256,6 +257,7 @@ class Timeline {
             'book': 'Book',
             'exhibition': 'Exhibition',
             'fellowship': 'Fellowship',
+            'education': 'Education',
             'teaching': 'Teaching',
             'media': 'Media',
             'talk': 'Talk'
