@@ -75,6 +75,19 @@ function initializeEventListeners() {
     dropzone.addEventListener('drop', handleFileDrop);
     fileInput.addEventListener('change', handleFileSelect);
 
+    // Quick upload buttons
+    document.querySelectorAll('.quick-upload-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const input = btn.parentElement.querySelector('.quick-upload-input');
+            input.click();
+        });
+    });
+
+    document.querySelectorAll('.quick-upload-input').forEach(input => {
+        input.addEventListener('change', (e) => handleQuickUpload(e, input.dataset.target));
+    });
+
     // Timeline manager
     document.getElementById('add-project-btn').addEventListener('click', () => openProjectModal());
     document.getElementById('reload-timeline-btn').addEventListener('click', loadTimelineProjects);
@@ -634,6 +647,65 @@ function readFileAsBase64(file) {
     });
 }
 
+async function handleQuickUpload(e, targetPath) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const statusDiv = document.getElementById('quick-upload-status');
+
+    // Validate file
+    if (!file.type.startsWith('image/')) {
+        statusDiv.textContent = 'Please select an image file';
+        statusDiv.className = 'status-message error';
+        return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+        statusDiv.textContent = 'Image must be under 2MB';
+        statusDiv.className = 'status-message error';
+        return;
+    }
+
+    statusDiv.textContent = `Uploading to ${targetPath}...`;
+    statusDiv.className = 'status-message info';
+
+    try {
+        // Read file as base64
+        const base64 = await readFileAsBase64(file);
+
+        // Check if file exists and get SHA if it does
+        let sha = null;
+        try {
+            const existingFile = await githubAPI(`/repos/${AdminApp.repo}/contents/${targetPath}?ref=${AdminApp.branch}`);
+            sha = existingFile.sha;
+        } catch (e) {
+            // File doesn't exist, that's fine
+        }
+
+        // Upload or update file
+        const body = {
+            message: `Update ${targetPath} via admin panel`,
+            content: base64,
+            branch: AdminApp.branch
+        };
+        if (sha) body.sha = sha;
+
+        await githubAPI(`/repos/${AdminApp.repo}/contents/${targetPath}`, 'PUT', body);
+
+        statusDiv.textContent = `Successfully uploaded to ${targetPath}!`;
+        statusDiv.className = 'status-message success';
+
+        // Reload images list
+        await loadRecentImages();
+
+        // Reset the input
+        e.target.value = '';
+    } catch (error) {
+        statusDiv.textContent = `Upload failed: ${error.message}`;
+        statusDiv.className = 'status-message error';
+    }
+}
+
 async function loadRecentImages() {
     const container = document.getElementById('recent-images');
 
@@ -756,9 +828,10 @@ function createProjectCard(project, index) {
 
 function formatType(type) {
     const labels = {
-        'book': 'Book',
+        'book': 'Publication',
         'exhibition': 'Exhibition',
         'fellowship': 'Fellowship',
+        'education': 'Education',
         'teaching': 'Teaching',
         'media': 'Media',
         'talk': 'Talk'

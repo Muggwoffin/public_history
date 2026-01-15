@@ -36,7 +36,7 @@
 
                 <div class="input-group">
                     <label for="branch-input">Branch</label>
-                    <input type="text" id="branch-input" placeholder="main" value="claude/newspaper-portfolio-site-6UqAu">
+                    <input type="text" id="branch-input" placeholder="main" value="main">
                     <small class="help-text">The branch where your site content lives</small>
                 </div>
 
@@ -307,6 +307,72 @@
                 <h2>Image Upload</h2>
 
                 <div class="upload-container">
+                    <h3 style="margin-bottom: 1rem;">Quick Upload for Specific Images</h3>
+                    <p class="help-text">Upload images directly to predefined locations. Files will be automatically renamed.</p>
+
+                    <div class="quick-upload-grid">
+                        <div class="quick-upload-item">
+                            <label class="quick-upload-label">
+                                <strong>What I'm Reading Cover</strong>
+                                <small>Currently reading book cover</small>
+                                <input type="file" class="quick-upload-input" data-target="images/reading-current.jpg" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
+                            </label>
+                        </div>
+
+                        <div class="quick-upload-item">
+                            <label class="quick-upload-label">
+                                <strong>Author Photo</strong>
+                                <small>Your profile photo</small>
+                                <input type="file" class="quick-upload-input" data-target="images/author-photo.jpg" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
+                            </label>
+                        </div>
+
+                        <div class="quick-upload-item">
+                            <label class="quick-upload-label">
+                                <strong>Passport Background</strong>
+                                <small>Landing page background</small>
+                                <input type="file" class="quick-upload-input" data-target="images/passport-bg.jpg" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
+                            </label>
+                        </div>
+
+                        <div class="quick-upload-item">
+                            <label class="quick-upload-label">
+                                <strong>Documentary Logo 1</strong>
+                                <small>First documentary logo</small>
+                                <input type="file" class="quick-upload-input" data-target="images/documentary-logo-1.png" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
+                            </label>
+                        </div>
+
+                        <div class="quick-upload-item">
+                            <label class="quick-upload-label">
+                                <strong>Documentary Logo 2</strong>
+                                <small>Second documentary logo</small>
+                                <input type="file" class="quick-upload-input" data-target="images/documentary-logo-2.png" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
+                            </label>
+                        </div>
+
+                        <div class="quick-upload-item">
+                            <label class="quick-upload-label">
+                                <strong>Book Cover</strong>
+                                <small>Main book cover image</small>
+                                <input type="file" class="quick-upload-input" data-target="images/book-cover-1.png" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="quick-upload-status" class="status-message"></div>
+
+                    <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                    <h3 style="margin-bottom: 1rem;">General Image Upload</h3>
+                    <p class="help-text">Upload any image to the images folder with a timestamped filename.</p>
+
                     <div class="dropzone" id="dropzone">
                         <input type="file" id="file-input" accept="image/*" style="display: none;">
                         <div class="dropzone-content">
@@ -369,9 +435,10 @@
                     <div class="form-field">
                         <label for="project-type">Type *</label>
                         <select id="project-type" required>
-                            <option value="book">Book</option>
+                            <option value="book">Publication</option>
                             <option value="exhibition">Exhibition</option>
                             <option value="fellowship">Fellowship</option>
+                            <option value="education">Education</option>
                             <option value="teaching">Teaching</option>
                             <option value="media">Media</option>
                             <option value="talk">Talk</option>
