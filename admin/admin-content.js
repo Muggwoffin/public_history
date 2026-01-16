@@ -84,18 +84,24 @@ async function loadReading() {
 
 /**
  * Parse reading.js file
+ * Uses safe evaluation since reading.js contains a JavaScript object literal, not JSON
  */
 function parseReadingFile(base64Content) {
     const decoded = atob(base64Content);
     const match = decoded.match(/const\s+currentReading\s*=\s*({[\s\S]*?});/);
     if (match) {
-        // Convert JavaScript object notation to JSON-compatible format
-        let jsObject = match[1];
-        // Replace single quotes with double quotes (but not escaped single quotes within strings)
-        jsObject = jsObject.replace(/'/g, '"');
-        // Fix escaped quotes
-        jsObject = jsObject.replace(/\\"/g, "'");
-        return JSON.parse(jsObject);
+        try {
+            // Extract the object literal
+            const objectLiteral = match[1];
+
+            // Use Function constructor to safely evaluate the object literal
+            // This works because the object is a pure data structure with no executable code
+            const evalFunc = new Function('return ' + objectLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse object literal:', parseError);
+            throw new Error('Invalid JavaScript object in reading.js');
+        }
     }
     return {};
 }
@@ -256,18 +262,23 @@ async function loadBooks() {
 
 /**
  * Parse books.js file
+ * Uses safe evaluation since books.js contains a JavaScript array literal, not JSON
  */
 function parseBooksFile(base64Content) {
     const decoded = atob(base64Content);
     const match = decoded.match(/const\s+books\s*=\s*(\[[\s\S]*?\]);/);
     if (match) {
-        // Convert JavaScript array notation to JSON-compatible format
-        let jsArray = match[1];
-        // Replace single quotes with double quotes
-        jsArray = jsArray.replace(/'/g, '"');
-        // Fix escaped quotes
-        jsArray = jsArray.replace(/\\"/g, "'");
-        return JSON.parse(jsArray);
+        try {
+            // Extract the array literal
+            const arrayLiteral = match[1];
+
+            // Use Function constructor to safely evaluate the array literal
+            const evalFunc = new Function('return ' + arrayLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse array literal:', parseError);
+            throw new Error('Invalid JavaScript array in books.js');
+        }
     }
     return [];
 }
