@@ -18,7 +18,6 @@
             <div class="masthead-content">
                 <h1 class="masthead-title">Dr Maurice J. Casey</h1>
                 <p class="masthead-subtitle">Historian &amp; Writer</p>
-                <a href="#timeline" class="masthead-cta">View Career Timeline →</a>
             </div>
         </header>
 
@@ -390,76 +389,13 @@
             }
         }
 
-        // Gentle parallax effect on scroll
-        function initParallax() {
-            if (prefersReducedMotion) return; // Skip parallax for reduced motion users
-
-            const mastheadBg = document.querySelector('.masthead-bg');
-            if (!mastheadBg) return;
-
-            let ticking = false;
-
-            function updateParallax() {
-                const scrolled = window.pageYOffset;
-                const parallaxSpeed = 0.5; // Slower = more parallax effect
-
-                // Only apply parallax in the masthead viewport
-                if (scrolled < window.innerHeight) {
-                    const yPos = -(scrolled * parallaxSpeed);
-                    mastheadBg.style.transform = 'translate3d(0, ' + yPos + 'px, 0)';
-                }
-
-                ticking = false;
-            }
-
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    window.requestAnimationFrame(updateParallax);
-                    ticking = true;
-                }
-            }, { passive: true });
-        }
-
-        // Handle CTA button click - scroll to timeline and expand it
-        function initCTA() {
-            const ctaButton = document.querySelector('.masthead-cta');
-            if (!ctaButton) return;
-
-            ctaButton.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                const timelineSection = document.getElementById('timeline');
-                const timelineToggle = document.getElementById('timeline-toggle');
-                const timelineContent = document.getElementById('timeline-content');
-
-                if (timelineSection && timelineToggle && timelineContent) {
-                    // Smooth scroll to timeline
-                    timelineSection.scrollIntoView({
-                        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-                        block: 'start'
-                    });
-
-                    // Expand timeline if it's collapsed
-                    setTimeout(function() {
-                        if (timelineContent.classList.contains('collapsed')) {
-                            timelineToggle.click();
-                        }
-                    }, prefersReducedMotion ? 0 : 500);
-                }
-            });
-        }
-
         // Initialize when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function() {
                 initMasthead();
-                initParallax();
-                initCTA();
             });
         } else {
             initMasthead();
-            initParallax();
-            initCTA();
         }
     })();
     </script>
