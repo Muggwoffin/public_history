@@ -89,7 +89,13 @@ function parseReadingFile(base64Content) {
     const decoded = atob(base64Content);
     const match = decoded.match(/const\s+currentReading\s*=\s*({[\s\S]*?});/);
     if (match) {
-        return JSON.parse(match[1]);
+        // Convert JavaScript object notation to JSON-compatible format
+        let jsObject = match[1];
+        // Replace single quotes with double quotes (but not escaped single quotes within strings)
+        jsObject = jsObject.replace(/'/g, '"');
+        // Fix escaped quotes
+        jsObject = jsObject.replace(/\\"/g, "'");
+        return JSON.parse(jsObject);
     }
     return {};
 }
@@ -255,7 +261,13 @@ function parseBooksFile(base64Content) {
     const decoded = atob(base64Content);
     const match = decoded.match(/const\s+books\s*=\s*(\[[\s\S]*?\]);/);
     if (match) {
-        return JSON.parse(match[1]);
+        // Convert JavaScript array notation to JSON-compatible format
+        let jsArray = match[1];
+        // Replace single quotes with double quotes
+        jsArray = jsArray.replace(/'/g, '"');
+        // Fix escaped quotes
+        jsArray = jsArray.replace(/\\"/g, "'");
+        return JSON.parse(jsArray);
     }
     return [];
 }

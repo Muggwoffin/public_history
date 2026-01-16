@@ -132,7 +132,13 @@ function parseEventsFile(base64Content) {
     // Extract the events array from the file
     const match = decoded.match(/const\s+events\s*=\s*(\[[\s\S]*?\]);/);
     if (match) {
-        return JSON.parse(match[1]);
+        // Convert JavaScript array notation to JSON-compatible format
+        let jsArray = match[1];
+        // Replace single quotes with double quotes
+        jsArray = jsArray.replace(/'/g, '"');
+        // Fix escaped quotes
+        jsArray = jsArray.replace(/\\"/g, "'");
+        return JSON.parse(jsArray);
     }
     return [];
 }
