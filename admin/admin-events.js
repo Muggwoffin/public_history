@@ -126,19 +126,24 @@ async function loadEvents() {
 
 /**
  * Parse events.js file content
+ * Uses safe evaluation since events.js contains a JavaScript array literal, not JSON
  */
 function parseEventsFile(base64Content) {
     const decoded = atob(base64Content);
     // Extract the events array from the file
     const match = decoded.match(/const\s+events\s*=\s*(\[[\s\S]*?\]);/);
     if (match) {
-        // Convert JavaScript array notation to JSON-compatible format
-        let jsArray = match[1];
-        // Replace single quotes with double quotes
-        jsArray = jsArray.replace(/'/g, '"');
-        // Fix escaped quotes
-        jsArray = jsArray.replace(/\\"/g, "'");
-        return JSON.parse(jsArray);
+        try {
+            // Extract the array literal
+            const arrayLiteral = match[1];
+
+            // Use Function constructor to safely evaluate the array literal
+            const evalFunc = new Function('return ' + arrayLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse array literal:', parseError);
+            throw new Error('Invalid JavaScript array in events.js');
+        }
     }
     return [];
 }

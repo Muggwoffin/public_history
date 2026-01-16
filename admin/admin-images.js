@@ -95,18 +95,23 @@ async function loadLandingConfig() {
 
 /**
  * Parse landing-config.js file
+ * Uses safe evaluation since landing-config.js contains a JavaScript object literal, not JSON
  */
 function parseLandingConfigFile(base64Content) {
     const decoded = atob(base64Content);
     const match = decoded.match(/const\s+landingConfig\s*=\s*({[\s\S]*?});/);
     if (match) {
-        // Convert JavaScript object notation to JSON-compatible format
-        let jsObject = match[1];
-        // Replace single quotes with double quotes
-        jsObject = jsObject.replace(/'/g, '"');
-        // Fix escaped quotes
-        jsObject = jsObject.replace(/\\"/g, "'");
-        return JSON.parse(jsObject);
+        try {
+            // Extract the object literal
+            const objectLiteral = match[1];
+
+            // Use Function constructor to safely evaluate the object literal
+            const evalFunc = new Function('return ' + objectLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse object literal:', parseError);
+            throw new Error('Invalid JavaScript object in landing-config.js');
+        }
     }
     return {};
 }
