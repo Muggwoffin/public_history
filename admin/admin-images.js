@@ -26,66 +26,18 @@ function initLandingImagesManager() {
     console.log('Initializing landing images manager...');
 
     container.innerHTML = `
-        <h2>Landing Images & Daily Rotation</h2>
+        <h2>Landing Page Image Boxes</h2>
         <p class="section-description">
-            Manage rotating images for different sections of your site. Images rotate daily so all visitors see the same image each day.
+            Manage images for the 6 landing page boxes. Upload multiple images per box - they will rotate daily so all visitors see the same image each day.
         </p>
 
-        <div id="image-boxes-container">
-            <p class="loading-message">Loading image configuration...</p>
-        </div>
-
-        <div class="form-actions">
-            <button type="button" class="btn btn-primary" id="add-image-box-btn">+ Add New Image Box</button>
-            <button type="button" class="btn btn-secondary" id="save-landing-config-btn">Save Configuration</button>
-        </div>
-
-        <!-- Image Box Modal -->
-        <div id="image-box-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Add New Image Box</h3>
-                    <button class="modal-close" id="image-box-modal-close">&times;</button>
-                </div>
-                <form id="image-box-form">
-                    <div class="form-group">
-                        <label for="box-name">Box Name (e.g., "hero", "about") *</label>
-                        <input type="text" id="box-name" required pattern="[a-z0-9\\-]+" placeholder="lowercase-with-dashes">
-                        <small>Use lowercase letters, numbers, and dashes only</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="box-rotation">Rotation Frequency *</label>
-                        <select id="box-rotation" required>
-                            <option value="daily">Daily</option>
-                            <option value="weekly">Weekly</option>
-                        </select>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" id="cancel-image-box-btn">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add Box</button>
-                    </div>
-                </form>
-            </div>
+        <div id="image-boxes-container" class="landing-boxes-grid">
+            <p class="loading-message">Loading image boxes...</p>
         </div>
     `;
 
     // Mark as initialized
     container.dataset.initialized = 'true';
-
-    // Attach event listeners
-    const addBoxBtn = document.getElementById('add-image-box-btn');
-    const imageBoxForm = document.getElementById('image-box-form');
-    const cancelBoxBtn = document.getElementById('cancel-image-box-btn');
-    const closeBoxBtn = document.getElementById('image-box-modal-close');
-    const saveConfigBtn = document.getElementById('save-landing-config-btn');
-
-    if (addBoxBtn) addBoxBtn.addEventListener('click', openImageBoxModal);
-    if (imageBoxForm) imageBoxForm.addEventListener('submit', handleImageBoxSubmit);
-    if (cancelBoxBtn) cancelBoxBtn.addEventListener('click', closeImageBoxModal);
-    if (closeBoxBtn) closeBoxBtn.addEventListener('click', closeImageBoxModal);
-    if (saveConfigBtn) saveConfigBtn.addEventListener('click', saveLandingConfig);
 
     console.log('Landing images manager initialized, loading data...');
 
@@ -142,42 +94,51 @@ function parseLandingConfigFile(base64Content) {
  */
 function renderImageBoxes(config) {
     const container = document.getElementById('image-boxes-container');
+
+    if (!config || Object.keys(config).length === 0) {
+        container.innerHTML = '<p class="empty-message">No landing page boxes configured.</p>';
+        return;
+    }
+
     let html = '';
 
-    Object.keys(config).forEach(boxName => {
+    // Render boxes in a specific order matching the landing page layout
+    const boxOrder = ['about', 'contact', 'books', 'public-history', 'newsletter', 'selected-writing'];
+
+    boxOrder.forEach(boxName => {
         const box = config[boxName];
+        if (!box) return; // Skip if box doesn't exist in config
+
+        const label = box.label || boxName;
+        const imageCount = box.images ? box.images.length : 0;
+
         html += `
-            <div class="image-box-card" data-box="${boxName}">
-                <div class="image-box-header">
-                    <h3>${boxName}</h3>
-                    <div class="image-box-meta">
-                        <span class="badge">Rotates: ${box.rotation}</span>
-                        <button class="btn btn-sm btn-danger" onclick="deleteImageBox('${boxName}')">Delete Box</button>
-                    </div>
+            <div class="landing-box-card" data-box="${boxName}">
+                <div class="box-header">
+                    <h3>${label}</h3>
+                    <span class="box-badge">${imageCount} image${imageCount !== 1 ? 's' : ''} • ${box.rotation} rotation</span>
                 </div>
 
-                <div class="images-grid" id="images-${boxName}">
-                    ${box.images.map((img, idx) => renderImageThumbnail(img, boxName, idx)).join('')}
+                <div class="box-images-grid" id="images-${boxName}">
+                    ${box.images && box.images.length > 0
+                        ? box.images.map((img, idx) => renderImageThumbnail(img, boxName, idx)).join('')
+                        : '<p class="no-images">No images yet. Click "Upload Images" to add some.</p>'}
                 </div>
 
-                <div class="image-box-actions">
+                <div class="box-actions">
                     <input type="file" id="upload-${boxName}" accept="image/*" multiple style="display: none;">
-                    <button class="btn btn-secondary" onclick="document.getElementById('upload-${boxName}').click()">
-                        + Add Images
+                    <button class="btn btn-primary btn-sm" onclick="document.getElementById('upload-${boxName}').click()">
+                        📤 Upload Images
                     </button>
                 </div>
             </div>
         `;
     });
 
-    if (Object.keys(config).length === 0) {
-        html = '<p class="empty-message">No image boxes configured. Click "Add New Image Box" to create one.</p>';
-    }
-
     container.innerHTML = html;
 
     // Attach file upload listeners
-    Object.keys(config).forEach(boxName => {
+    boxOrder.forEach(boxName => {
         const input = document.getElementById(`upload-${boxName}`);
         if (input) {
             input.addEventListener('change', (e) => handleImageUpload(e, boxName));
@@ -208,7 +169,7 @@ async function handleImageUpload(event, boxName) {
     if (files.length === 0) return;
 
     try {
-        showNotification(`Uploading ${files.length} image(s)...`);
+        showNotification(`Uploading ${files.length} image(s)...`, 'info');
 
         const config = AdminApp.fileCache['landing-config.js'].content;
 
@@ -226,9 +187,12 @@ async function handleImageUpload(event, boxName) {
             config[boxName].images.push(imagePath);
         }
 
+        // Save config to GitHub
+        await saveLandingConfigToGitHub(config);
+
         // Re-render
         renderImageBoxes(config);
-        showNotification('Images uploaded successfully!');
+        showNotification('Images uploaded and saved successfully!');
 
         // Clear input
         event.target.value = '';
@@ -283,87 +247,39 @@ async function uploadImageFile(file, path) {
 /**
  * Delete an image
  */
-function deleteImage(boxName, index) {
+async function deleteImage(boxName, index) {
     if (!confirm('Are you sure you want to delete this image?')) return;
 
-    const config = AdminApp.fileCache['landing-config.js'].content;
-    config[boxName].images.splice(index, 1);
+    try {
+        const config = AdminApp.fileCache['landing-config.js'].content;
+        config[boxName].images.splice(index, 1);
 
-    renderImageBoxes(config);
-    showNotification('Image removed. Click "Save Configuration" to persist changes.');
-}
+        // Save to GitHub immediately
+        await saveLandingConfigToGitHub(config);
 
-/**
- * Delete an image box
- */
-function deleteImageBox(boxName) {
-    if (!confirm(`Are you sure you want to delete the "${boxName}" image box and all its images?`)) return;
-
-    const config = AdminApp.fileCache['landing-config.js'].content;
-    delete config[boxName];
-
-    renderImageBoxes(config);
-    showNotification('Image box removed. Click "Save Configuration" to persist changes.');
-}
-
-/**
- * Open image box modal
- */
-function openImageBoxModal() {
-    document.getElementById('image-box-modal').style.display = 'flex';
-    document.getElementById('image-box-form').reset();
-}
-
-/**
- * Close image box modal
- */
-function closeImageBoxModal() {
-    document.getElementById('image-box-modal').style.display = 'none';
-}
-
-/**
- * Handle image box form submission
- */
-function handleImageBoxSubmit(e) {
-    e.preventDefault();
-
-    const boxName = document.getElementById('box-name').value;
-    const rotation = document.getElementById('box-rotation').value;
-
-    const config = AdminApp.fileCache['landing-config.js'].content;
-
-    if (config[boxName]) {
-        showNotification('A box with this name already exists!', 'error');
-        return;
+        renderImageBoxes(config);
+        showNotification('Image deleted successfully!');
+    } catch (error) {
+        console.error('Error deleting image:', error);
+        showNotification('Error deleting image: ' + error.message, 'error');
     }
-
-    config[boxName] = {
-        images: [],
-        rotation: rotation
-    };
-
-    renderImageBoxes(config);
-    closeImageBoxModal();
-    showNotification('Image box added. Click "Save Configuration" to persist changes.');
 }
 
 /**
  * Save landing config to GitHub
  */
-async function saveLandingConfig() {
+async function saveLandingConfigToGitHub(config) {
     try {
-        const config = AdminApp.fileCache['landing-config.js'].content;
         const content = generateLandingConfigFileContent(config);
         const sha = AdminApp.fileCache['landing-config.js'].sha;
 
-        await updateFileOnGitHub('landing-config.js', content, sha, 'Update landing images configuration');
-        showNotification('Landing configuration saved successfully!');
+        const result = await updateFileOnGitHub('landing-config.js', content, sha, 'Update landing images configuration');
 
-        // Reload to get new SHA
-        await loadLandingConfig();
+        // Update cache with new SHA
+        AdminApp.fileCache['landing-config.js'].sha = result.sha || sha;
     } catch (error) {
         console.error('Error saving landing config:', error);
-        showNotification('Error saving configuration: ' + error.message, 'error');
+        throw error; // Re-throw so caller can handle
     }
 }
 
@@ -389,5 +305,4 @@ if (typeof module !== 'undefined' && module.exports) {
 if (typeof window !== 'undefined') {
     window.initLandingImagesManager = initLandingImagesManager;
     window.deleteImage = deleteImage;
-    window.deleteImageBox = deleteImageBox;
 }
