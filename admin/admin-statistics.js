@@ -12,62 +12,80 @@
  */
 function initStatisticsDashboard() {
     const container = document.getElementById('statistics-dashboard');
-    if (!container) return;
+    if (!container) {
+        console.error('Statistics dashboard container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Statistics dashboard already initialized');
+        return;
+    }
+
+    console.log('Initializing statistics dashboard...');
 
     container.innerHTML = `
-        <div class="admin-section">
-            <h2>Site Statistics</h2>
-            <p class="section-description">
-                View visitor analytics for your site. Configure your analytics provider below.
-            </p>
+        <h2>Site Statistics</h2>
+        <p class="section-description">
+            View visitor analytics for your site. Configure your analytics provider below.
+        </p>
 
-            <!-- Analytics Configuration -->
-            <div class="analytics-config">
-                <h3>Analytics Configuration</h3>
-                <form id="analytics-config-form" class="config-form">
-                    <div class="form-group">
-                        <label for="analytics-provider">Analytics Provider</label>
-                        <select id="analytics-provider">
-                            <option value="">-- Select Provider --</option>
-                            <option value="ga4">Google Analytics 4</option>
-                            <option value="plausible">Plausible</option>
-                            <option value="fathom">Fathom</option>
-                            <option value="custom">Custom API</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="analytics-site-id">Site ID / Property ID</label>
-                        <input type="text" id="analytics-site-id" placeholder="e.g., G-XXXXXXXXXX">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="analytics-api-key">API Key (if required)</label>
-                        <input type="password" id="analytics-api-key" placeholder="Your API key">
-                        <small>API key stored locally, not committed to repository</small>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" id="load-analytics-btn">Load Saved Config</button>
-                        <button type="button" class="btn btn-primary" id="save-analytics-btn">Save Config</button>
-                        <button type="button" class="btn btn-primary" id="fetch-stats-btn">Fetch Statistics</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Statistics Display -->
-            <div class="statistics-display" id="statistics-display">
-                <div class="stats-placeholder">
-                    <p>Configure your analytics provider above and click "Fetch Statistics" to view data.</p>
+        <!-- Analytics Configuration -->
+        <div class="analytics-config">
+            <h3>Analytics Configuration</h3>
+            <form id="analytics-config-form" class="config-form">
+                <div class="form-group">
+                    <label for="analytics-provider">Analytics Provider</label>
+                    <select id="analytics-provider">
+                        <option value="">-- Select Provider --</option>
+                        <option value="ga4">Google Analytics 4</option>
+                        <option value="plausible">Plausible</option>
+                        <option value="fathom">Fathom</option>
+                        <option value="custom">Custom API</option>
+                    </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="analytics-site-id">Site ID / Property ID</label>
+                    <input type="text" id="analytics-site-id" placeholder="e.g., G-XXXXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="analytics-api-key">API Key (if required)</label>
+                    <input type="password" id="analytics-api-key" placeholder="Your API key">
+                    <small>API key stored locally, not committed to repository</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="load-analytics-btn">Load Saved Config</button>
+                    <button type="button" class="btn btn-primary" id="save-analytics-btn">Save Config</button>
+                    <button type="button" class="btn btn-primary" id="fetch-stats-btn">Fetch Statistics</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Statistics Display -->
+        <div class="statistics-display" id="statistics-display">
+            <div class="stats-placeholder">
+                <p>Configure your analytics provider above and click "Fetch Statistics" to view data.</p>
             </div>
         </div>
     `;
 
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
     // Attach event listeners
-    document.getElementById('load-analytics-btn').addEventListener('click', loadAnalyticsConfig);
-    document.getElementById('save-analytics-btn').addEventListener('click', saveAnalyticsConfig);
-    document.getElementById('fetch-stats-btn').addEventListener('click', fetchStatistics);
+    const loadBtn = document.getElementById('load-analytics-btn');
+    const saveBtn = document.getElementById('save-analytics-btn');
+    const fetchBtn = document.getElementById('fetch-stats-btn');
+
+    if (loadBtn) loadBtn.addEventListener('click', loadAnalyticsConfig);
+    if (saveBtn) saveBtn.addEventListener('click', saveAnalyticsConfig);
+    if (fetchBtn) fetchBtn.addEventListener('click', fetchStatistics);
+
+    console.log('Statistics dashboard initialized, loading config...');
 
     // Load saved config
     loadAnalyticsConfig();

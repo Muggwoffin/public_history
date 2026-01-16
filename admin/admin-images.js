@@ -12,23 +12,32 @@
  */
 function initLandingImagesManager() {
     const container = document.getElementById('landing-images-manager');
-    if (!container) return;
+    if (!container) {
+        console.error('Landing images manager container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Landing images manager already initialized');
+        return;
+    }
+
+    console.log('Initializing landing images manager...');
 
     container.innerHTML = `
-        <div class="admin-section">
-            <h2>Landing Images & Daily Rotation</h2>
-            <p class="section-description">
-                Manage rotating images for different sections of your site. Images rotate daily so all visitors see the same image each day.
-            </p>
+        <h2>Landing Images & Daily Rotation</h2>
+        <p class="section-description">
+            Manage rotating images for different sections of your site. Images rotate daily so all visitors see the same image each day.
+        </p>
 
-            <div id="image-boxes-container">
-                <p class="loading-message">Loading image configuration...</p>
-            </div>
+        <div id="image-boxes-container">
+            <p class="loading-message">Loading image configuration...</p>
+        </div>
 
-            <div class="form-actions">
-                <button type="button" class="btn btn-primary" id="add-image-box-btn">+ Add New Image Box</button>
-                <button type="button" class="btn btn-secondary" id="save-landing-config-btn">Save Configuration</button>
-            </div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-primary" id="add-image-box-btn">+ Add New Image Box</button>
+            <button type="button" class="btn btn-secondary" id="save-landing-config-btn">Save Configuration</button>
         </div>
 
         <!-- Image Box Modal -->
@@ -62,11 +71,23 @@ function initLandingImagesManager() {
         </div>
     `;
 
-    document.getElementById('add-image-box-btn').addEventListener('click', openImageBoxModal);
-    document.getElementById('image-box-form').addEventListener('submit', handleImageBoxSubmit);
-    document.getElementById('cancel-image-box-btn').addEventListener('click', closeImageBoxModal);
-    document.getElementById('image-box-modal-close').addEventListener('click', closeImageBoxModal);
-    document.getElementById('save-landing-config-btn').addEventListener('click', saveLandingConfig);
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
+    // Attach event listeners
+    const addBoxBtn = document.getElementById('add-image-box-btn');
+    const imageBoxForm = document.getElementById('image-box-form');
+    const cancelBoxBtn = document.getElementById('cancel-image-box-btn');
+    const closeBoxBtn = document.getElementById('image-box-modal-close');
+    const saveConfigBtn = document.getElementById('save-landing-config-btn');
+
+    if (addBoxBtn) addBoxBtn.addEventListener('click', openImageBoxModal);
+    if (imageBoxForm) imageBoxForm.addEventListener('submit', handleImageBoxSubmit);
+    if (cancelBoxBtn) cancelBoxBtn.addEventListener('click', closeImageBoxModal);
+    if (closeBoxBtn) closeBoxBtn.addEventListener('click', closeImageBoxModal);
+    if (saveConfigBtn) saveConfigBtn.addEventListener('click', saveLandingConfig);
+
+    console.log('Landing images manager initialized, loading data...');
 
     loadLandingConfig();
 }

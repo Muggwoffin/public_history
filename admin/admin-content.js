@@ -12,45 +12,67 @@
  */
 function initReadingEditor() {
     const container = document.getElementById('reading-editor');
-    if (!container) return;
+    if (!container) {
+        console.error('Reading editor container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Reading editor already initialized');
+        return;
+    }
+
+    console.log('Initializing reading editor...');
 
     container.innerHTML = `
-        <div class="admin-section">
-            <h2>What I'm Reading</h2>
-            <p class="section-description">Update the current book featured in the "What I'm Reading" modal.</p>
+        <h2>What I'm Reading</h2>
+        <p class="section-description">Update the current book featured in the "What I'm Reading" modal.</p>
 
-            <form id="reading-form" class="content-form">
-                <div class="form-group">
-                    <label for="reading-title">Book Title *</label>
-                    <input type="text" id="reading-title" required>
-                </div>
+        <form id="reading-form" class="content-form">
+            <div class="form-group">
+                <label for="reading-title">Book Title *</label>
+                <input type="text" id="reading-title" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="reading-author">Author *</label>
-                    <input type="text" id="reading-author" required>
-                </div>
+            <div class="form-group">
+                <label for="reading-author">Author *</label>
+                <input type="text" id="reading-author" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="reading-cover">Cover Image Path *</label>
-                    <input type="text" id="reading-cover" placeholder="images/current-reading.jpg" required>
-                    <small>Upload image via Images tab, then paste path here</small>
-                </div>
+            <div class="form-group">
+                <label for="reading-cover">Cover Image Path *</label>
+                <input type="text" id="reading-cover" placeholder="images/current-reading.jpg" required>
+                <small>Upload image via Images tab, then paste path here</small>
+            </div>
 
-                <div class="form-group">
-                    <label for="reading-note">Your Reflection (1-2 sentences) *</label>
-                    <textarea id="reading-note" rows="3" required></textarea>
-                </div>
+            <div class="form-group">
+                <label for="reading-note">Your Reflection (1-2 sentences) *</label>
+                <textarea id="reading-note" rows="3" required></textarea>
+            </div>
 
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" id="load-reading-btn">Load Current</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
-        </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="load-reading-btn">Load Current</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
     `;
 
-    document.getElementById('reading-form').addEventListener('submit', handleReadingSubmit);
-    document.getElementById('load-reading-btn').addEventListener('click', loadReading);
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
+    // Attach event listeners
+    const form = document.getElementById('reading-form');
+    const loadBtn = document.getElementById('load-reading-btn');
+
+    if (form) {
+        form.addEventListener('submit', handleReadingSubmit);
+    }
+    if (loadBtn) {
+        loadBtn.addEventListener('click', loadReading);
+    }
+
+    console.log('Reading editor initialized, loading data...');
 
     // Auto-load on init
     loadReading();
@@ -158,20 +180,29 @@ if (typeof module !== 'undefined' && module.exports) {
  */
 function initBooksManager() {
     const container = document.getElementById('books-manager');
-    if (!container) return;
+    if (!container) {
+        console.error('Books manager container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Books manager already initialized');
+        return;
+    }
+
+    console.log('Initializing books manager...');
 
     container.innerHTML = `
-        <div class="admin-section">
-            <div class="section-header">
-                <h2>Books Manager</h2>
-                <button id="add-book-btn" class="btn btn-primary">
-                    <span>+ Add New Book</span>
-                </button>
-            </div>
+        <div class="section-header">
+            <h2>Books Manager</h2>
+            <button id="add-book-btn" class="btn btn-primary">
+                <span>+ Add New Book</span>
+            </button>
+        </div>
 
-            <div class="books-list" id="books-list">
-                <p class="loading-message">Loading books...</p>
-            </div>
+        <div class="books-list" id="books-list">
+            <p class="loading-message">Loading books...</p>
         </div>
 
         <!-- Book Modal -->
@@ -230,10 +261,21 @@ function initBooksManager() {
         </div>
     `;
 
-    document.getElementById('add-book-btn').addEventListener('click', () => openBookModal());
-    document.getElementById('book-form').addEventListener('submit', handleBookSubmit);
-    document.getElementById('cancel-book-btn').addEventListener('click', closeBookModal);
-    document.getElementById('book-modal-close').addEventListener('click', closeBookModal);
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
+    // Attach event listeners
+    const addBtn = document.getElementById('add-book-btn');
+    const bookForm = document.getElementById('book-form');
+    const cancelBtn = document.getElementById('cancel-book-btn');
+    const closeBtn = document.getElementById('book-modal-close');
+
+    if (addBtn) addBtn.addEventListener('click', () => openBookModal());
+    if (bookForm) bookForm.addEventListener('submit', handleBookSubmit);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeBookModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeBookModal);
+
+    console.log('Books manager initialized, loading data...');
 
     loadBooks();
 }

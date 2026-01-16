@@ -12,20 +12,29 @@
  */
 function initEventsManager() {
     const container = document.getElementById('events-manager');
-    if (!container) return;
+    if (!container) {
+        console.error('Events manager container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Events manager already initialized');
+        return;
+    }
+
+    console.log('Initializing events manager...');
 
     container.innerHTML = `
-        <div class="admin-section">
-            <div class="section-header">
-                <h2>Events Manager</h2>
-                <button id="add-event-btn" class="btn btn-primary">
-                    <span>+ Add New Event</span>
-                </button>
-            </div>
+        <div class="section-header">
+            <h2>Events Manager</h2>
+            <button id="add-event-btn" class="btn btn-primary">
+                <span>+ Add New Event</span>
+            </button>
+        </div>
 
-            <div class="events-list" id="events-list">
-                <p class="loading-message">Loading events...</p>
-            </div>
+        <div class="events-list" id="events-list">
+            <p class="loading-message">Loading events...</p>
         </div>
 
         <!-- Event Modal -->
@@ -92,11 +101,21 @@ function initEventsManager() {
         </div>
     `;
 
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
     // Attach event listeners
-    document.getElementById('add-event-btn').addEventListener('click', () => openEventModal());
-    document.getElementById('event-form').addEventListener('submit', handleEventSubmit);
-    document.getElementById('cancel-event-btn').addEventListener('click', closeEventModal);
-    document.getElementById('event-modal-close').addEventListener('click', closeEventModal);
+    const addBtn = document.getElementById('add-event-btn');
+    const eventForm = document.getElementById('event-form');
+    const cancelBtn = document.getElementById('cancel-event-btn');
+    const closeBtn = document.getElementById('event-modal-close');
+
+    if (addBtn) addBtn.addEventListener('click', () => openEventModal());
+    if (eventForm) eventForm.addEventListener('submit', handleEventSubmit);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeEventModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeEventModal);
+
+    console.log('Events manager initialized, loading data...');
 
     // Load events
     loadEvents();
