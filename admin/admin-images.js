@@ -100,7 +100,13 @@ function parseLandingConfigFile(base64Content) {
     const decoded = atob(base64Content);
     const match = decoded.match(/const\s+landingConfig\s*=\s*({[\s\S]*?});/);
     if (match) {
-        return JSON.parse(match[1]);
+        // Convert JavaScript object notation to JSON-compatible format
+        let jsObject = match[1];
+        // Replace single quotes with double quotes
+        jsObject = jsObject.replace(/'/g, '"');
+        // Fix escaped quotes
+        jsObject = jsObject.replace(/\\"/g, "'");
+        return JSON.parse(jsObject);
     }
     return {};
 }
