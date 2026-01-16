@@ -19,9 +19,6 @@
  */
 
 const timelineData = [
-    // ========================================
-    // EDUCATION
-    // ========================================
     {
         id: 'ba-trinity-2011-2015',
         title: 'BA in English Literature and History',
@@ -55,10 +52,6 @@ const timelineData = [
         link: null,
         venue: 'Jesus College, University of Oxford'
     },
-
-    // ========================================
-    // TEACHING
-    // ========================================
     {
         id: 'teaching-oxford-hertford-2017',
         title: 'Nationalism, Politics and Culture in Modern Ireland',
@@ -125,10 +118,6 @@ const timelineData = [
         link: null,
         venue: 'Queen\'s University Belfast'
     },
-
-    // ========================================
-    // FELLOWSHIPS & APPOINTMENTS
-    // ========================================
     {
         id: 'award-2017',
         title: 'Early Career Research Prize',
@@ -240,20 +229,16 @@ const timelineData = [
         venue: 'Sidney Sussex College, Cambridge University'
     },
     {
-        id: 'qub-pi-ahrc-2025-2028',
+        id: 'project-1768570314633',
         title: 'Principal Investigator: AHRC Catalyst Grant',
         type: 'fellowship',
         date: '2025-2028',
         sortDate: '2025-01-01',
         scope: 'international',
-        description: 'Leading a major AHRC-funded research project exploring new dimensions of Irish transnational history and radical politics.',
+        description: 'Leading a major AHRC-funded research project exploring anti-Nazi exiles in Britain during the 1920s-1940s.',
         link: null,
         venue: 'Queen\'s University Belfast'
     },
-
-    // ========================================
-    // PUBLICATIONS - JOURNAL ARTICLES
-    // ========================================
     {
         id: 'pub-tcd-journal-2015',
         title: 'Contesting the Legacy of Ireland\'s Role in Empire',
@@ -353,10 +338,6 @@ const timelineData = [
         link: null,
         venue: 'History Workshop Journal'
     },
-
-    // ========================================
-    // EXHIBITIONS
-    // ========================================
     {
         id: 'out-in-world-2021',
         title: 'Out in the World: Ireland\'s LGBTQ+ Diaspora',
@@ -379,10 +360,6 @@ const timelineData = [
         link: 'https://epicchq.com',
         venue: 'EPIC Irish Emigration Museum, Dublin'
     },
-
-    // ========================================
-    // MEDIA & PUBLIC WRITING
-    // ========================================
     {
         id: 'media-suffragettes-communists-2018',
         title: 'The Suffragettes Who Became Communists',
@@ -449,10 +426,6 @@ const timelineData = [
         link: null,
         venue: 'National and international broadcasters'
     },
-
-    // ========================================
-    // TALKS & PUBLIC LECTURES
-    // ========================================
     {
         id: 'talk-dublin-festival-2021',
         title: 'LGBTQ+ History and Public History',
