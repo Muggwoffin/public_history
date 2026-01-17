@@ -15,24 +15,14 @@
 
 const documentaries = [
     {
-        title: 'Documentary Title',
-        productionCompany: 'Production Company',
-        year: 'Year',
-        runtime: 'Runtime',
-        role: 'Producer / Researcher / Historical Consultant',
-        description: 'Brief description of the documentary and your involvement. What historical questions does it explore? What makes it significant? How does it bring the past to contemporary audiences?',
-        watchLink: '#',
-        logo: 'images/documentary-logo-1.png'
-    },
-    {
-        title: 'Another Documentary',
-        productionCompany: 'Production Company',
-        year: 'Year',
-        runtime: 'Runtime',
-        role: 'Producer / Researcher / Historical Consultant',
-        description: 'Description of another documentary project. Explain the historical narrative and your contribution to bringing this story to the screen...',
-        watchLink: null,
-        logo: 'images/documentary-logo-2.png'
+        "title": "Documentary Title",
+        "productionCompany": "Production Company",
+        "year": "Year",
+        "runtime": "Runtime",
+        "role": "Producer / Researcher / Historical Consultant",
+        "description": "Brief description of the documentary and your involvement. What historical questions does it explore? What makes it significant? How does it bring the past to contemporary audiences?",
+        "watchLink": "#",
+        "logo": "images/documentary-logo-1.png"
     }
 ];
 
