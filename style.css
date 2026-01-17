@@ -2031,8 +2031,9 @@ html {
    READING MODAL ENHANCEMENTS
    ============================================ */
 
-/* Ensure modal is structured correctly */
-#reading-modal {
+/* Ensure modals are structured correctly */
+#reading-modal,
+#playing-modal {
     display: none;
     position: fixed;
     top: 0;
