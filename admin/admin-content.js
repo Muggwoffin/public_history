@@ -635,7 +635,10 @@ async function saveBooksFile(books) {
     const content = generateBooksFileContent(books);
     const sha = AdminApp.fileCache['books.js'].sha;
 
-    await updateFileOnGitHub('books.js', content, sha, 'Update books');
+    const result = await updateFileOnGitHub('books.js', content, sha, 'Update books');
+
+    // Update cache with new SHA to prevent SHA mismatch on subsequent saves
+    AdminApp.fileCache['books.js'].sha = result.sha || sha;
 }
 
 /**
@@ -931,7 +934,10 @@ async function saveWritingFile(writing) {
     const content = generateWritingFileContent(writing);
     const sha = AdminApp.fileCache['writing.js'].sha;
 
-    await updateFileOnGitHub('writing.js', content, sha, 'Update writing');
+    const result = await updateFileOnGitHub('writing.js', content, sha, 'Update writing');
+
+    // Update cache with new SHA to prevent SHA mismatch on subsequent saves
+    AdminApp.fileCache['writing.js'].sha = result.sha || sha;
 }
 
 /**
