@@ -282,6 +282,7 @@ function switchSection(sectionName) {
             break;
         case 'content-boxes':
             if (typeof initReadingEditor === 'function') initReadingEditor();
+            if (typeof initPlayingEditor === 'function') initPlayingEditor();
             if (typeof initBooksManager === 'function') initBooksManager();
             break;
         case 'landing-images':

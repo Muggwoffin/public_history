@@ -172,6 +172,180 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 // ============================================
+// PLAYING EDITOR
+// ============================================
+
+/**
+ * Initialize playing content editor
+ */
+function initPlayingEditor() {
+    const container = document.getElementById('playing-editor');
+    if (!container) {
+        console.error('Playing editor container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Playing editor already initialized');
+        return;
+    }
+
+    console.log('Initializing playing editor...');
+
+    container.innerHTML = `
+        <h2>What I'm Playing</h2>
+        <p class="section-description">Update the current game featured in the "What I'm Playing" modal.</p>
+
+        <form id="playing-form" class="content-form">
+            <div class="form-group">
+                <label for="playing-title">Game Title *</label>
+                <input type="text" id="playing-title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="playing-developer">Developer *</label>
+                <input type="text" id="playing-developer" required>
+            </div>
+
+            <div class="form-group">
+                <label for="playing-cover">Cover Image Path *</label>
+                <input type="text" id="playing-cover" placeholder="images/current-playing.jpg" required>
+                <small>Upload image via Images tab, then paste path here</small>
+            </div>
+
+            <div class="form-group">
+                <label for="playing-note">Your Reflection (1-2 sentences) *</label>
+                <textarea id="playing-note" rows="3" required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="load-playing-btn">Load Current</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    `;
+
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
+    // Attach event listeners
+    const form = document.getElementById('playing-form');
+    const loadBtn = document.getElementById('load-playing-btn');
+
+    if (form) {
+        form.addEventListener('submit', handlePlayingSubmit);
+    }
+    if (loadBtn) {
+        loadBtn.addEventListener('click', loadPlaying);
+    }
+
+    console.log('Playing editor initialized, loading data...');
+
+    // Auto-load on init
+    loadPlaying();
+}
+
+/**
+ * Load current playing from GitHub
+ */
+async function loadPlaying() {
+    try {
+        const data = await fetchFileFromGitHub('playing.js');
+        const playingData = parsePlayingFile(data.content);
+
+        AdminApp.fileCache['playing.js'] = {
+            sha: data.sha,
+            content: playingData
+        };
+
+        // Populate form
+        document.getElementById('playing-title').value = playingData.title || '';
+        document.getElementById('playing-developer').value = playingData.developer || '';
+        document.getElementById('playing-cover').value = playingData.cover || '';
+        document.getElementById('playing-note').value = playingData.note || '';
+
+        showNotification('Playing content loaded');
+    } catch (error) {
+        console.error('Error loading playing:', error);
+        showNotification('Error loading playing content: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Parse playing.js file
+ * Uses safe evaluation since playing.js contains a JavaScript object literal, not JSON
+ */
+function parsePlayingFile(base64Content) {
+    const decoded = atob(base64Content);
+    const match = decoded.match(/const\s+currentPlaying\s*=\s*({[\s\S]*?});/);
+    if (match) {
+        try {
+            // Extract the object literal
+            const objectLiteral = match[1];
+
+            // Use Function constructor to safely evaluate the object literal
+            // This works because the object is a pure data structure with no executable code
+            const evalFunc = new Function('return ' + objectLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse object literal:', parseError);
+            throw new Error('Invalid JavaScript object in playing.js');
+        }
+    }
+    return {};
+}
+
+/**
+ * Handle playing form submission
+ */
+async function handlePlayingSubmit(e) {
+    e.preventDefault();
+
+    const playingData = {
+        title: document.getElementById('playing-title').value,
+        developer: document.getElementById('playing-developer').value,
+        cover: document.getElementById('playing-cover').value,
+        note: document.getElementById('playing-note').value
+    };
+
+    try {
+        const content = generatePlayingFileContent(playingData);
+        const sha = AdminApp.fileCache['playing.js'].sha;
+
+        await updateFileOnGitHub('playing.js', content, sha, 'Update current playing');
+        showNotification('Playing content saved successfully!');
+    } catch (error) {
+        console.error('Error saving playing:', error);
+        showNotification('Error saving: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Generate playing.js file content
+ */
+function generatePlayingFileContent(playing) {
+    return `/**
+ * Current Playing Data
+ * Stores information about what Dr Casey is currently playing
+ *
+ * DATA STRUCTURE:
+ * - title: Game title (string)
+ * - developer: Game developer (string)
+ * - cover: Path to cover image (string)
+ * - note: Short reflection or description (string, 1-2 sentences)
+ */
+
+const currentPlaying = ${JSON.stringify(playing, null, 4)};
+
+// Export for use in main site
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = currentPlaying;
+}
+`;
+}
+
+// ============================================
 // BOOKS MANAGER
 // ============================================
 
@@ -485,5 +659,6 @@ if (typeof module !== 'undefined' && module.exports) {
 // Export functions
 if (typeof window !== 'undefined') {
     window.initReadingEditor = initReadingEditor;
+    window.initPlayingEditor = initPlayingEditor;
     window.initBooksManager = initBooksManager;
 }
