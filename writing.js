@@ -29,11 +29,11 @@ const writing = [
         "outletLogo": "images/outlet-logo-2.png"
     },
     {
-        "title": "Third Article Title",
-        "outlet": "Outlet Name",
-        "date": "Date Published",
-        "excerpt": "Brief excerpt or summary...",
-        "link": "#",
+        "title": "Test",
+        "outlet": "Test",
+        "date": "Test",
+        "excerpt": "Test",
+        "link": "https://meduza.io/en/feature/2025/03/14/radical-crossroads",
         "outletLogo": "images/outlet-logo-3.png"
     }
 ];
