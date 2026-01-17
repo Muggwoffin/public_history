@@ -21,11 +21,11 @@ const writing = [
         "outletLogo": "images/outlet-logo-1.png"
     },
     {
-        "title": "Another Article Title",
-        "outlet": "Outlet Name",
-        "date": "Date Published",
-        "excerpt": "Brief excerpt or summary...",
-        "link": "#",
+        "title": "Fellow Travellers",
+        "outlet": "Times Literary Supplement",
+        "date": "3 October 2025",
+        "excerpt": "On Lenin, Mao, Fidel and Warren Beatty",
+        "link": "https://www.the-tls.com/history/twentieth-century-onwards-history/three-revolutions-simon-hall-book-review-maurice-j-casey",
         "outletLogo": "images/outlet-logo-2.png"
     },
     {
