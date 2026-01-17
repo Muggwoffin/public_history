@@ -284,6 +284,7 @@ function switchSection(sectionName) {
             if (typeof initReadingEditor === 'function') initReadingEditor();
             if (typeof initPlayingEditor === 'function') initPlayingEditor();
             if (typeof initBooksManager === 'function') initBooksManager();
+            if (typeof initWritingManager === 'function') initWritingManager();
             break;
         case 'landing-images':
             if (typeof initLandingImagesManager === 'function') initLandingImagesManager();

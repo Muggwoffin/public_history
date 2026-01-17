@@ -656,9 +656,314 @@ if (typeof module !== 'undefined' && module.exports) {
 `;
 }
 
+// ============================================
+// WRITING MANAGER
+// ============================================
+
+/**
+ * Initialize writing manager
+ */
+function initWritingManager() {
+    const container = document.getElementById('writing-manager');
+    if (!container) {
+        console.error('Writing manager container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Writing manager already initialized');
+        return;
+    }
+
+    console.log('Initializing writing manager...');
+
+    container.innerHTML = `
+        <div class="section-header">
+            <h2>Selected Writing Manager</h2>
+            <button id="add-article-btn" class="btn btn-primary">
+                <span>+ Add New Article</span>
+            </button>
+        </div>
+
+        <div class="articles-list" id="articles-list">
+            <p class="loading-message">Loading articles...</p>
+        </div>
+
+        <!-- Article Modal -->
+        <div id="article-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="article-modal-title">Add New Article</h3>
+                    <button class="modal-close" id="article-modal-close">&times;</button>
+                </div>
+                <form id="article-form">
+                    <input type="hidden" id="article-id">
+
+                    <div class="form-group">
+                        <label for="article-title">Article Title *</label>
+                        <input type="text" id="article-title" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="article-outlet">Outlet *</label>
+                            <input type="text" id="article-outlet" placeholder="Publication Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="article-date">Date *</label>
+                            <input type="text" id="article-date" placeholder="March 2024" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-excerpt">Excerpt/Summary *</label>
+                        <textarea id="article-excerpt" rows="3" required placeholder="1-2 sentence summary"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-link">Article Link *</label>
+                        <input type="url" id="article-link" placeholder="https://..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="article-logo">Outlet Logo Path *</label>
+                        <input type="text" id="article-logo" placeholder="images/outlet-logo-1.png" required>
+                        <small>Upload image via Images tab, then paste path here</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancel-article-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Article</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
+    // Attach event listeners
+    const addBtn = document.getElementById('add-article-btn');
+    const articleForm = document.getElementById('article-form');
+    const cancelBtn = document.getElementById('cancel-article-btn');
+    const closeBtn = document.getElementById('article-modal-close');
+
+    if (addBtn) addBtn.addEventListener('click', () => openArticleModal());
+    if (articleForm) articleForm.addEventListener('submit', handleArticleSubmit);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeArticleModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeArticleModal);
+
+    console.log('Writing manager initialized, loading data...');
+
+    loadWriting();
+}
+
+/**
+ * Load writing from GitHub
+ */
+async function loadWriting() {
+    try {
+        const data = await fetchFileFromGitHub('writing.js');
+        const writingData = parseWritingFile(data.content);
+
+        AdminApp.fileCache['writing.js'] = {
+            sha: data.sha,
+            content: writingData
+        };
+
+        renderArticlesList(writingData);
+    } catch (error) {
+        console.error('Error loading writing:', error);
+        document.getElementById('articles-list').innerHTML = `
+            <p class="error-message">Error loading articles. ${error.message}</p>
+        `;
+    }
+}
+
+/**
+ * Parse writing.js file
+ */
+function parseWritingFile(base64Content) {
+    const decoded = atob(base64Content);
+    const match = decoded.match(/const\s+writing\s*=\s*(\[[\s\S]*?\]);/);
+    if (match) {
+        try {
+            const arrayLiteral = match[1];
+            const evalFunc = new Function('return ' + arrayLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse array literal:', parseError);
+            throw new Error('Invalid JavaScript array in writing.js');
+        }
+    }
+    return [];
+}
+
+/**
+ * Render articles list
+ */
+function renderArticlesList(writingData) {
+    const container = document.getElementById('articles-list');
+
+    if (writingData.length === 0) {
+        container.innerHTML = '<p class="empty-message">No articles yet. Click "Add New Article" to create one.</p>';
+        return;
+    }
+
+    let html = '';
+    writingData.forEach((article, index) => {
+        html += `
+            <div class="book-row">
+                <div class="book-info">
+                    <h4>${article.title}</h4>
+                    <p class="book-meta">${article.outlet} • ${article.date}</p>
+                </div>
+                <div class="book-actions">
+                    <button class="btn btn-sm btn-secondary" id="edit-article-${index}">Edit</button>
+                    <button class="btn btn-sm btn-danger" id="delete-article-${index}">Delete</button>
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+
+    // Attach listeners
+    writingData.forEach((article, index) => {
+        document.getElementById(`edit-article-${index}`).addEventListener('click', () => openArticleModal(article, index));
+        document.getElementById(`delete-article-${index}`).addEventListener('click', () => deleteArticle(index));
+    });
+}
+
+/**
+ * Open article modal
+ */
+function openArticleModal(article = null, index = null) {
+    const modal = document.getElementById('article-modal');
+    const title = document.getElementById('article-modal-title');
+    const form = document.getElementById('article-form');
+
+    if (article) {
+        title.textContent = 'Edit Article';
+        document.getElementById('article-id').value = index;
+        document.getElementById('article-title').value = article.title || '';
+        document.getElementById('article-outlet').value = article.outlet || '';
+        document.getElementById('article-date').value = article.date || '';
+        document.getElementById('article-excerpt').value = article.excerpt || '';
+        document.getElementById('article-link').value = article.link || '';
+        document.getElementById('article-logo').value = article.outletLogo || '';
+    } else {
+        title.textContent = 'Add New Article';
+        form.reset();
+        document.getElementById('article-id').value = '';
+    }
+
+    modal.style.display = 'flex';
+}
+
+/**
+ * Close article modal
+ */
+function closeArticleModal() {
+    document.getElementById('article-modal').style.display = 'none';
+}
+
+/**
+ * Handle article form submission
+ */
+async function handleArticleSubmit(e) {
+    e.preventDefault();
+
+    const index = document.getElementById('article-id').value;
+    const articleData = {
+        title: document.getElementById('article-title').value,
+        outlet: document.getElementById('article-outlet').value,
+        date: document.getElementById('article-date').value,
+        excerpt: document.getElementById('article-excerpt').value,
+        link: document.getElementById('article-link').value,
+        outletLogo: document.getElementById('article-logo').value
+    };
+
+    try {
+        const writing = AdminApp.fileCache['writing.js'].content;
+
+        if (index !== '') {
+            writing[parseInt(index)] = articleData;
+        } else {
+            writing.push(articleData);
+        }
+
+        await saveWritingFile(writing);
+        closeArticleModal();
+        showNotification('Article saved successfully!');
+        loadWriting();
+    } catch (error) {
+        console.error('Error saving article:', error);
+        showNotification('Error saving article: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Delete an article
+ */
+async function deleteArticle(index) {
+    if (!confirm('Are you sure you want to delete this article?')) return;
+
+    try {
+        const writing = AdminApp.fileCache['writing.js'].content;
+        writing.splice(index, 1);
+
+        await saveWritingFile(writing);
+        showNotification('Article deleted successfully!');
+        loadWriting();
+    } catch (error) {
+        console.error('Error deleting article:', error);
+        showNotification('Error deleting article: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Save writing file to GitHub
+ */
+async function saveWritingFile(writing) {
+    const content = generateWritingFileContent(writing);
+    const sha = AdminApp.fileCache['writing.js'].sha;
+
+    await updateFileOnGitHub('writing.js', content, sha, 'Update writing');
+}
+
+/**
+ * Generate writing.js file content
+ */
+function generateWritingFileContent(writing) {
+    return `/**
+ * Selected Writing Data
+ * Articles, essays, and other writing for popular audiences
+ *
+ * DATA STRUCTURE:
+ * - title: Article title (string)
+ * - outlet: Publication outlet (string)
+ * - date: Publication date (string, e.g., "March 2024")
+ * - excerpt: Brief summary/excerpt (string, 1-2 sentences)
+ * - link: URL to article (string)
+ * - outletLogo: Path to outlet logo image (string)
+ */
+
+const writing = ${JSON.stringify(writing, null, 4)};
+
+// Export for use in main site
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = writing;
+}
+`;
+}
+
 // Export functions
 if (typeof window !== 'undefined') {
     window.initReadingEditor = initReadingEditor;
     window.initPlayingEditor = initPlayingEditor;
     window.initBooksManager = initBooksManager;
+    window.initWritingManager = initWritingManager;
 }
