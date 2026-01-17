@@ -69,10 +69,6 @@ body::before {
     margin-bottom: 4rem;
     opacity: 0;
     animation: fadeIn 1.5s ease-out forwards;
-    background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(245,245,240,0.8) 100%);
-    padding: 3rem 2rem;
-    border: 1px solid rgba(42, 42, 42, 0.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 @keyframes fadeIn {
@@ -106,7 +102,7 @@ body::before {
 }
 
 .masthead-image {
-    max-width: 100%;
+    max-width: 65%;
     height: auto;
     display: block;
     margin: 0 auto;

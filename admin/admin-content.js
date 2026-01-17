@@ -966,10 +966,648 @@ if (typeof module !== 'undefined' && module.exports) {
 `;
 }
 
+// ============================================
+// DOCUMENTARIES MANAGER
+// ============================================
+
+/**
+ * Initialize documentaries manager
+ */
+function initDocumentariesManager() {
+    const container = document.getElementById('documentaries-manager');
+    if (!container) {
+        console.error('Documentaries manager container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Documentaries manager already initialized');
+        return;
+    }
+
+    console.log('Initializing documentaries manager...');
+
+    container.innerHTML = `
+        <div class="section-header">
+            <h2>Documentaries Manager</h2>
+            <button id="add-documentary-btn" class="btn btn-primary">
+                <span>+ Add New Documentary</span>
+            </button>
+        </div>
+
+        <div class="documentaries-list" id="documentaries-list">
+            <p class="loading-message">Loading documentaries...</p>
+        </div>
+
+        <!-- Documentary Modal -->
+        <div id="documentary-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="documentary-modal-title">Add New Documentary</h3>
+                    <button class="modal-close" id="documentary-modal-close">&times;</button>
+                </div>
+                <form id="documentary-form">
+                    <input type="hidden" id="documentary-id">
+
+                    <div class="form-group">
+                        <label for="documentary-title">Documentary Title *</label>
+                        <input type="text" id="documentary-title" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="documentary-company">Production Company *</label>
+                            <input type="text" id="documentary-company" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="documentary-year">Year *</label>
+                            <input type="text" id="documentary-year" placeholder="2024" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentary-runtime">Runtime</label>
+                        <input type="text" id="documentary-runtime" placeholder="90 mins">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentary-role">Your Role *</label>
+                        <input type="text" id="documentary-role" placeholder="Producer / Researcher / Historical Consultant" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentary-description">Description *</label>
+                        <textarea id="documentary-description" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentary-logo">Logo Image Path</label>
+                        <input type="text" id="documentary-logo" placeholder="images/documentary-logo-1.png">
+                        <small>Upload image via Images tab, then paste path here</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentary-link">Watch Link</label>
+                        <input type="url" id="documentary-link" placeholder="https://...">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancel-documentary-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Documentary</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
+    // Attach event listeners
+    const addBtn = document.getElementById('add-documentary-btn');
+    const documentaryForm = document.getElementById('documentary-form');
+    const cancelBtn = document.getElementById('cancel-documentary-btn');
+    const closeBtn = document.getElementById('documentary-modal-close');
+
+    if (addBtn) addBtn.addEventListener('click', () => openDocumentaryModal());
+    if (documentaryForm) documentaryForm.addEventListener('submit', handleDocumentarySubmit);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeDocumentaryModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeDocumentaryModal);
+
+    console.log('Documentaries manager initialized, loading data...');
+
+    loadDocumentaries();
+}
+
+/**
+ * Load documentaries from GitHub
+ */
+async function loadDocumentaries() {
+    try {
+        const data = await fetchFileFromGitHub('documentaries.js');
+        const documentariesData = parseDocumentariesFile(data.content);
+
+        AdminApp.fileCache['documentaries.js'] = {
+            sha: data.sha,
+            content: documentariesData
+        };
+
+        renderDocumentariesList(documentariesData);
+    } catch (error) {
+        console.error('Error loading documentaries:', error);
+        document.getElementById('documentaries-list').innerHTML = `
+            <p class="error-message">Error loading documentaries. ${error.message}</p>
+        `;
+    }
+}
+
+/**
+ * Parse documentaries.js file
+ */
+function parseDocumentariesFile(base64Content) {
+    const decoded = atob(base64Content);
+    const match = decoded.match(/const\s+documentaries\s*=\s*(\[[\s\S]*?\]);/);
+    if (match) {
+        try {
+            const arrayLiteral = match[1];
+            const evalFunc = new Function('return ' + arrayLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse array literal:', parseError);
+            throw new Error('Invalid JavaScript array in documentaries.js');
+        }
+    }
+    return [];
+}
+
+/**
+ * Render documentaries list
+ */
+function renderDocumentariesList(documentariesData) {
+    const container = document.getElementById('documentaries-list');
+
+    if (documentariesData.length === 0) {
+        container.innerHTML = '<p class="empty-message">No documentaries yet. Click "Add New Documentary" to create one.</p>';
+        return;
+    }
+
+    // Sort by year descending
+    const sorted = [...documentariesData].sort((a, b) => {
+        const yearA = parseInt(a.year) || 0;
+        const yearB = parseInt(b.year) || 0;
+        return yearB - yearA;
+    });
+
+    let html = '';
+    sorted.forEach((doc, index) => {
+        html += `
+            <div class="book-row">
+                <div class="book-info">
+                    <h4>${doc.title}</h4>
+                    <p class="book-meta">${doc.productionCompany} • ${doc.year}</p>
+                </div>
+                <div class="book-actions">
+                    <button class="btn btn-sm btn-secondary" id="edit-documentary-${index}">Edit</button>
+                    <button class="btn btn-sm btn-danger" id="delete-documentary-${index}">Delete</button>
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+
+    // Attach listeners
+    sorted.forEach((doc, index) => {
+        document.getElementById(`edit-documentary-${index}`).addEventListener('click', () => openDocumentaryModal(doc, index));
+        document.getElementById(`delete-documentary-${index}`).addEventListener('click', () => deleteDocumentary(index));
+    });
+}
+
+/**
+ * Open documentary modal
+ */
+function openDocumentaryModal(documentary = null, index = null) {
+    const modal = document.getElementById('documentary-modal');
+    const title = document.getElementById('documentary-modal-title');
+    const form = document.getElementById('documentary-form');
+
+    if (documentary) {
+        title.textContent = 'Edit Documentary';
+        document.getElementById('documentary-id').value = index;
+        document.getElementById('documentary-title').value = documentary.title || '';
+        document.getElementById('documentary-company').value = documentary.productionCompany || '';
+        document.getElementById('documentary-year').value = documentary.year || '';
+        document.getElementById('documentary-runtime').value = documentary.runtime || '';
+        document.getElementById('documentary-role').value = documentary.role || '';
+        document.getElementById('documentary-description').value = documentary.description || '';
+        document.getElementById('documentary-logo').value = documentary.logo || '';
+        document.getElementById('documentary-link').value = documentary.watchLink || '';
+    } else {
+        title.textContent = 'Add New Documentary';
+        form.reset();
+        document.getElementById('documentary-id').value = '';
+    }
+
+    modal.style.display = 'flex';
+}
+
+/**
+ * Close documentary modal
+ */
+function closeDocumentaryModal() {
+    document.getElementById('documentary-modal').style.display = 'none';
+}
+
+/**
+ * Handle documentary form submission
+ */
+async function handleDocumentarySubmit(e) {
+    e.preventDefault();
+
+    const index = document.getElementById('documentary-id').value;
+    const documentaryData = {
+        title: document.getElementById('documentary-title').value,
+        productionCompany: document.getElementById('documentary-company').value,
+        year: document.getElementById('documentary-year').value,
+        runtime: document.getElementById('documentary-runtime').value || null,
+        role: document.getElementById('documentary-role').value,
+        description: document.getElementById('documentary-description').value,
+        logo: document.getElementById('documentary-logo').value || null,
+        watchLink: document.getElementById('documentary-link').value || null
+    };
+
+    try {
+        const documentaries = AdminApp.fileCache['documentaries.js'].content;
+
+        if (index !== '') {
+            documentaries[parseInt(index)] = documentaryData;
+        } else {
+            documentaries.push(documentaryData);
+        }
+
+        await saveDocumentariesFile(documentaries);
+        closeDocumentaryModal();
+        showNotification('Documentary saved successfully!');
+        loadDocumentaries();
+    } catch (error) {
+        console.error('Error saving documentary:', error);
+        showNotification('Error saving documentary: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Delete a documentary
+ */
+async function deleteDocumentary(index) {
+    if (!confirm('Are you sure you want to delete this documentary?')) return;
+
+    try {
+        const documentaries = AdminApp.fileCache['documentaries.js'].content;
+        documentaries.splice(index, 1);
+
+        await saveDocumentariesFile(documentaries);
+        showNotification('Documentary deleted successfully!');
+        loadDocumentaries();
+    } catch (error) {
+        console.error('Error deleting documentary:', error);
+        showNotification('Error deleting documentary: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Save documentaries file to GitHub
+ */
+async function saveDocumentariesFile(documentaries) {
+    const content = generateDocumentariesFileContent(documentaries);
+    const sha = AdminApp.fileCache['documentaries.js'].sha;
+
+    const result = await updateFileOnGitHub('documentaries.js', content, sha, 'Update documentaries');
+
+    // Update cache with new SHA to prevent SHA mismatch on subsequent saves
+    AdminApp.fileCache['documentaries.js'].sha = result.sha || sha;
+}
+
+/**
+ * Generate documentaries.js file content
+ */
+function generateDocumentariesFileContent(documentaries) {
+    return `/**
+ * Documentaries Data
+ * Films and documentaries featuring historical consultation or participation
+ *
+ * DATA STRUCTURE:
+ * - title: Documentary title (string)
+ * - productionCompany: Production company name (string)
+ * - year: Year of release (string)
+ * - runtime: Runtime (string, optional)
+ * - role: Role in production (string)
+ * - description: Brief description (string)
+ * - watchLink: URL to watch (string, optional)
+ * - logo: Path to production company/documentary logo (string, optional)
+ */
+
+const documentaries = ${JSON.stringify(documentaries, null, 4)};
+
+// Export for use in main site
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = documentaries;
+}
+`;
+}
+
+// ============================================
+// PODCASTS MANAGER
+// ============================================
+
+/**
+ * Initialize podcasts manager
+ */
+function initPodcastsManager() {
+    const container = document.getElementById('podcasts-manager');
+    if (!container) {
+        console.error('Podcasts manager container not found');
+        return;
+    }
+
+    // Check if already initialized
+    if (container.dataset.initialized === 'true') {
+        console.log('Podcasts manager already initialized');
+        return;
+    }
+
+    console.log('Initializing podcasts manager...');
+
+    container.innerHTML = `
+        <div class="section-header">
+            <h2>Podcasts Manager</h2>
+            <button id="add-podcast-btn" class="btn btn-primary">
+                <span>+ Add New Podcast</span>
+            </button>
+        </div>
+
+        <div class="podcasts-list" id="podcasts-list">
+            <p class="loading-message">Loading podcasts...</p>
+        </div>
+
+        <!-- Podcast Modal -->
+        <div id="podcast-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="podcast-modal-title">Add New Podcast</h3>
+                    <button class="modal-close" id="podcast-modal-close">&times;</button>
+                </div>
+                <form id="podcast-form">
+                    <input type="hidden" id="podcast-id">
+
+                    <div class="form-group">
+                        <label for="podcast-title">Episode Title *</label>
+                        <input type="text" id="podcast-title" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="podcast-name">Podcast Name *</label>
+                            <input type="text" id="podcast-name" placeholder="Irish History Podcast" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="podcast-year">Year *</label>
+                            <input type="text" id="podcast-year" placeholder="2024" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="podcast-embed">Podcast Embed URL *</label>
+                        <input type="url" id="podcast-embed" placeholder="https://embed.podcasts.apple.com/..." required>
+                        <small>Get the embed URL from Apple Podcasts, Spotify, or other podcast platforms</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="podcast-description">Description *</label>
+                        <textarea id="podcast-description" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancel-podcast-btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Podcast</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    // Mark as initialized
+    container.dataset.initialized = 'true';
+
+    // Attach event listeners
+    const addBtn = document.getElementById('add-podcast-btn');
+    const podcastForm = document.getElementById('podcast-form');
+    const cancelBtn = document.getElementById('cancel-podcast-btn');
+    const closeBtn = document.getElementById('podcast-modal-close');
+
+    if (addBtn) addBtn.addEventListener('click', () => openPodcastModal());
+    if (podcastForm) podcastForm.addEventListener('submit', handlePodcastSubmit);
+    if (cancelBtn) cancelBtn.addEventListener('click', closePodcastModal);
+    if (closeBtn) closeBtn.addEventListener('click', closePodcastModal);
+
+    console.log('Podcasts manager initialized, loading data...');
+
+    loadPodcasts();
+}
+
+/**
+ * Load podcasts from GitHub
+ */
+async function loadPodcasts() {
+    try {
+        const data = await fetchFileFromGitHub('podcasts.js');
+        const podcastsData = parsePodcastsFile(data.content);
+
+        AdminApp.fileCache['podcasts.js'] = {
+            sha: data.sha,
+            content: podcastsData
+        };
+
+        renderPodcastsList(podcastsData);
+    } catch (error) {
+        console.error('Error loading podcasts:', error);
+        document.getElementById('podcasts-list').innerHTML = `
+            <p class="error-message">Error loading podcasts. ${error.message}</p>
+        `;
+    }
+}
+
+/**
+ * Parse podcasts.js file
+ */
+function parsePodcastsFile(base64Content) {
+    const decoded = atob(base64Content);
+    const match = decoded.match(/const\s+podcasts\s*=\s*(\[[\s\S]*?\]);/);
+    if (match) {
+        try {
+            const arrayLiteral = match[1];
+            const evalFunc = new Function('return ' + arrayLiteral);
+            return evalFunc();
+        } catch (parseError) {
+            console.error('Failed to parse array literal:', parseError);
+            throw new Error('Invalid JavaScript array in podcasts.js');
+        }
+    }
+    return [];
+}
+
+/**
+ * Render podcasts list
+ */
+function renderPodcastsList(podcastsData) {
+    const container = document.getElementById('podcasts-list');
+
+    if (podcastsData.length === 0) {
+        container.innerHTML = '<p class="empty-message">No podcasts yet. Click "Add New Podcast" to create one.</p>';
+        return;
+    }
+
+    // Sort by year descending
+    const sorted = [...podcastsData].sort((a, b) => {
+        const yearA = parseInt(a.year) || 0;
+        const yearB = parseInt(b.year) || 0;
+        return yearB - yearA;
+    });
+
+    let html = '';
+    sorted.forEach((podcast, index) => {
+        html += `
+            <div class="book-row">
+                <div class="book-info">
+                    <h4>${podcast.title}</h4>
+                    <p class="book-meta">${podcast.podcastName} • ${podcast.year}</p>
+                </div>
+                <div class="book-actions">
+                    <button class="btn btn-sm btn-secondary" id="edit-podcast-${index}">Edit</button>
+                    <button class="btn btn-sm btn-danger" id="delete-podcast-${index}">Delete</button>
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+
+    // Attach listeners
+    sorted.forEach((podcast, index) => {
+        document.getElementById(`edit-podcast-${index}`).addEventListener('click', () => openPodcastModal(podcast, index));
+        document.getElementById(`delete-podcast-${index}`).addEventListener('click', () => deletePodcast(index));
+    });
+}
+
+/**
+ * Open podcast modal
+ */
+function openPodcastModal(podcast = null, index = null) {
+    const modal = document.getElementById('podcast-modal');
+    const title = document.getElementById('podcast-modal-title');
+    const form = document.getElementById('podcast-form');
+
+    if (podcast) {
+        title.textContent = 'Edit Podcast';
+        document.getElementById('podcast-id').value = index;
+        document.getElementById('podcast-title').value = podcast.title || '';
+        document.getElementById('podcast-name').value = podcast.podcastName || '';
+        document.getElementById('podcast-year').value = podcast.year || '';
+        document.getElementById('podcast-embed').value = podcast.embedUrl || '';
+        document.getElementById('podcast-description').value = podcast.description || '';
+    } else {
+        title.textContent = 'Add New Podcast';
+        form.reset();
+        document.getElementById('podcast-id').value = '';
+    }
+
+    modal.style.display = 'flex';
+}
+
+/**
+ * Close podcast modal
+ */
+function closePodcastModal() {
+    document.getElementById('podcast-modal').style.display = 'none';
+}
+
+/**
+ * Handle podcast form submission
+ */
+async function handlePodcastSubmit(e) {
+    e.preventDefault();
+
+    const index = document.getElementById('podcast-id').value;
+    const podcastData = {
+        title: document.getElementById('podcast-title').value,
+        podcastName: document.getElementById('podcast-name').value,
+        year: document.getElementById('podcast-year').value,
+        embedUrl: document.getElementById('podcast-embed').value,
+        description: document.getElementById('podcast-description').value
+    };
+
+    try {
+        const podcasts = AdminApp.fileCache['podcasts.js'].content;
+
+        if (index !== '') {
+            podcasts[parseInt(index)] = podcastData;
+        } else {
+            podcasts.push(podcastData);
+        }
+
+        await savePodcastsFile(podcasts);
+        closePodcastModal();
+        showNotification('Podcast saved successfully!');
+        loadPodcasts();
+    } catch (error) {
+        console.error('Error saving podcast:', error);
+        showNotification('Error saving podcast: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Delete a podcast
+ */
+async function deletePodcast(index) {
+    if (!confirm('Are you sure you want to delete this podcast?')) return;
+
+    try {
+        const podcasts = AdminApp.fileCache['podcasts.js'].content;
+        podcasts.splice(index, 1);
+
+        await savePodcastsFile(podcasts);
+        showNotification('Podcast deleted successfully!');
+        loadPodcasts();
+    } catch (error) {
+        console.error('Error deleting podcast:', error);
+        showNotification('Error deleting podcast: ' + error.message, 'error');
+    }
+}
+
+/**
+ * Save podcasts file to GitHub
+ */
+async function savePodcastsFile(podcasts) {
+    const content = generatePodcastsFileContent(podcasts);
+    const sha = AdminApp.fileCache['podcasts.js'].sha;
+
+    const result = await updateFileOnGitHub('podcasts.js', content, sha, 'Update podcasts');
+
+    // Update cache with new SHA to prevent SHA mismatch on subsequent saves
+    AdminApp.fileCache['podcasts.js'].sha = result.sha || sha;
+}
+
+/**
+ * Generate podcasts.js file content
+ */
+function generatePodcastsFileContent(podcasts) {
+    return `/**
+ * Podcasts Data
+ * Recent podcast appearances and interviews
+ *
+ * DATA STRUCTURE:
+ * - title: Episode title (string)
+ * - podcastName: Name of the podcast (string)
+ * - year: Year of episode (string)
+ * - embedUrl: Podcast embed URL (string)
+ * - description: Brief description (string)
+ */
+
+const podcasts = ${JSON.stringify(podcasts, null, 4)};
+
+// Export for use in main site
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = podcasts;
+}
+`;
+}
+
 // Export functions
 if (typeof window !== 'undefined') {
     window.initReadingEditor = initReadingEditor;
     window.initPlayingEditor = initPlayingEditor;
     window.initBooksManager = initBooksManager;
     window.initWritingManager = initWritingManager;
+    window.initDocumentariesManager = initDocumentariesManager;
+    window.initPodcastsManager = initPodcastsManager;
 }
