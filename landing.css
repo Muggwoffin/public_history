@@ -105,6 +105,13 @@ body::before {
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
+.masthead-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 /* Image Grid - Photo Artifacts on Desk */
 .image-grid {
     display: grid;

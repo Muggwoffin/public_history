@@ -44,22 +44,15 @@
                     </div>
                 </div>
 
-            </div>
-        </section>
+                <!-- Career Timeline Subsection -->
+                <h3 class="subsection-heading" id="timeline">Career Timeline</h3>
 
-        <!-- Timeline Section -->
-        <section id="timeline">
-            <div class="content-section">
-                <!-- UPDATED: Centered heading -->
-                <h2 class="section-headline" style="text-align: center;">CAREER TIMELINE</h2>
-                <div class="decorative-line-thin"></div>
-
-                <!-- Intro text at top -->
+                <!-- Intro text -->
                 <div class="intro-text">
                     <p>Explore my CV as an interactive timeline, from archival research and book publications to exhibitions, teaching, and media engagement.</p>
                 </div>
 
-                <!-- UPDATED: Toggle button moved below intro, centered -->
+                <!-- Toggle button centered -->
                 <div class="timeline-toggle-container">
                     <button
                         id="timeline-toggle"
@@ -73,7 +66,7 @@
                     </button>
                 </div>
 
-                <!-- UPDATED: Content wrapper starts collapsed -->
+                <!-- Content wrapper starts collapsed -->
                 <div id="timeline-content" class="timeline-content-wrapper collapsed">
                     <div id="timeline-container"></div>
                 </div>
@@ -109,27 +102,7 @@
                 </div>
 
                 <h3 class="subsection-heading">Documentaries &amp; Film</h3>
-
-                <div class="media-item">
-                    <div class="documentary-logo">
-                        <img src="images/documentary-logo-1.png" alt="Documentary Logo">
-                    </div>
-                    <h3 class="media-title">Documentary Title</h3>
-                    <p class="media-meta">Production Company • Year • Runtime</p>
-                    <p class="media-role">Role: Producer / Researcher / Historical Consultant</p>
-                    <p class="media-description">Brief description of the documentary and your involvement. What historical questions does it explore? What makes it significant? How does it bring the past to contemporary audiences?</p>
-                    <a href="#" class="watch-link">WATCH →</a>
-                </div>
-
-                <div class="media-item">
-                    <div class="documentary-logo">
-                        <img src="images/documentary-logo-2.png" alt="Documentary Logo">
-                    </div>
-                    <h3 class="media-title">Another Documentary</h3>
-                    <p class="media-meta">Production Company • Year • Runtime</p>
-                    <p class="media-role">Role: Producer / Researcher / Historical Consultant</p>
-                    <p class="media-description">Description of another documentary project. Explain the historical narrative and your contribution to bringing this story to the screen...</p>
-                </div>
+                <!-- Documentaries are dynamically rendered from documentaries.js by documentaries-renderer.js -->
 
                 <h3 class="subsection-heading">Upcoming Events</h3>
 
@@ -159,20 +132,7 @@
                 </div>
 
                 <h3 class="subsection-heading">Recent Podcast Appearances</h3>
-
-                <div class="podcast-embed">
-                    <h4 class="podcast-title">Hotel Lux: An Intimate History of Communism's</h4>
-                    <p class="podcast-meta">Irish History Podcast • 2024</p>
-                    <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/gb/podcast/hotel-lux-an-intimate-history-of-communisms/id401651007?i=1000671202117"></iframe>
-                    <p class="podcast-description">A discussion of the Hotel Lux in Moscow and the revolutionary families who intersected there during the tumultuous 1920s.</p>
-                </div>
-
-                <div class="podcast-embed">
-                    <h4 class="podcast-title">Special Episode: Gavin Arthur with Maurice Casey</h4>
-                    <p class="podcast-meta">Bad Gays • 2024</p>
-                    <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/gb/podcast/special-episode-gavin-arthur-with-maurice-casey/id1455620224?i=1000712193181"></iframe>
-                    <p class="podcast-description">Exploring the life of Gavin Arthur, grandson of President Chester A. Arthur, who became a bohemian astrologer and countercultural figure in San Francisco.</p>
-                </div>
+                <!-- Podcasts are dynamically rendered from podcasts.js by podcasts-renderer.js -->
             </div>
         </section>
 
@@ -302,6 +262,8 @@
     <script src="playing.js"></script>
     <script src="books.js"></script>
     <script src="writing.js"></script>
+    <script src="documentaries.js"></script>
+    <script src="podcasts.js"></script>
     <script src="landing-config.js"></script>
 
     <!-- Timeline scripts -->
@@ -312,6 +274,8 @@
     <script src="events-renderer.js"></script>
     <script src="books-renderer.js"></script>
     <script src="writing-renderer.js"></script>
+    <script src="documentaries-renderer.js"></script>
+    <script src="podcasts-renderer.js"></script>
     <script src="reading-modal.js"></script>
     <script src="playing-modal.js"></script>
     <script src="author-easter-egg.js"></script>
