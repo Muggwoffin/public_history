@@ -389,16 +389,16 @@ async function loadContentForEditing() {
         const mediaEmailMatch = content.match(/Media & Speaking[\s\S]*?mailto:([^"]+)/);
         if (mediaEmailMatch) document.getElementById('media-email').value = mediaEmailMatch[1];
 
-        const twitterMatch = content.match(/Twitter\/X[\s\S]*?href="([^"#]+)"[^>]*>Twitter\/X/);
-        if (twitterMatch && twitterMatch[1] !== '#') document.getElementById('twitter-url').value = twitterMatch[1];
+        const blueskyMatch = content.match(/href="([^"#]+)"[^>]*class="social-link-block">Bluesky/);
+        if (blueskyMatch && blueskyMatch[1] !== '#') document.getElementById('bluesky-url').value = blueskyMatch[1];
 
-        const academiaMatch = content.match(/Academia\.edu[\s\S]*?href="([^"#]+)"[^>]*>Academia\.edu/);
-        if (academiaMatch && academiaMatch[1] !== '#') document.getElementById('academia-url').value = academiaMatch[1];
+        const knowledgeCommonsMatch = content.match(/href="([^"#]+)"[^>]*class="social-link-block">Knowledge Commons/);
+        if (knowledgeCommonsMatch && knowledgeCommonsMatch[1] !== '#') document.getElementById('knowledge-commons-url').value = knowledgeCommonsMatch[1];
 
-        const orcidMatch = content.match(/ORCID[\s\S]*?href="([^"#]+)"[^>]*>ORCID/);
+        const orcidMatch = content.match(/href="([^"#]+)"[^>]*class="social-link-block">ORCID/);
         if (orcidMatch && orcidMatch[1] !== '#') document.getElementById('orcid-url').value = orcidMatch[1];
 
-        const linkedinMatch = content.match(/LinkedIn[\s\S]*?href="([^"#]+)"[^>]*>LinkedIn/);
+        const linkedinMatch = content.match(/href="([^"#]+)"[^>]*class="social-link-block">LinkedIn/);
         if (linkedinMatch && linkedinMatch[1] !== '#') document.getElementById('linkedin-url').value = linkedinMatch[1];
 
         // Newsletter
@@ -482,7 +482,7 @@ async function saveContent() {
         // Contact Information
         const academicEmail = document.getElementById('academic-email').value.trim();
         if (academicEmail) {
-            updatedHTML = updatedHTML.replace(/(Academic Inquiries[\s\S]*?mailto:)[^"]+/, `$1${academicEmail}`);
+            updatedHTML = updatedHTML.replace(/(Academic Inquiries[\s\S]*?<a href="mailto:)([^"]+)(">)([^<]+)(<\/a>)/, `$1${academicEmail}$3${academicEmail}$5`);
         }
 
         const institution = document.getElementById('institution-name').value.trim();
@@ -493,27 +493,27 @@ async function saveContent() {
 
         const mediaEmail = document.getElementById('media-email').value.trim();
         if (mediaEmail) {
-            updatedHTML = updatedHTML.replace(/(Media & Speaking[\s\S]*?mailto:)[^"]+/, `$1${mediaEmail}`);
+            updatedHTML = updatedHTML.replace(/(Media & Speaking[\s\S]*?<a href="mailto:)([^"]+)(">)([^<]+)(<\/a>)/, `$1${mediaEmail}$3${mediaEmail}$5`);
         }
 
-        const twitterUrl = document.getElementById('twitter-url').value.trim();
-        if (twitterUrl) {
-            updatedHTML = updatedHTML.replace(/(>Twitter\/X[\s\S]{0,50}?href=")[^"]+("[^>]*>Twitter\/X)/, `$1${twitterUrl}$2`);
+        const blueskyUrl = document.getElementById('bluesky-url').value.trim();
+        if (blueskyUrl) {
+            updatedHTML = updatedHTML.replace(/(href=")[^"]+("[\s\S]{0,50}?class="social-link-block">Bluesky)/, `$1${blueskyUrl}$2`);
         }
 
-        const academiaUrl = document.getElementById('academia-url').value.trim();
-        if (academiaUrl) {
-            updatedHTML = updatedHTML.replace(/(>Academia\.edu[\s\S]{0,50}?href=")[^"]+("[^>]*>Academia\.edu)/, `$1${academiaUrl}$2`);
+        const knowledgeCommonsUrl = document.getElementById('knowledge-commons-url').value.trim();
+        if (knowledgeCommonsUrl) {
+            updatedHTML = updatedHTML.replace(/(href=")[^"]+("[\s\S]{0,50}?class="social-link-block">Knowledge Commons)/, `$1${knowledgeCommonsUrl}$2`);
         }
 
         const orcidUrl = document.getElementById('orcid-url').value.trim();
         if (orcidUrl) {
-            updatedHTML = updatedHTML.replace(/(>ORCID[\s\S]{0,50}?href=")[^"]+("[^>]*>ORCID)/, `$1${orcidUrl}$2`);
+            updatedHTML = updatedHTML.replace(/(href=")[^"]+("[\s\S]{0,50}?class="social-link-block">ORCID)/, `$1${orcidUrl}$2`);
         }
 
         const linkedinUrl = document.getElementById('linkedin-url').value.trim();
         if (linkedinUrl) {
-            updatedHTML = updatedHTML.replace(/(>LinkedIn[\s\S]{0,50}?href=")[^"]+("[^>]*>LinkedIn)/, `$1${linkedinUrl}$2`);
+            updatedHTML = updatedHTML.replace(/(href=")[^"]+("[\s\S]{0,50}?class="social-link-block">LinkedIn)/, `$1${linkedinUrl}$2`);
         }
 
         // Newsletter
