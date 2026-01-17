@@ -93,11 +93,27 @@ body::before {
     }
 }
 
+.masthead-link {
+    display: block;
+    text-decoration: none;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.masthead-link:hover {
+    transform: scale(1.03);
+    opacity: 0.85;
+}
+
 .masthead-image {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;
+    transition: filter 0.4s ease;
+}
+
+.masthead-link:hover .masthead-image {
+    filter: brightness(1.05);
 }
 
 /* Button Columns */
