@@ -13,28 +13,28 @@
 
 const writing = [
     {
-        title: 'Article Title for Popular Outlet',
-        outlet: 'Outlet Name',
-        date: 'Date Published',
-        excerpt: 'Brief excerpt or summary of the article...',
-        link: '#',
-        outletLogo: 'images/outlet-logo-1.png'
+        "title": "  This article is more than 1 year old Who are ‘the Irish’? ",
+        "outlet": "The Guardian",
+        "date": "25 September 2024",
+        "excerpt": "The far right demands a pure ‘Irishness’. But our island story has long been interwoven with other ethnicities and diasporas",
+        "link": "https://www.theguardian.com/commentisfree/2024/sep/25/who-are-the-irish-history-shows-weve-been-a-mixed-bunch-for-centuries",
+        "outletLogo": "images/outlet-logo-1.png"
     },
     {
-        title: 'Another Article Title',
-        outlet: 'Outlet Name',
-        date: 'Date Published',
-        excerpt: 'Brief excerpt or summary...',
-        link: '#',
-        outletLogo: 'images/outlet-logo-2.png'
+        "title": "Another Article Title",
+        "outlet": "Outlet Name",
+        "date": "Date Published",
+        "excerpt": "Brief excerpt or summary...",
+        "link": "#",
+        "outletLogo": "images/outlet-logo-2.png"
     },
     {
-        title: 'Third Article Title',
-        outlet: 'Outlet Name',
-        date: 'Date Published',
-        excerpt: 'Brief excerpt or summary...',
-        link: '#',
-        outletLogo: 'images/outlet-logo-3.png'
+        "title": "Third Article Title",
+        "outlet": "Outlet Name",
+        "date": "Date Published",
+        "excerpt": "Brief excerpt or summary...",
+        "link": "#",
+        "outletLogo": "images/outlet-logo-3.png"
     }
 ];
 
