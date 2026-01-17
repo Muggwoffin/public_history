@@ -38,6 +38,7 @@
 
                         <div class="reading-links-container">
                             <a href="#" class="reading-link" id="readingLink">📖 What I'm Reading</a>
+                            <a href="#" class="reading-link" id="playingLink">🎮 What I'm Playing</a>
                             <a href="YOUR_GOOGLE_DOC_URL_HERE" target="_blank" rel="noopener noreferrer" class="reading-link archive-link">🍽️ The Archive Food Guide</a>
                         </div>
                     </div>
@@ -93,38 +94,7 @@
             <div class="content-section">
                 <h2 class="section-headline">SELECTED WRITING</h2>
                 <div class="decorative-line-thin"></div>
-
-                <div class="writing-grid">
-                    <article class="writing-item">
-                        <div class="outlet-logo">
-                            <img src="images/outlet-logo-1.png" alt="Outlet Name">
-                        </div>
-                        <h4 class="writing-title">Article Title for Popular Outlet</h4>
-                        <p class="writing-meta">Date Published</p>
-                        <p class="writing-excerpt">Brief excerpt or summary of the article...</p>
-                        <a href="#" class="read-more">READ →</a>
-                    </article>
-
-                    <article class="writing-item">
-                        <div class="outlet-logo">
-                            <img src="images/outlet-logo-2.png" alt="Outlet Name">
-                        </div>
-                        <h4 class="writing-title">Another Article Title</h4>
-                        <p class="writing-meta">Date Published</p>
-                        <p class="writing-excerpt">Brief excerpt or summary...</p>
-                        <a href="#" class="read-more">READ →</a>
-                    </article>
-
-                    <article class="writing-item">
-                        <div class="outlet-logo">
-                            <img src="images/outlet-logo-3.png" alt="Outlet Name">
-                        </div>
-                        <h4 class="writing-title">Third Article Title</h4>
-                        <p class="writing-meta">Date Published</p>
-                        <p class="writing-excerpt">Brief excerpt or summary...</p>
-                        <a href="#" class="read-more">READ →</a>
-                    </article>
-                </div>
+                <!-- Articles are dynamically rendered from writing.js by writing-renderer.js -->
             </div>
         </section>
 
@@ -309,6 +279,17 @@
         </div>
     </div>
 
+    <!-- What I'm Playing Modal -->
+    <div id="playing-modal" style="display: none;">
+        <div class="reading-modal-content">
+            <button id="close-playing-modal" class="reading-modal-close" aria-label="Close modal">&times;</button>
+            <h2 class="reading-book-title">Loading...</h2>
+            <p class="reading-author">by Developer Name</p>
+            <img src="" alt="" class="reading-cover">
+            <p class="reading-note"></p>
+        </div>
+    </div>
+
     <script>
         // Timeline toggle functionality - collapsed by default
         const timelineToggle = document.getElementById('timeline-toggle');
@@ -336,7 +317,9 @@
     <!-- Data files -->
     <script src="events.js"></script>
     <script src="reading.js"></script>
+    <script src="playing.js"></script>
     <script src="books.js"></script>
+    <script src="writing.js"></script>
     <script src="landing-config.js"></script>
 
     <!-- Timeline scripts -->
@@ -346,7 +329,9 @@
     <!-- New feature scripts -->
     <script src="events-renderer.js"></script>
     <script src="books-renderer.js"></script>
+    <script src="writing-renderer.js"></script>
     <script src="reading-modal.js"></script>
+    <script src="playing-modal.js"></script>
     <script src="author-easter-egg.js"></script>
     <script src="carousel.js"></script>
 
