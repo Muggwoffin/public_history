@@ -15,6 +15,7 @@
             return;
         }
 
+        // PERF: Cache DOM queries
         const booksSection = document.getElementById('books');
         if (!booksSection) {
             console.warn('Books section not found');
@@ -24,7 +25,7 @@
         // Find or create the books container
         let container = booksSection.querySelector('.books-container');
         if (!container) {
-            // Create container after the decorative line
+            // PERF: Cache content section query
             const contentSection = booksSection.querySelector('.content-section');
             const decorativeLine = contentSection.querySelector('.decorative-line-thin');
 

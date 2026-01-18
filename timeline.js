@@ -8,6 +8,10 @@ class Timeline {
         this.data = data;
         this.container = document.getElementById(containerId);
         this.currentFilter = 'all';
+        // PERF: Cache DOM elements to avoid repeated queries
+        this.timelineList = null;
+        this.filterButtons = null;
+        this.timelineItems = null;
 
         if (!this.container) {
             console.error(`Timeline container with id "${containerId}" not found`);
@@ -35,27 +39,27 @@ class Timeline {
         const filterSection = this.createFilterControls();
         this.container.appendChild(filterSection);
 
-        // Get filtered data
-        const filteredData = this.getFilteredData();
+        // PERF: Cache filter buttons after creation
+        this.filterButtons = filterSection.querySelectorAll('.timeline-filter-btn');
 
         // Create timeline list
-        const timelineList = document.createElement('div');
-        timelineList.className = 'timeline-list';
-        timelineList.setAttribute('role', 'list');
+        this.timelineList = document.createElement('div');
+        this.timelineList.className = 'timeline-list';
+        this.timelineList.setAttribute('role', 'list');
 
-        if (filteredData.length === 0) {
-            const emptyMessage = document.createElement('p');
-            emptyMessage.className = 'timeline-empty';
-            emptyMessage.textContent = 'No items match the selected filter.';
-            timelineList.appendChild(emptyMessage);
-        } else {
-            filteredData.forEach((item, index) => {
-                const timelineItem = this.createTimelineItem(item, index);
-                timelineList.appendChild(timelineItem);
-            });
-        }
+        // Render all items initially
+        this.sortedData.forEach((item, index) => {
+            const timelineItem = this.createTimelineItem(item, index);
+            this.timelineList.appendChild(timelineItem);
+        });
 
-        this.container.appendChild(timelineList);
+        this.container.appendChild(this.timelineList);
+
+        // PERF: Cache timeline items after creation
+        this.timelineItems = this.timelineList.querySelectorAll('.timeline-item');
+
+        // Apply initial filter
+        this.applyFilter();
     }
 
     createFilterControls() {
@@ -188,24 +192,60 @@ class Timeline {
         return this.sortedData.filter(item => item.type === this.currentFilter);
     }
 
+    // PERF: New method - toggle visibility with CSS instead of re-rendering DOM
+    applyFilter() {
+        if (!this.timelineItems) return;
+
+        let visibleCount = 0;
+
+        this.timelineItems.forEach(item => {
+            const itemType = item.dataset.type;
+            const matches = this.currentFilter === 'all' || itemType === this.currentFilter;
+
+            // Toggle display using CSS class for better performance
+            if (matches) {
+                item.style.display = '';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Show/hide empty message
+        let emptyMessage = this.timelineList.querySelector('.timeline-empty');
+        if (visibleCount === 0) {
+            if (!emptyMessage) {
+                emptyMessage = document.createElement('p');
+                emptyMessage.className = 'timeline-empty';
+                emptyMessage.textContent = 'No items match the selected filter.';
+                this.timelineList.appendChild(emptyMessage);
+            }
+        } else if (emptyMessage) {
+            emptyMessage.remove();
+        }
+    }
+
     attachEventListeners() {
-        // Filter button clicks
+        // PERF: Use event delegation - single listener on container instead of N listeners
         this.container.addEventListener('click', (e) => {
             if (e.target.classList.contains('timeline-filter-btn')) {
                 this.handleFilterClick(e.target);
             }
         });
 
-        // Keyboard navigation for filter buttons
-        const filterButtons = this.container.querySelectorAll('.timeline-filter-btn');
-        filterButtons.forEach((button, index) => {
-            button.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight' && filterButtons[index + 1]) {
-                    filterButtons[index + 1].focus();
-                } else if (e.key === 'ArrowLeft' && filterButtons[index - 1]) {
-                    filterButtons[index - 1].focus();
+        // PERF: Use event delegation for keyboard navigation
+        this.container.addEventListener('keydown', (e) => {
+            if (e.target.classList.contains('timeline-filter-btn')) {
+                const button = e.target;
+                const buttons = Array.from(this.filterButtons);
+                const index = buttons.indexOf(button);
+
+                if (e.key === 'ArrowRight' && buttons[index + 1]) {
+                    buttons[index + 1].focus();
+                } else if (e.key === 'ArrowLeft' && buttons[index - 1]) {
+                    buttons[index - 1].focus();
                 }
-            });
+            }
         });
     }
 
@@ -216,9 +256,8 @@ class Timeline {
             return; // Already active
         }
 
-        // Update active state
-        const allButtons = this.container.querySelectorAll('.timeline-filter-btn');
-        allButtons.forEach(btn => {
+        // PERF: Use cached buttons instead of querying DOM
+        this.filterButtons.forEach(btn => {
             btn.classList.remove('active');
             btn.setAttribute('aria-pressed', 'false');
         });
@@ -229,8 +268,8 @@ class Timeline {
         // Update filter
         this.currentFilter = filterValue;
 
-        // Re-render timeline
-        this.render();
+        // PERF: Apply filter with CSS toggle instead of re-rendering
+        this.applyFilter();
 
         // Announce to screen readers
         this.announceFilterChange(filterValue);

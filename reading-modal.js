@@ -6,6 +6,9 @@
 (function() {
     'use strict';
 
+    // PERF: Store listener reference for proper cleanup
+    let escapeHandler = null;
+
     /**
      * Initialize the reading modal
      */
@@ -15,6 +18,7 @@
             return;
         }
 
+        // PERF: Cache DOM queries
         const modal = document.getElementById('reading-modal');
         const trigger = document.getElementById('readingLink');
         const closeBtn = document.getElementById('close-reading-modal');
@@ -27,11 +31,21 @@
         // Populate modal with data
         populateModal(modal);
 
+        // PERF: Define escape handler once for reuse and cleanup
+        escapeHandler = (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeModal(modal);
+            }
+        };
+
         // Open modal
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
+
+            // PERF: Add escape listener only when modal is open
+            document.addEventListener('keydown', escapeHandler);
 
             // Focus trap
             const focusableElements = modal.querySelectorAll('button, a[href]');
@@ -50,13 +64,6 @@
         // Close on overlay click
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                closeModal(modal);
-            }
-        });
-
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
                 closeModal(modal);
             }
         });
@@ -88,6 +95,11 @@
     function closeModal(modal) {
         modal.style.display = 'none';
         document.body.style.overflow = '';
+
+        // PERF: Remove escape listener when modal closes to prevent accumulation
+        if (escapeHandler) {
+            document.removeEventListener('keydown', escapeHandler);
+        }
     }
 
     // Initialize when DOM is ready

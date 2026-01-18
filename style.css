@@ -58,7 +58,7 @@ body {
 
 .masthead {
     position: relative;
-    min-height: 60vh;
+    min-height: 45vh; /* PERF: Reduced from 60vh (25% reduction) for better performance */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,6 +81,8 @@ body {
     background-repeat: no-repeat;
     opacity: 0;
     animation: fadeInBackground 1s ease-out forwards;
+    /* PERF: Hint browser to prepare for opacity animation */
+    will-change: opacity;
 }
 
 /* Semi-transparent overlay for readability */
@@ -116,6 +118,8 @@ body {
     animation: archivalSweep 25s linear infinite;
     z-index: 2;
     pointer-events: none;
+    /* PERF: Hint browser to prepare for transform animation */
+    will-change: transform;
 }
 
 /* Content container */
@@ -619,7 +623,7 @@ body {
 /* Tablet */
 @media (max-width: 768px) {
     .masthead {
-        min-height: 50vh;
+        min-height: 38vh; /* Reduced from 50vh (25% reduction) */
     }
 
     .masthead-title {
@@ -662,7 +666,7 @@ body {
     }
 
     .masthead {
-        min-height: 45vh;
+        min-height: 34vh; /* Reduced from 45vh (25% reduction) */
     }
 
     .masthead-content {

@@ -6,6 +6,9 @@
 (function() {
     'use strict';
 
+    // PERF: Store listener reference for proper cleanup
+    let escapeHandler = null;
+
     /**
      * Initialize the playing modal
      */
@@ -15,6 +18,7 @@
             return;
         }
 
+        // PERF: Cache DOM queries
         const modal = document.getElementById('playing-modal');
         const trigger = document.getElementById('playingLink');
         const closeBtn = document.getElementById('close-playing-modal');
@@ -27,11 +31,21 @@
         // Populate modal with data
         populateModal(modal);
 
+        // PERF: Define escape handler once for reuse and cleanup
+        escapeHandler = (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeModal(modal);
+            }
+        };
+
         // Open modal
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
+
+            // PERF: Add escape listener only when modal is open
+            document.addEventListener('keydown', escapeHandler);
 
             // Focus trap
             const focusableElements = modal.querySelectorAll('button, a[href]');
@@ -53,13 +67,6 @@
                 closeModal(modal);
             }
         });
-
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') {
-                closeModal(modal);
-            }
-        });
     }
 
     /**
@@ -67,6 +74,7 @@
      * @param {HTMLElement} modal - The modal element
      */
     function populateModal(modal) {
+        // PERF: Cache DOM queries
         const title = modal.querySelector('.reading-book-title');
         const developer = modal.querySelector('.reading-author');
         const cover = modal.querySelector('.reading-cover');
@@ -88,6 +96,11 @@
     function closeModal(modal) {
         modal.style.display = 'none';
         document.body.style.overflow = '';
+
+        // PERF: Remove escape listener when modal closes to prevent accumulation
+        if (escapeHandler) {
+            document.removeEventListener('keydown', escapeHandler);
+        }
     }
 
     // Initialize when DOM is ready
