@@ -344,3 +344,31 @@ body::before {
         font-size: 1rem;
     }
 }
+
+/* ============================================
+   ACCESSIBILITY: Reduced Motion
+   ============================================ */
+
+/* PERF: Respect user motion preferences for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+    /* Disable background panning animation */
+    body {
+        animation: none !important;
+    }
+
+    /* Disable all fade-in and transform animations */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    /* Ensure content is immediately visible */
+    .title-section,
+    .image-card {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

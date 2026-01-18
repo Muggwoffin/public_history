@@ -360,6 +360,24 @@
 }
 
 /* ============================================
+   ACCESSIBILITY: Reduced Motion
+   ============================================ */
+
+/* PERF: Respect user motion preferences for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+    .timeline-item {
+        animation: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================
    PRINT STYLES
    ============================================ */
 
