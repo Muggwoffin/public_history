@@ -125,6 +125,13 @@
     animation: fadeInUp 0.5s ease forwards;
 }
 
+/* FIX: Ensure items are visible after animation completes */
+.timeline-item.animated,
+.timeline-list .timeline-item {
+    opacity: 1;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -367,6 +374,7 @@
 @media (prefers-reduced-motion: reduce) {
     .timeline-item {
         animation: none !important;
+        opacity: 1 !important; /* FIX: Ensure items are visible when animation is disabled */
     }
 
     *,
