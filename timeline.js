@@ -202,9 +202,9 @@ class Timeline {
             const itemType = item.dataset.type;
             const matches = this.currentFilter === 'all' || itemType === this.currentFilter;
 
-            // Toggle display using CSS class for better performance
+            // Toggle visibility using CSS for better performance
             if (matches) {
-                item.style.display = '';
+                item.style.display = 'block'; // FIX: Explicitly set to 'block' instead of empty string
                 visibleCount++;
             } else {
                 item.style.display = 'none';
