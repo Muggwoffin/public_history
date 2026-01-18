@@ -157,7 +157,7 @@ body::before {
     transition: transform 0.3s ease;
     display: block;
     backface-visibility: hidden;
-    max-width: 280px;
+    max-width: 224px;
     opacity: 0;
     animation: fadeIn 1.5s ease-out 1.2s forwards;
 }
@@ -303,7 +303,7 @@ body::before {
     }
 
     .image-card {
-        max-width: 300px;
+        max-width: 240px;
     }
 }
 
@@ -318,7 +318,7 @@ body::before {
     }
 
     .image-card {
-        max-width: 250px;
+        max-width: 200px;
     }
 
     .image-caption {
