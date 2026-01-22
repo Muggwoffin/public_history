@@ -15,14 +15,14 @@
 
 const documentaries = [
     {
-        "title": "Documentary Title",
-        "productionCompany": "Production Company",
-        "year": "Year",
-        "runtime": "Runtime",
-        "role": "Producer / Researcher / Historical Consultant",
-        "description": "Brief description of the documentary and your involvement. What historical questions does it explore? What makes it significant? How does it bring the past to contemporary audiences?",
-        "watchLink": "#",
-        "logo": "images/documentary-logo-1.png"
+        "title": "The Alpenpost: A Girls' Guide to Fighting Hitler & Stalin",
+        "productionCompany": "Storyscape",
+        "year": "2026",
+        "runtime": "c. 30 mins",
+        "role": "Researcher / Presenter",
+        "description": "A child's eye view of the the anti-Nazi underground, told through the story of a remarkable handmade newspaper. Forthcoming on BBC Radio 4.",
+        "logo": "images/documentary-logo-1.png",
+        "watchLink": "https://www.bbc.co.uk/sounds/play/live/bbc_radio_fourfm"
     }
 ];
 
