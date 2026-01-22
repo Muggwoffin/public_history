@@ -1,30 +1,20 @@
 /**
  * Books Data
  * Stores published books for the BOOKS section
- *
- * DATA STRUCTURE:
- * - id: Unique identifier (string)
- * - title: Book title (string)
- * - publisher: Publisher name (string)
- * - year: Publication year (string or number)
- * - description: Short description (string)
- * - cover: Path to cover image (string)
- * - publisherLink: Link to publisher page (string or null)
- * - reviewsLink: Link to reviews (string or null)
  */
 
 const books = [
     {
-        id: 'hotel-lux-2024',
-        title: 'Hotel Lux: An Intimate History of Communism\'s Forgotten Radicals',
-        publisher: 'Footnote Press',
-        year: '2024',
-        description: 'Critically acclaimed book uncovering the intimate lives of international communists who lived in Moscow\'s Hotel Lux during the 1920s–1940s, revealing forgotten stories of idealism, love, betrayal, and terror. Shortlisted for Irish Book Awards 2024 (History Book of Year).',
-        cover: 'images/book-cover-1.png',
-        publisherLink: 'https://footnotepress.com',
-        reviewsLink: null
+        "id": "hotel-lux-an-intimate-history-of-communism-s-forgotten-radicals",
+        "title": "Hotel Lux: An Intimate History of Communism's Forgotten Radicals",
+        "publisher": "Footnote Press",
+        "year": "2024",
+        "cover": "images/book-cover-1.png",
+        "description": "Critically acclaimed book uncovering the intimate lives of international communists who lived in Moscow's Hotel Lux during the 1920sâ1940s, revealing forgotten stories of idealism, love, betrayal, and terror. Shortlisted for Irish Book Awards 2024 (History Book of Year).",
+        "publisherLink": "https://footnotepress.com",
+        "reviewsLink": null,
+        "bookshopLink": "https://uk.bookshop.org/p/books/hotel-lux-an-intimate-history-of-communism-s-forgotten-radicals-maurice-j-casey/7664562?ean=9781804442227&next=t"
     }
-    // Add more books here
 ];
 
 // Export for use in main site
