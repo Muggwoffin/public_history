@@ -426,6 +426,12 @@ function initBooksManager() {
                         <input type="url" id="book-reviews-link" placeholder="https://...">
                     </div>
 
+                    <div class="form-group">
+                        <label for="book-bookshop-link">Bookshop.org Purchase Link</label>
+                        <input type="url" id="book-bookshop-link" placeholder="https://bookshop.org/...">
+                        <small>Add Bookshop.org link for "Purchase Now" button</small>
+                    </div>
+
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" id="cancel-book-btn">Cancel</button>
                         <button type="submit" class="btn btn-primary">Save Book</button>
@@ -556,6 +562,7 @@ function openBookModal(book = null, index = null) {
         document.getElementById('book-description').value = book.description || '';
         document.getElementById('book-publisher-link').value = book.publisherLink || '';
         document.getElementById('book-reviews-link').value = book.reviewsLink || '';
+        document.getElementById('book-bookshop-link').value = book.bookshopLink || '';
     } else {
         title.textContent = 'Add New Book';
         form.reset();
@@ -587,7 +594,8 @@ async function handleBookSubmit(e) {
         cover: document.getElementById('book-cover').value,
         description: document.getElementById('book-description').value,
         publisherLink: document.getElementById('book-publisher-link').value || null,
-        reviewsLink: document.getElementById('book-reviews-link').value || null
+        reviewsLink: document.getElementById('book-reviews-link').value || null,
+        bookshopLink: document.getElementById('book-bookshop-link').value || null
     };
 
     try {
@@ -1026,6 +1034,17 @@ function initDocumentariesManager() {
                         </div>
                     </div>
 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="documentary-broadcast">Broadcast Date</label>
+                            <input type="text" id="documentary-broadcast" placeholder="March 2024">
+                        </div>
+                        <div class="form-group">
+                            <label for="documentary-commissioner">Commissioner</label>
+                            <input type="text" id="documentary-commissioner" placeholder="BBC, RTE, etc.">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="documentary-runtime">Runtime</label>
                         <input type="text" id="documentary-runtime" placeholder="90 mins">
@@ -1048,7 +1067,7 @@ function initDocumentariesManager() {
                     </div>
 
                     <div class="form-group">
-                        <label for="documentary-link">Watch Link</label>
+                        <label for="documentary-link">Watch/Listen Link</label>
                         <input type="url" id="documentary-link" placeholder="https://...">
                     </div>
 
@@ -1178,6 +1197,8 @@ function openDocumentaryModal(documentary = null, index = null) {
         document.getElementById('documentary-title').value = documentary.title || '';
         document.getElementById('documentary-company').value = documentary.productionCompany || '';
         document.getElementById('documentary-year').value = documentary.year || '';
+        document.getElementById('documentary-broadcast').value = documentary.broadcastDate || '';
+        document.getElementById('documentary-commissioner').value = documentary.commissioner || '';
         document.getElementById('documentary-runtime').value = documentary.runtime || '';
         document.getElementById('documentary-role').value = documentary.role || '';
         document.getElementById('documentary-description').value = documentary.description || '';
@@ -1210,6 +1231,8 @@ async function handleDocumentarySubmit(e) {
         title: document.getElementById('documentary-title').value,
         productionCompany: document.getElementById('documentary-company').value,
         year: document.getElementById('documentary-year').value,
+        broadcastDate: document.getElementById('documentary-broadcast').value || null,
+        commissioner: document.getElementById('documentary-commissioner').value || null,
         runtime: document.getElementById('documentary-runtime').value || null,
         role: document.getElementById('documentary-role').value,
         description: document.getElementById('documentary-description').value,

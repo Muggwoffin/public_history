@@ -106,7 +106,7 @@
         details.appendChild(description);
 
         // Book links
-        if (book.publisherLink || book.reviewsLink) {
+        if (book.publisherLink || book.reviewsLink || book.bookshopLink) {
             const links = document.createElement('div');
             links.className = 'book-links';
 
@@ -128,6 +128,22 @@
                 revLink.rel = 'noopener noreferrer';
                 revLink.textContent = 'REVIEWS →';
                 links.appendChild(revLink);
+            }
+
+            if (book.bookshopLink) {
+                const bookshopLink = document.createElement('a');
+                bookshopLink.href = book.bookshopLink;
+                bookshopLink.className = 'book-link bookshop-link';
+                bookshopLink.target = '_blank';
+                bookshopLink.rel = 'noopener noreferrer';
+
+                // Create logo + text structure
+                const bookshopContent = document.createElement('span');
+                bookshopContent.className = 'bookshop-content';
+                bookshopContent.innerHTML = '📚 PURCHASE ON BOOKSHOP.ORG →';
+
+                bookshopLink.appendChild(bookshopContent);
+                links.appendChild(bookshopLink);
             }
 
             details.appendChild(links);
