@@ -18,6 +18,8 @@ const documentaries = [
         "title": "The Alpenpost: A Girls' Guide to Fighting Hitler & Stalin",
         "productionCompany": "Storyscape",
         "year": "2026",
+        "broadcastDate": "March 2026",
+        "commissioner": "BBC Radio 4",
         "runtime": "c. 30 mins",
         "role": "Researcher / Presenter",
         "description": "A child's eye view of the the anti-Nazi underground, told through the story of a remarkable handmade newspaper. Forthcoming on BBC Radio 4.",
