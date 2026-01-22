@@ -97,6 +97,22 @@
         meta.textContent = metaText;
         item.appendChild(meta);
 
+        // Broadcast Date (optional)
+        if (doc.broadcastDate) {
+            const broadcast = document.createElement('p');
+            broadcast.className = 'media-broadcast';
+            broadcast.textContent = 'Broadcast: ' + doc.broadcastDate;
+            item.appendChild(broadcast);
+        }
+
+        // Commissioner (optional)
+        if (doc.commissioner) {
+            const commissioner = document.createElement('p');
+            commissioner.className = 'media-commissioner';
+            commissioner.textContent = 'Commissioner: ' + doc.commissioner;
+            item.appendChild(commissioner);
+        }
+
         // Role
         if (doc.role) {
             const role = document.createElement('p');
@@ -111,12 +127,12 @@
         description.textContent = doc.description;
         item.appendChild(description);
 
-        // Watch link (optional)
+        // Watch/Listen link (optional)
         if (doc.watchLink) {
             const link = document.createElement('a');
             link.href = doc.watchLink;
             link.className = 'watch-link';
-            link.textContent = 'WATCH →';
+            link.textContent = 'WATCH/LISTEN →';
             if (doc.watchLink !== '#') {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
