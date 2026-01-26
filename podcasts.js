@@ -13,7 +13,7 @@
 const podcasts = [
     {
         "title": "Hotel Lux: An Intimate History of Communism's",
-        "podcastName": "Irish History Podcast",
+        "podcastName": "The History Show",
         "year": "2024",
         "embedUrl": "https://embed.podcasts.apple.com/gb/podcast/hotel-lux-an-intimate-history-of-communisms/id401651007?i=1000671202117",
         "description": "A discussion of the Hotel Lux in Moscow and the revolutionary families who intersected there during the tumultuous 1920s."
