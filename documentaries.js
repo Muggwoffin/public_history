@@ -20,11 +20,11 @@ const documentaries = [
         "year": "2026",
         "broadcastDate": "March 2026",
         "commissioner": "BBC Radio 4",
-        "runtime": "c. 30 mins",
+        "runtime": "28 mins",
         "role": "Researcher / Presenter",
         "description": "A child's eye view of the the anti-Nazi underground, told through the story of a remarkable handmade newspaper. Forthcoming on BBC Radio 4.",
         "logo": "images/documentary-logo-1.png",
-        "watchLink": "https://www.bbc.co.uk/sounds/play/live/bbc_radio_fourfm"
+        "watchLink": "https://www.bbc.co.uk/programmes/m002sclz"
     }
 ];
 
