@@ -24,10 +24,10 @@
         // Find or create the writing container
         let container = writingSection.querySelector('.writing-grid');
         if (!container) {
-            const contentSection = writingSection.querySelector('.content-section');
+            const wrapper = writingSection.querySelector('.bauhaus-wrapper');
             container = document.createElement('div');
-            container.className = 'writing-grid';
-            contentSection.appendChild(container);
+            container.className = 'writing-grid grid';
+            wrapper.appendChild(container);
         }
 
         renderWriting(container);
@@ -58,35 +58,32 @@
      */
     function createArticleItem(article) {
         const item = document.createElement('article');
-        item.className = 'writing-item';
+        item.className = 'bauhaus-card col-4';
 
         // Outlet logo
-        const logoDiv = document.createElement('div');
-        logoDiv.className = 'outlet-logo';
-
         if (article.outletLogo) {
             const logo = document.createElement('img');
             logo.src = article.outletLogo;
             logo.alt = article.outlet || 'Outlet';
-            logoDiv.appendChild(logo);
+            logo.style.maxHeight = '40px';
+            logo.style.marginBottom = 'var(--space-4)';
+            item.appendChild(logo);
         }
-        item.appendChild(logoDiv);
-
-        // Title
-        const title = document.createElement('h4');
-        title.className = 'writing-title';
-        title.textContent = article.title;
-        item.appendChild(title);
 
         // Meta (date)
         const meta = document.createElement('p');
-        meta.className = 'writing-meta';
+        meta.className = 'card-meta';
         meta.textContent = article.date;
         item.appendChild(meta);
 
+        // Title
+        const title = document.createElement('h4');
+        title.textContent = article.title;
+        item.appendChild(title);
+
         // Excerpt
         const excerpt = document.createElement('p');
-        excerpt.className = 'writing-excerpt';
+        excerpt.className = 'card-description';
         excerpt.textContent = article.excerpt;
         item.appendChild(excerpt);
 
@@ -94,8 +91,8 @@
         if (article.link) {
             const link = document.createElement('a');
             link.href = article.link;
-            link.className = 'read-more';
-            link.textContent = 'READ →';
+            link.className = 'bauhaus-btn';
+            link.innerHTML = '<span>Read Article</span>';
             if (article.link !== '#') {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';

@@ -5,196 +5,223 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr Maurice J. Casey - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bauhaus-style.css">
     <link rel="stylesheet" href="timeline.css">
 </head>
 <body>
-    <div class="newspaper-wrapper">
-        <!-- Masthead -->
-        <header class="masthead">
-            <div class="masthead-bg"></div>
-            <div class="masthead-overlay"></div>
-            <div class="masthead-highlight"></div>
+    <div class="bauhaus-wrapper">
+        <!-- Masthead with Geometric Shapes -->
+        <header class="bauhaus-masthead">
+            <div class="masthead-shapes">
+                <div class="shape shape-circle"></div>
+                <div class="shape shape-square"></div>
+                <div class="shape shape-triangle"></div>
+            </div>
             <div class="masthead-content">
-                <h1 class="masthead-title">Dr Maurice J. Casey</h1>
-                <p class="masthead-subtitle">Historian &amp; Writer</p>
+                <div>
+                    <h1 class="masthead-title">Dr Maurice J. Casey</h1>
+                    <p class="masthead-subtitle">Historian &amp; Writer</p>
+                </div>
             </div>
         </header>
 
         <!-- About Section -->
-        <section id="about">
-            <div class="content-section">
-                <h2 class="section-headline">ABOUT</h2>
-                <div class="decorative-line-thin"></div>
-
-                <div class="about-layout">
-                    <div class="author-photo-container">
-                        <div class="author-photo">
-                            <img src="images/author-photo.jpg" data-alt-src="images/author-photo-alt.jpg" alt="Dr Maurice J. Casey" class="author-photo-img">
-                        </div>
+        <section id="about" class="bauhaus-section">
+            <div class="bauhaus-wrapper">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">About</h2>
+                    <div class="section-decoration">
+                        <div class="deco-circle"></div>
+                        <div class="deco-square"></div>
+                        <div class="deco-triangle"></div>
                     </div>
-                    <div class="intro-text">
-                        <p class="drop-cap">I am an Irish historian based in Belfast, where I am an AHRC-funded Research Fellow at Queen's University. My work traces how early twentieth century revolutionaries navigated the messiness of day-to-day life. This has led me to explore topics as varied as the anti-Nazi underground, Irish nationalism, the Comintern and queer sexuality.</p>
+                </div>
 
-                        <div class="reading-links-container">
-                            <a href="#" class="reading-link" id="readingLink">📖 What I'm Reading</a>
-                            <a href="#" class="reading-link" id="playingLink">🎮 What I'm Playing</a>
-                            <a href="YOUR_GOOGLE_DOC_URL_HERE" target="_blank" rel="noopener noreferrer" class="reading-link archive-link">🍽️ The Archive Food Guide</a>
+                <div class="grid">
+                    <div class="col-4">
+                        <img src="images/author-photo.jpg" data-alt-src="images/author-photo-alt.jpg" alt="Dr Maurice J. Casey" class="card-image" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="col-8">
+                        <p class="lead">I am an Irish historian based in Belfast, where I am an AHRC-funded Research Fellow at Queen's University. My work traces how early twentieth century revolutionaries navigated the messiness of day-to-day life. This has led me to explore topics as varied as the anti-Nazi underground, Irish nationalism, the Comintern and queer sexuality.</p>
+
+                        <div class="button-row">
+                            <a href="#" class="bauhaus-btn" id="readingLink"><span>What I'm Reading</span></a>
+                            <a href="#" class="bauhaus-btn" id="playingLink"><span>What I'm Playing</span></a>
+                            <a href="YOUR_GOOGLE_DOC_URL_HERE" target="_blank" rel="noopener noreferrer" class="bauhaus-btn"><span>Archive Food Guide</span></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Career Timeline Subsection -->
-                <h3 class="subsection-heading" id="timeline">Career Timeline</h3>
+                <div style="margin-top: var(--space-8);">
+                    <h3 id="timeline">Career Timeline</h3>
 
-                <!-- Intro text -->
-                <div class="intro-text">
                     <p>Explore my CV as an interactive timeline, from archival research and book publications to exhibitions, teaching, and media engagement.</p>
-                </div>
 
-                <!-- Toggle button centered -->
-                <div class="timeline-toggle-container">
-                    <button
-                        id="timeline-toggle"
-                        class="timeline-toggle-btn"
-                        aria-expanded="false"
-                        aria-controls="timeline-content">
-                        <span class="toggle-text">View Timeline</span>
-                        <svg class="toggle-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
+                    <!-- Toggle button -->
+                    <div style="text-align: center; margin: var(--space-6) 0;">
+                        <button
+                            id="timeline-toggle"
+                            class="bauhaus-btn btn-primary"
+                            aria-expanded="false"
+                            aria-controls="timeline-content">
+                            <span class="toggle-text">View Timeline</span>
+                        </button>
+                    </div>
 
-                <!-- Content wrapper starts collapsed -->
-                <div id="timeline-content" class="timeline-content-wrapper collapsed">
-                    <div id="timeline-container"></div>
+                    <!-- Content wrapper starts collapsed -->
+                    <div id="timeline-content" class="timeline-content-wrapper collapsed">
+                        <div class="bauhaus-timeline">
+                            <div id="timeline-container"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Books Section -->
-        <section id="books">
-            <div class="content-section">
-                <h2 class="section-headline">BOOKS</h2>
-                <div class="decorative-line-thin"></div>
+        <section id="books" class="bauhaus-section">
+            <div class="bauhaus-wrapper">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Books</h2>
+                    <div class="section-decoration">
+                        <div class="deco-circle"></div>
+                        <div class="deco-square"></div>
+                        <div class="deco-triangle"></div>
+                    </div>
+                </div>
                 <!-- Books are dynamically rendered from books.js by books-renderer.js -->
             </div>
         </section>
 
         <!-- Selected Writing Section -->
-        <section id="selected-writing">
-            <div class="content-section">
-                <h2 class="section-headline">SELECTED WRITING</h2>
-                <div class="decorative-line-thin"></div>
+        <section id="selected-writing" class="bauhaus-section">
+            <div class="bauhaus-wrapper">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Selected Writing</h2>
+                    <div class="section-decoration">
+                        <div class="deco-circle"></div>
+                        <div class="deco-square"></div>
+                        <div class="deco-triangle"></div>
+                    </div>
+                </div>
                 <!-- Articles are dynamically rendered from writing.js by writing-renderer.js -->
             </div>
         </section>
 
         <!-- Public History Section -->
-        <section id="public-history">
-            <div class="content-section">
-                <h2 class="section-headline">PUBLIC HISTORY</h2>
-                <div class="decorative-line-thin"></div>
-
-                <div class="intro-text">
-                    <p>My work extends beyond the page into documentary film, television, and radio, bringing historical research to wider audiences through compelling storytelling.</p>
+        <section id="public-history" class="bauhaus-section">
+            <div class="bauhaus-wrapper">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Public History</h2>
+                    <div class="section-decoration">
+                        <div class="deco-circle"></div>
+                        <div class="deco-square"></div>
+                        <div class="deco-triangle"></div>
+                    </div>
                 </div>
 
-                <h3 class="subsection-heading">Documentaries &amp; Film</h3>
+                <p class="lead">My work extends beyond the page into documentary film, television, and radio, bringing historical research to wider audiences through compelling storytelling.</p>
+
+                <h3 style="margin-top: var(--space-7);">Documentaries &amp; Film</h3>
                 <!-- Documentaries are dynamically rendered from documentaries.js by documentaries-renderer.js -->
 
-                <h3 class="subsection-heading">Upcoming Events</h3>
+                <h3 style="margin-top: var(--space-7);">Upcoming Events</h3>
 
                 <!-- UPDATED: Events will be dynamically rendered by events-renderer.js -->
                 <div class="events-calendar">
-                    <div class="event-card">
-                        <div class="event-header">
-                            <h4 class="event-title">The Long View: Kennan Institute Discussion</h4>
-                            <span class="event-badge">Online</span>
+                    <div class="bauhaus-card">
+                        <div class="card-meta">Online Event</div>
+                        <h4>The Long View: Kennan Institute Discussion</h4>
+                        <p><strong>February 26, 2026 • 2:00 PM EST</strong></p>
+                        <p class="card-description">Join Dr Casey for a discussion on the intersection of labor history and modern political movements at the Kennan Institute's Long View series.</p>
+                        <div class="button-row">
+                            <a href="#" class="bauhaus-btn btn-red"><span>Register</span></a>
+                            <a href="https://www.timeanddate.com/worldclock/converter.html?iso=20260226T190000&p1=263" target="_blank" rel="noopener noreferrer" class="bauhaus-btn"><span>Convert Timezone</span></a>
                         </div>
-                        <div class="event-details">
-                            <p class="event-date">
-                                <strong>📅 February 26, 2026</strong>
-                            </p>
-                            <p class="event-time">
-                                <strong>🕐 2:00 PM EST</strong>
-                            </p>
-                            <p class="event-timezone-note">
-                                <em><a href="https://www.timeanddate.com/worldclock/converter.html?iso=20260226T190000&p1=263" target="_blank" rel="noopener noreferrer">Convert to your timezone →</a></em>
-                            </p>
-                        </div>
-                        <p class="event-description">Join Dr Casey for a discussion on the intersection of labor history and modern political movements at the Kennan Institute's Long View series.</p>
-                        <a href="#" class="event-link">REGISTER →</a>
                     </div>
-
-                    <!-- Add more events by copying the event-card structure above -->
                 </div>
 
-                <h3 class="subsection-heading">Recent Podcast Appearances</h3>
+                <h3 style="margin-top: var(--space-7);">Recent Podcast Appearances</h3>
                 <!-- Podcasts are dynamically rendered from podcasts.js by podcasts-renderer.js -->
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact">
-            <div class="content-section">
-                <h2 class="section-headline">CONTACT</h2>
-                <div class="decorative-line-thin"></div>
+        <section id="contact" class="bauhaus-section">
+            <div class="bauhaus-wrapper">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">Contact</h2>
+                    <div class="section-decoration">
+                        <div class="deco-circle"></div>
+                        <div class="deco-square"></div>
+                        <div class="deco-triangle"></div>
+                    </div>
+                </div>
 
-                <div class="contact-grid">
-                    <div class="contact-box">
-                        <h3 class="contact-heading">Academic Inquiries</h3>
-                        <p class="contact-detail">
-                            <strong>Email:</strong><br>
-                            <a href="mailto:m.casey@qub.ac.uk">your.email@university.edu</a>
-                        </p>
-                        <p class="contact-detail">
-                            <strong>Institution:</strong><br>
+                <div class="grid">
+                    <div class="col-4">
+                        <div class="bauhaus-card">
+                            <h3>Academic Inquiries</h3>
+                            <p><strong>Email:</strong><br>
+                            <a href="mailto:m.casey@qub.ac.uk">your.email@university.edu</a></p>
+                            <p><strong>Institution:</strong><br>
                             Your Department<br>
-                            Your University
-                        </p>
+                            Your University</p>
+                        </div>
                     </div>
 
-                    <div class="contact-box">
-                        <h3 class="contact-heading">Media &amp; Speaking</h3>
-                        <p class="contact-detail">
-                            For media inquiries, speaking engagements, and documentary consultations, please contact:
-                        </p>
-                        <p class="contact-detail">
-                            <a href="mailto:m.casey@qub.ac.uk">media@email.com</a>
-                        </p>
+                    <div class="col-4">
+                        <div class="bauhaus-card">
+                            <h3>Media &amp; Speaking</h3>
+                            <p>For media inquiries, speaking engagements, and documentary consultations, please contact:</p>
+                            <p><a href="mailto:m.casey@qub.ac.uk">media@email.com</a></p>
+                        </div>
                     </div>
 
-                    <div class="contact-box">
-                        <h3 class="contact-heading">Connect</h3>
-                        <p class="contact-detail">
-                            <a href="#" class="social-link-block">Bluesky →</a><br>
-                            <a href="#" class="social-link-block">Knowledge Commons →</a><br>
-                            <a href="#" class="social-link-block">ORCID →</a><br>
-                            <a href="#" class="social-link-block">LinkedIn →</a>
-                        </p>
+                    <div class="col-4">
+                        <div class="bauhaus-card">
+                            <h3>Connect</h3>
+                            <div class="button-row" style="flex-direction: column; align-items: stretch;">
+                                <a href="#" class="bauhaus-btn"><span>Bluesky</span></a>
+                                <a href="#" class="bauhaus-btn"><span>Knowledge Commons</span></a>
+                                <a href="#" class="bauhaus-btn"><span>ORCID</span></a>
+                                <a href="#" class="bauhaus-btn"><span>LinkedIn</span></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Newsletter Section -->
-        <section id="newsletter">
-            <div class="content-section">
-                <h2 class="section-headline">NEWSLETTER</h2>
-                <div class="decorative-line-thin"></div>
+        <section id="newsletter" class="bauhaus-section">
+            <div class="bauhaus-wrapper">
+                <div class="section-header">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Newsletter</h2>
+                    <div class="section-decoration">
+                        <div class="deco-circle"></div>
+                        <div class="deco-square"></div>
+                        <div class="deco-triangle"></div>
+                    </div>
+                </div>
 
-                <div class="newsletter-box">
-                    <p class="newsletter-intro">
+                <div class="bauhaus-card" style="max-width: 800px; margin: 0 auto;">
+                    <p class="lead">
                         Subscribe to receive updates on new research, publications, documentary projects, and historical reflections. Dispatches arrive quarterly, bringing historical insights to your inbox.
                     </p>
 
-                    <div id="substack-embed-container">
-                        <iframe src="https://archiverats.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+                    <div id="substack-embed-container" style="margin: var(--space-6) 0;">
+                        <iframe src="https://archiverats.substack.com/embed" width="100%" height="320" style="border:3px solid var(--black); background:white;" frameborder="0" scrolling="no"></iframe>
                     </div>
 
-                    <p class="newsletter-note">
+                    <p style="font-size: 0.875rem; color: var(--text-secondary);">
                         <em>Powered by Substack. Your information will never be shared.</em>
                     </p>
                 </div>
@@ -202,32 +229,31 @@
         </section>
 
         <!-- Footer -->
-        <footer class="footer">
-            <div class="decorative-line"></div>
-            <div class="footer-content">
-                <p class="colophon">© Dr Maurice J. Casey • All Rights Reserved</p>
+        <footer style="text-align: center; padding: var(--space-8) 0; border-top: 4px solid var(--black);">
+            <div class="bauhaus-wrapper">
+                <p class="uppercase" style="margin: 0;">© Dr Maurice J. Casey • All Rights Reserved</p>
             </div>
         </footer>
     </div>
 
     <!-- What I'm Reading Modal -->
-    <div id="reading-modal" style="display: none;">
-        <div class="reading-modal-content">
-            <button id="close-reading-modal" class="reading-modal-close" aria-label="Close modal">&times;</button>
+    <div id="reading-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; padding: var(--space-5);">
+        <div class="bauhaus-card" style="max-width: 600px; width: 100%; position: relative;">
+            <button id="close-reading-modal" class="bauhaus-btn" style="position: absolute; top: var(--space-4); right: var(--space-4); padding: var(--space-2) var(--space-3);" aria-label="Close modal"><span>×</span></button>
             <h2 class="reading-book-title">Loading...</h2>
-            <p class="reading-author">by Author Name</p>
-            <img src="" alt="" class="reading-cover">
+            <p class="reading-author" style="margin-bottom: var(--space-5);">by Author Name</p>
+            <img src="" alt="" class="reading-cover" style="max-width: 100%; height: auto; border: 3px solid var(--black); margin-bottom: var(--space-5);">
             <p class="reading-note"></p>
         </div>
     </div>
 
     <!-- What I'm Playing Modal -->
-    <div id="playing-modal" style="display: none;">
-        <div class="reading-modal-content">
-            <button id="close-playing-modal" class="reading-modal-close" aria-label="Close modal">&times;</button>
+    <div id="playing-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; padding: var(--space-5);">
+        <div class="bauhaus-card" style="max-width: 600px; width: 100%; position: relative;">
+            <button id="close-playing-modal" class="bauhaus-btn" style="position: absolute; top: var(--space-4); right: var(--space-4); padding: var(--space-2) var(--space-3);" aria-label="Close modal"><span>×</span></button>
             <h2 class="reading-book-title">Loading...</h2>
-            <p class="reading-author">by Developer Name</p>
-            <img src="" alt="" class="reading-cover">
+            <p class="reading-author" style="margin-bottom: var(--space-5);">by Developer Name</p>
+            <img src="" alt="" class="reading-cover" style="max-width: 100%; height: auto; border: 3px solid var(--black); margin-bottom: var(--space-5);">
             <p class="reading-note"></p>
         </div>
     </div>
@@ -281,39 +307,12 @@
     <script src="author-easter-egg.js"></script>
     <script src="carousel.js"></script>
 
-    <!-- Masthead Animation & Parallax Script -->
+    <!-- Simplified initialization script -->
     <script>
     (function() {
         'use strict';
-
-        // Check if user prefers reduced motion
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Initialize masthead animations on DOM load
-        function initMasthead() {
-            const masthead = document.querySelector('.masthead');
-            if (!masthead) return;
-
-            // Trigger text animations
-            if (!prefersReducedMotion) {
-                // Small delay to ensure page is rendered
-                setTimeout(function() {
-                    masthead.classList.add('masthead-animate');
-                }, 100);
-            } else {
-                // For reduced motion users, show content immediately
-                masthead.classList.add('masthead-animate');
-            }
-        }
-
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initMasthead();
-            });
-        } else {
-            initMasthead();
-        }
+        // Bauhaus design uses simpler animations built into CSS
+        // No additional JavaScript needed for masthead
     })();
     </script>
 </body>
