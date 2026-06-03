@@ -67,7 +67,7 @@
      */
     function createDocumentaryItem(doc) {
         const item = document.createElement('article');
-        item.className = 'bauhaus-card';
+        item.className = 'academia-card';
         item.style.marginBottom = 'var(--space-6)';
 
         // Logo (optional)
@@ -91,6 +91,9 @@
 
         // Title
         const title = document.createElement('h4');
+        title.style.fontFamily = 'var(--font-display)';
+        title.style.fontStyle = 'italic';
+        title.style.color = 'var(--walnut)';
         title.textContent = doc.title;
         item.appendChild(title);
 
@@ -99,6 +102,7 @@
             const info = document.createElement('p');
             info.style.fontSize = '0.875rem';
             info.style.marginBottom = 'var(--space-3)';
+            info.style.color = 'var(--text-muted)';
             const parts = [];
             if (doc.broadcastDate) parts.push('Broadcast: ' + doc.broadcastDate);
             if (doc.commissioner) parts.push('Commissioner: ' + doc.commissioner);
@@ -110,8 +114,9 @@
         if (doc.role) {
             const role = document.createElement('p');
             role.style.fontSize = '0.875rem';
-            role.style.fontWeight = '700';
+            role.style.fontWeight = '600';
             role.style.marginBottom = 'var(--space-3)';
+            role.style.color = 'var(--text-secondary)';
             role.textContent = 'Role: ' + doc.role;
             item.appendChild(role);
         }
@@ -126,8 +131,8 @@
         if (doc.watchLink) {
             const link = document.createElement('a');
             link.href = doc.watchLink;
-            link.className = 'bauhaus-btn btn-red';
-            link.innerHTML = '<span>Watch/Listen</span>';
+            link.className = 'academia-btn btn-secondary';
+            link.textContent = 'Watch/Listen';
             if (doc.watchLink !== '#') {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';

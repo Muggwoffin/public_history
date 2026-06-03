@@ -67,7 +67,7 @@
      */
     function createPodcastItem(podcast) {
         const item = document.createElement('article');
-        item.className = 'bauhaus-card';
+        item.className = 'academia-card';
         item.style.marginBottom = 'var(--space-6)';
 
         // Meta (podcast name and year)
@@ -78,6 +78,9 @@
 
         // Title
         const title = document.createElement('h4');
+        title.style.fontFamily = 'var(--font-display)';
+        title.style.fontStyle = 'italic';
+        title.style.color = 'var(--walnut)';
         title.textContent = podcast.title;
         item.appendChild(title);
 
@@ -96,7 +99,8 @@
             iframe.style.width = '100%';
             iframe.style.maxWidth = '660px';
             iframe.style.overflow = 'hidden';
-            iframe.style.border = '3px solid var(--black)';
+            iframe.style.border = '1px solid var(--linen)';
+            iframe.style.boxShadow = 'var(--shadow-soft)';
             iframe.style.marginTop = 'var(--space-4)';
             iframe.sandbox = 'allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation';
             iframe.src = podcast.embedUrl;
