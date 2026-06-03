@@ -24,9 +24,10 @@
         // Find or create the writing container
         let container = writingSection.querySelector('.writing-grid');
         if (!container) {
+            const contentSection = writingSection.querySelector('.content-section');
             container = document.createElement('div');
-            container.className = 'writing-grid grid';
-            writingSection.appendChild(container);
+            container.className = 'writing-grid';
+            contentSection.appendChild(container);
         }
 
         renderWriting(container);
@@ -57,35 +58,35 @@
      */
     function createArticleItem(article) {
         const item = document.createElement('article');
-        item.className = 'academia-card col-4';
+        item.className = 'writing-item';
 
         // Outlet logo
+        const logoDiv = document.createElement('div');
+        logoDiv.className = 'outlet-logo';
+
         if (article.outletLogo) {
             const logo = document.createElement('img');
             logo.src = article.outletLogo;
             logo.alt = article.outlet || 'Outlet';
-            logo.style.maxHeight = '40px';
-            logo.style.marginBottom = 'var(--space-4)';
-            item.appendChild(logo);
+            logoDiv.appendChild(logo);
         }
-
-        // Meta (date)
-        const meta = document.createElement('p');
-        meta.className = 'card-meta';
-        meta.textContent = article.date;
-        item.appendChild(meta);
+        item.appendChild(logoDiv);
 
         // Title
         const title = document.createElement('h4');
-        title.style.fontFamily = 'var(--font-display)';
-        title.style.fontStyle = 'italic';
-        title.style.color = 'var(--walnut)';
+        title.className = 'writing-title';
         title.textContent = article.title;
         item.appendChild(title);
 
+        // Meta (date)
+        const meta = document.createElement('p');
+        meta.className = 'writing-meta';
+        meta.textContent = article.date;
+        item.appendChild(meta);
+
         // Excerpt
         const excerpt = document.createElement('p');
-        excerpt.className = 'card-description';
+        excerpt.className = 'writing-excerpt';
         excerpt.textContent = article.excerpt;
         item.appendChild(excerpt);
 
@@ -93,8 +94,8 @@
         if (article.link) {
             const link = document.createElement('a');
             link.href = article.link;
-            link.className = 'academia-btn btn-primary';
-            link.textContent = 'Read Article';
+            link.className = 'read-more';
+            link.textContent = 'READ →';
             if (article.link !== '#') {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
