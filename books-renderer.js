@@ -25,9 +25,18 @@
         // Find or create the books container
         let container = booksSection.querySelector('.books-container');
         if (!container) {
+            // PERF: Cache content section query
+            const contentSection = booksSection.querySelector('.content-section');
+            const decorativeLine = contentSection.querySelector('.decorative-line-thin');
+
             container = document.createElement('div');
             container.className = 'books-container';
-            booksSection.appendChild(container);
+
+            if (decorativeLine && decorativeLine.nextSibling) {
+                contentSection.insertBefore(container, decorativeLine.nextSibling);
+            } else {
+                contentSection.appendChild(container);
+            }
         }
 
         renderBooks(container);
@@ -64,77 +73,84 @@
      * @returns {HTMLElement} - The book item element
      */
     function createBookItem(book) {
-        const item = document.createElement('article');
-        item.className = 'academia-card academia-card-horizontal';
-        item.style.marginBottom = 'var(--space-6)';
+        const item = document.createElement('div');
+        item.className = 'book-item';
+
+        const layout = document.createElement('div');
+        layout.className = 'book-layout';
 
         // Book cover
         const cover = document.createElement('img');
         cover.src = book.cover;
         cover.alt = book.title;
-        cover.className = 'card-image';
-        item.appendChild(cover);
+        cover.className = 'book-cover';
+        layout.appendChild(cover);
 
         // Book details
-        const content = document.createElement('div');
-        content.className = 'card-content';
-
-        const meta = document.createElement('p');
-        meta.className = 'card-meta';
-        meta.textContent = `${book.publisher}, ${book.year}`;
-        content.appendChild(meta);
+        const details = document.createElement('div');
+        details.className = 'book-details';
 
         const title = document.createElement('h3');
-        title.style.fontFamily = 'var(--font-display)';
-        title.style.fontStyle = 'italic';
-        title.style.color = 'var(--walnut)';
+        title.className = 'book-title';
         title.textContent = book.title;
-        content.appendChild(title);
+        details.appendChild(title);
+
+        const publisher = document.createElement('p');
+        publisher.className = 'book-publisher';
+        publisher.textContent = `${book.publisher}, ${book.year}`;
+        details.appendChild(publisher);
 
         const description = document.createElement('p');
-        description.className = 'card-description';
+        description.className = 'book-description';
         description.textContent = book.description;
-        content.appendChild(description);
+        details.appendChild(description);
 
         // Book links
         if (book.publisherLink || book.reviewsLink || book.bookshopLink) {
             const links = document.createElement('div');
-            links.className = 'button-row';
+            links.className = 'book-links';
 
             if (book.publisherLink) {
                 const pubLink = document.createElement('a');
                 pubLink.href = book.publisherLink;
-                pubLink.className = 'academia-btn btn-ghost';
+                pubLink.className = 'book-link';
                 pubLink.target = '_blank';
                 pubLink.rel = 'noopener noreferrer';
-                pubLink.textContent = 'Publisher';
+                pubLink.textContent = 'PUBLISHER →';
                 links.appendChild(pubLink);
             }
 
             if (book.reviewsLink) {
                 const revLink = document.createElement('a');
                 revLink.href = book.reviewsLink;
-                revLink.className = 'academia-btn btn-ghost';
+                revLink.className = 'book-link';
                 revLink.target = '_blank';
                 revLink.rel = 'noopener noreferrer';
-                revLink.textContent = 'Reviews';
+                revLink.textContent = 'REVIEWS →';
                 links.appendChild(revLink);
             }
 
             if (book.bookshopLink) {
                 const bookshopLink = document.createElement('a');
                 bookshopLink.href = book.bookshopLink;
-                bookshopLink.className = 'academia-btn btn-terracotta';
+                bookshopLink.className = 'book-link bookshop-link';
                 bookshopLink.target = '_blank';
                 bookshopLink.rel = 'noopener noreferrer';
-                bookshopLink.textContent = 'Purchase on Bookshop.org';
+
+                // Create logo + text structure
+                const bookshopContent = document.createElement('span');
+                bookshopContent.className = 'bookshop-content';
+                bookshopContent.innerHTML = '📚 PURCHASE ON BOOKSHOP.ORG →';
+
+                bookshopLink.appendChild(bookshopContent);
                 links.appendChild(bookshopLink);
             }
 
-            content.appendChild(links);
+            details.appendChild(links);
         }
 
-        item.appendChild(content);
+        layout.appendChild(details);
+        item.appendChild(layout);
 
         return item;
     }
