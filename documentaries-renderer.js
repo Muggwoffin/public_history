@@ -22,7 +22,7 @@
         }
 
         // Find or create the documentaries container
-        const subsectionHeading = Array.from(publicHistorySection.querySelectorAll('.subsection-heading'))
+        const subsectionHeading = Array.from(publicHistorySection.querySelectorAll('h3'))
             .find(h3 => h3.textContent.includes('Documentaries'));
 
         if (!subsectionHeading) {
@@ -30,35 +30,33 @@
             return;
         }
 
-        // Remove existing hardcoded documentaries
-        let nextElement = subsectionHeading.nextElementSibling;
-        while (nextElement && nextElement.classList.contains('media-item')) {
-            const toRemove = nextElement;
-            nextElement = nextElement.nextElementSibling;
-            toRemove.remove();
+        // Find or create container
+        let container = subsectionHeading.nextElementSibling;
+        if (!container || !container.classList.contains('documentaries-container')) {
+            container = document.createElement('div');
+            container.className = 'documentaries-container';
+            subsectionHeading.insertAdjacentElement('afterend', container);
         }
 
         // Render new documentaries
-        renderDocumentaries(subsectionHeading);
+        renderDocumentaries(container);
     }
 
     /**
      * Render all documentaries
-     * @param {HTMLElement} subsectionHeading - The subsection heading element
+     * @param {HTMLElement} container - The container element
      */
-    function renderDocumentaries(subsectionHeading) {
+    function renderDocumentaries(container) {
+        container.innerHTML = '';
+
         if (documentaries.length === 0) {
-            const noDocsMessage = document.createElement('p');
-            noDocsMessage.className = 'no-documentaries';
-            noDocsMessage.textContent = 'No documentaries available at this time.';
-            subsectionHeading.insertAdjacentElement('afterend', noDocsMessage);
+            container.innerHTML = '<p class="no-documentaries">No documentaries available at this time.</p>';
             return;
         }
 
         // Render each documentary
         documentaries.forEach(doc => {
-            const docElement = createDocumentaryItem(doc);
-            subsectionHeading.insertAdjacentElement('afterend', docElement);
+            container.appendChild(createDocumentaryItem(doc));
         });
     }
 
@@ -68,62 +66,64 @@
      * @returns {HTMLElement} - The documentary item element
      */
     function createDocumentaryItem(doc) {
-        const item = document.createElement('div');
-        item.className = 'media-item';
+        const item = document.createElement('article');
+        item.className = 'academia-card';
+        item.style.marginBottom = 'var(--space-6)';
 
         // Logo (optional)
         if (doc.logo) {
-            const logoDiv = document.createElement('div');
-            logoDiv.className = 'documentary-logo';
             const logo = document.createElement('img');
             logo.src = doc.logo;
             logo.alt = doc.productionCompany || 'Documentary Logo';
-            logoDiv.appendChild(logo);
-            item.appendChild(logoDiv);
+            logo.style.maxHeight = '60px';
+            logo.style.marginBottom = 'var(--space-4)';
+            item.appendChild(logo);
         }
-
-        // Title
-        const title = document.createElement('h3');
-        title.className = 'media-title';
-        title.textContent = doc.title;
-        item.appendChild(title);
 
         // Meta (production company, year, runtime)
         const meta = document.createElement('p');
-        meta.className = 'media-meta';
+        meta.className = 'card-meta';
         let metaText = doc.productionCompany;
         if (doc.year) metaText += ' • ' + doc.year;
         if (doc.runtime) metaText += ' • ' + doc.runtime;
         meta.textContent = metaText;
         item.appendChild(meta);
 
-        // Broadcast Date (optional)
-        if (doc.broadcastDate) {
-            const broadcast = document.createElement('p');
-            broadcast.className = 'media-broadcast';
-            broadcast.textContent = 'Broadcast: ' + doc.broadcastDate;
-            item.appendChild(broadcast);
-        }
+        // Title
+        const title = document.createElement('h4');
+        title.style.fontFamily = 'var(--font-display)';
+        title.style.fontStyle = 'italic';
+        title.style.color = 'var(--walnut)';
+        title.textContent = doc.title;
+        item.appendChild(title);
 
-        // Commissioner (optional)
-        if (doc.commissioner) {
-            const commissioner = document.createElement('p');
-            commissioner.className = 'media-commissioner';
-            commissioner.textContent = 'Commissioner: ' + doc.commissioner;
-            item.appendChild(commissioner);
+        // Broadcast Date & Commissioner (optional)
+        if (doc.broadcastDate || doc.commissioner) {
+            const info = document.createElement('p');
+            info.style.fontSize = '0.875rem';
+            info.style.marginBottom = 'var(--space-3)';
+            info.style.color = 'var(--text-muted)';
+            const parts = [];
+            if (doc.broadcastDate) parts.push('Broadcast: ' + doc.broadcastDate);
+            if (doc.commissioner) parts.push('Commissioner: ' + doc.commissioner);
+            info.textContent = parts.join(' • ');
+            item.appendChild(info);
         }
 
         // Role
         if (doc.role) {
             const role = document.createElement('p');
-            role.className = 'media-role';
+            role.style.fontSize = '0.875rem';
+            role.style.fontWeight = '600';
+            role.style.marginBottom = 'var(--space-3)';
+            role.style.color = 'var(--text-secondary)';
             role.textContent = 'Role: ' + doc.role;
             item.appendChild(role);
         }
 
         // Description
         const description = document.createElement('p');
-        description.className = 'media-description';
+        description.className = 'card-description';
         description.textContent = doc.description;
         item.appendChild(description);
 
@@ -131,8 +131,8 @@
         if (doc.watchLink) {
             const link = document.createElement('a');
             link.href = doc.watchLink;
-            link.className = 'watch-link';
-            link.textContent = 'WATCH/LISTEN →';
+            link.className = 'academia-btn btn-secondary';
+            link.textContent = 'Watch/Listen';
             if (doc.watchLink !== '#') {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
