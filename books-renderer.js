@@ -25,18 +25,12 @@
         // Find or create the books container
         let container = booksSection.querySelector('.books-container');
         if (!container) {
-            // PERF: Cache content section query
-            const contentSection = booksSection.querySelector('.content-section');
-            const decorativeLine = contentSection.querySelector('.decorative-line-thin');
+            // PERF: Cache wrapper query
+            const wrapper = booksSection.querySelector('.bauhaus-wrapper');
 
             container = document.createElement('div');
             container.className = 'books-container';
-
-            if (decorativeLine && decorativeLine.nextSibling) {
-                contentSection.insertBefore(container, decorativeLine.nextSibling);
-            } else {
-                contentSection.appendChild(container);
-            }
+            wrapper.appendChild(container);
         }
 
         renderBooks(container);
@@ -73,84 +67,74 @@
      * @returns {HTMLElement} - The book item element
      */
     function createBookItem(book) {
-        const item = document.createElement('div');
-        item.className = 'book-item';
-
-        const layout = document.createElement('div');
-        layout.className = 'book-layout';
+        const item = document.createElement('article');
+        item.className = 'bauhaus-card bauhaus-card-horizontal';
+        item.style.marginBottom = 'var(--space-6)';
 
         // Book cover
         const cover = document.createElement('img');
         cover.src = book.cover;
         cover.alt = book.title;
-        cover.className = 'book-cover';
-        layout.appendChild(cover);
+        cover.className = 'card-image';
+        item.appendChild(cover);
 
         // Book details
-        const details = document.createElement('div');
-        details.className = 'book-details';
+        const content = document.createElement('div');
+        content.className = 'card-content';
+
+        const meta = document.createElement('p');
+        meta.className = 'card-meta';
+        meta.textContent = `${book.publisher}, ${book.year}`;
+        content.appendChild(meta);
 
         const title = document.createElement('h3');
-        title.className = 'book-title';
         title.textContent = book.title;
-        details.appendChild(title);
-
-        const publisher = document.createElement('p');
-        publisher.className = 'book-publisher';
-        publisher.textContent = `${book.publisher}, ${book.year}`;
-        details.appendChild(publisher);
+        content.appendChild(title);
 
         const description = document.createElement('p');
-        description.className = 'book-description';
+        description.className = 'card-description';
         description.textContent = book.description;
-        details.appendChild(description);
+        content.appendChild(description);
 
         // Book links
         if (book.publisherLink || book.reviewsLink || book.bookshopLink) {
             const links = document.createElement('div');
-            links.className = 'book-links';
+            links.className = 'button-row';
 
             if (book.publisherLink) {
                 const pubLink = document.createElement('a');
                 pubLink.href = book.publisherLink;
-                pubLink.className = 'book-link';
+                pubLink.className = 'bauhaus-btn';
                 pubLink.target = '_blank';
                 pubLink.rel = 'noopener noreferrer';
-                pubLink.textContent = 'PUBLISHER →';
+                pubLink.innerHTML = '<span>Publisher</span>';
                 links.appendChild(pubLink);
             }
 
             if (book.reviewsLink) {
                 const revLink = document.createElement('a');
                 revLink.href = book.reviewsLink;
-                revLink.className = 'book-link';
+                revLink.className = 'bauhaus-btn';
                 revLink.target = '_blank';
                 revLink.rel = 'noopener noreferrer';
-                revLink.textContent = 'REVIEWS →';
+                revLink.innerHTML = '<span>Reviews</span>';
                 links.appendChild(revLink);
             }
 
             if (book.bookshopLink) {
                 const bookshopLink = document.createElement('a');
                 bookshopLink.href = book.bookshopLink;
-                bookshopLink.className = 'book-link bookshop-link';
+                bookshopLink.className = 'bauhaus-btn btn-red';
                 bookshopLink.target = '_blank';
                 bookshopLink.rel = 'noopener noreferrer';
-
-                // Create logo + text structure
-                const bookshopContent = document.createElement('span');
-                bookshopContent.className = 'bookshop-content';
-                bookshopContent.innerHTML = '📚 PURCHASE ON BOOKSHOP.ORG →';
-
-                bookshopLink.appendChild(bookshopContent);
+                bookshopLink.innerHTML = '<span>Purchase on Bookshop.org</span>';
                 links.appendChild(bookshopLink);
             }
 
-            details.appendChild(links);
+            content.appendChild(links);
         }
 
-        layout.appendChild(details);
-        item.appendChild(layout);
+        item.appendChild(content);
 
         return item;
     }

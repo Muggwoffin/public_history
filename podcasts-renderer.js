@@ -22,7 +22,7 @@
         }
 
         // Find or create the podcasts container
-        const subsectionHeading = Array.from(publicHistorySection.querySelectorAll('.subsection-heading'))
+        const subsectionHeading = Array.from(publicHistorySection.querySelectorAll('h3'))
             .find(h3 => h3.textContent.includes('Podcast'));
 
         if (!subsectionHeading) {
@@ -30,35 +30,33 @@
             return;
         }
 
-        // Remove existing hardcoded podcasts
-        let nextElement = subsectionHeading.nextElementSibling;
-        while (nextElement && nextElement.classList.contains('podcast-embed')) {
-            const toRemove = nextElement;
-            nextElement = nextElement.nextElementSibling;
-            toRemove.remove();
+        // Find or create container
+        let container = subsectionHeading.nextElementSibling;
+        if (!container || !container.classList.contains('podcasts-container')) {
+            container = document.createElement('div');
+            container.className = 'podcasts-container';
+            subsectionHeading.insertAdjacentElement('afterend', container);
         }
 
         // Render new podcasts
-        renderPodcasts(subsectionHeading);
+        renderPodcasts(container);
     }
 
     /**
      * Render all podcasts
-     * @param {HTMLElement} subsectionHeading - The subsection heading element
+     * @param {HTMLElement} container - The container element
      */
-    function renderPodcasts(subsectionHeading) {
+    function renderPodcasts(container) {
+        container.innerHTML = '';
+
         if (podcasts.length === 0) {
-            const noPodcastsMessage = document.createElement('p');
-            noPodcastsMessage.className = 'no-podcasts';
-            noPodcastsMessage.textContent = 'No podcast appearances available at this time.';
-            subsectionHeading.insertAdjacentElement('afterend', noPodcastsMessage);
+            container.innerHTML = '<p class="no-podcasts">No podcast appearances available at this time.</p>';
             return;
         }
 
-        // Render each podcast in reverse order (newest first at the top)
-        podcasts.slice().reverse().forEach(podcast => {
-            const podcastElement = createPodcastItem(podcast);
-            subsectionHeading.insertAdjacentElement('afterend', podcastElement);
+        // Render each podcast (newest first)
+        podcasts.forEach(podcast => {
+            container.appendChild(createPodcastItem(podcast));
         });
     }
 
@@ -68,20 +66,26 @@
      * @returns {HTMLElement} - The podcast item element
      */
     function createPodcastItem(podcast) {
-        const item = document.createElement('div');
-        item.className = 'podcast-embed';
-
-        // Title
-        const title = document.createElement('h4');
-        title.className = 'podcast-title';
-        title.textContent = podcast.title;
-        item.appendChild(title);
+        const item = document.createElement('article');
+        item.className = 'bauhaus-card';
+        item.style.marginBottom = 'var(--space-6)';
 
         // Meta (podcast name and year)
         const meta = document.createElement('p');
-        meta.className = 'podcast-meta';
+        meta.className = 'card-meta';
         meta.textContent = `${podcast.podcastName} • ${podcast.year}`;
         item.appendChild(meta);
+
+        // Title
+        const title = document.createElement('h4');
+        title.textContent = podcast.title;
+        item.appendChild(title);
+
+        // Description
+        const description = document.createElement('p');
+        description.className = 'card-description';
+        description.textContent = podcast.description;
+        item.appendChild(description);
 
         // Embed iframe
         if (podcast.embedUrl) {
@@ -92,17 +96,12 @@
             iframe.style.width = '100%';
             iframe.style.maxWidth = '660px';
             iframe.style.overflow = 'hidden';
-            iframe.style.borderRadius = '10px';
+            iframe.style.border = '3px solid var(--black)';
+            iframe.style.marginTop = 'var(--space-4)';
             iframe.sandbox = 'allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation';
             iframe.src = podcast.embedUrl;
             item.appendChild(iframe);
         }
-
-        // Description
-        const description = document.createElement('p');
-        description.className = 'podcast-description';
-        description.textContent = podcast.description;
-        item.appendChild(description);
 
         return item;
     }
