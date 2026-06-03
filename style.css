@@ -481,6 +481,12 @@ body {
 
 .book-item {
     margin-bottom: 3rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.book-item:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--ink-black);
 }
 
 .book-layout {
@@ -505,6 +511,7 @@ body {
     object-fit: cover;
     border: 3px solid var(--ink-black);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0; /* Prevent image from shrinking */
 }
 
 .book-cover-text {
@@ -954,12 +961,15 @@ html {
     float: right;
     margin-left: 1.5rem;
     margin-bottom: 1rem;
-    max-width: 150px;
+    max-width: 200px;
+    max-height: 120px;
 }
 
 .documentary-logo img {
     width: 100%;
     height: auto;
+    max-height: 120px;
+    object-fit: contain;
     display: block;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -1268,12 +1278,12 @@ html {
     background-color: white;
     border: 2px solid var(--light-gray);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .event-card:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--ink-black);
 }
 
 .event-header {
@@ -1742,6 +1752,12 @@ html {
     padding: 2rem;
     background-color: rgba(212, 212, 208, 0.1);
     border-left: 4px solid var(--ink-black);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.podcast-embed:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--ink-black);
 }
 
 .podcast-title {
@@ -1784,14 +1800,14 @@ html {
 .writing-item {
     padding: 2rem;
     background-color: white;
-    border: 1px solid var(--light-gray);
+    border: 2px solid var(--light-gray);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .writing-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0 var(--ink-black);
 }
 
 .outlet-logo {
