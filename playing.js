@@ -10,10 +10,10 @@
  */
 
 const currentPlaying = {
-    title: 'Example Game',
-    developer: 'Example Developer',
-    cover: 'images/current-playing.jpg',
-    note: 'A placeholder game entry. Update this from the admin panel.'
+    "title": "Final Fantasy VII Remake",
+    "developer": "Square Enix",
+    "cover": "images/current-playing.jpg",
+    "note": "Took me a while to get around to this one, but it's excellent. "
 };
 
 // Export for use in main site
