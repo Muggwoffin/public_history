@@ -24,10 +24,9 @@
         // Find or create the writing container
         let container = writingSection.querySelector('.writing-grid');
         if (!container) {
-            const wrapper = writingSection.querySelector('.bauhaus-wrapper');
             container = document.createElement('div');
             container.className = 'writing-grid grid';
-            wrapper.appendChild(container);
+            writingSection.appendChild(container);
         }
 
         renderWriting(container);
@@ -58,7 +57,7 @@
      */
     function createArticleItem(article) {
         const item = document.createElement('article');
-        item.className = 'bauhaus-card col-4';
+        item.className = 'academia-card col-4';
 
         // Outlet logo
         if (article.outletLogo) {
@@ -78,6 +77,9 @@
 
         // Title
         const title = document.createElement('h4');
+        title.style.fontFamily = 'var(--font-display)';
+        title.style.fontStyle = 'italic';
+        title.style.color = 'var(--walnut)';
         title.textContent = article.title;
         item.appendChild(title);
 
@@ -91,8 +93,8 @@
         if (article.link) {
             const link = document.createElement('a');
             link.href = article.link;
-            link.className = 'bauhaus-btn';
-            link.innerHTML = '<span>Read Article</span>';
+            link.className = 'academia-btn btn-primary';
+            link.textContent = 'Read Article';
             if (article.link !== '#') {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';

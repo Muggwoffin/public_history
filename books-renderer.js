@@ -25,12 +25,9 @@
         // Find or create the books container
         let container = booksSection.querySelector('.books-container');
         if (!container) {
-            // PERF: Cache wrapper query
-            const wrapper = booksSection.querySelector('.bauhaus-wrapper');
-
             container = document.createElement('div');
             container.className = 'books-container';
-            wrapper.appendChild(container);
+            booksSection.appendChild(container);
         }
 
         renderBooks(container);
@@ -68,7 +65,7 @@
      */
     function createBookItem(book) {
         const item = document.createElement('article');
-        item.className = 'bauhaus-card bauhaus-card-horizontal';
+        item.className = 'academia-card academia-card-horizontal';
         item.style.marginBottom = 'var(--space-6)';
 
         // Book cover
@@ -88,6 +85,9 @@
         content.appendChild(meta);
 
         const title = document.createElement('h3');
+        title.style.fontFamily = 'var(--font-display)';
+        title.style.fontStyle = 'italic';
+        title.style.color = 'var(--walnut)';
         title.textContent = book.title;
         content.appendChild(title);
 
@@ -104,30 +104,30 @@
             if (book.publisherLink) {
                 const pubLink = document.createElement('a');
                 pubLink.href = book.publisherLink;
-                pubLink.className = 'bauhaus-btn';
+                pubLink.className = 'academia-btn btn-ghost';
                 pubLink.target = '_blank';
                 pubLink.rel = 'noopener noreferrer';
-                pubLink.innerHTML = '<span>Publisher</span>';
+                pubLink.textContent = 'Publisher';
                 links.appendChild(pubLink);
             }
 
             if (book.reviewsLink) {
                 const revLink = document.createElement('a');
                 revLink.href = book.reviewsLink;
-                revLink.className = 'bauhaus-btn';
+                revLink.className = 'academia-btn btn-ghost';
                 revLink.target = '_blank';
                 revLink.rel = 'noopener noreferrer';
-                revLink.innerHTML = '<span>Reviews</span>';
+                revLink.textContent = 'Reviews';
                 links.appendChild(revLink);
             }
 
             if (book.bookshopLink) {
                 const bookshopLink = document.createElement('a');
                 bookshopLink.href = book.bookshopLink;
-                bookshopLink.className = 'bauhaus-btn btn-red';
+                bookshopLink.className = 'academia-btn btn-terracotta';
                 bookshopLink.target = '_blank';
                 bookshopLink.rel = 'noopener noreferrer';
-                bookshopLink.innerHTML = '<span>Purchase on Bookshop.org</span>';
+                bookshopLink.textContent = 'Purchase on Bookshop.org';
                 links.appendChild(bookshopLink);
             }
 
