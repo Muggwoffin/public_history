@@ -30,6 +30,31 @@
 /* Import classic serif fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
+/* ============================================
+   SCROLL ANIMATIONS - FADE UP
+   ============================================ */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+section.visible {
+    opacity: 1;
+    animation: fadeUp 0.8s ease forwards;
+}
+
 body {
     font-family: var(--font-body);
     font-size: 16px;
@@ -2134,6 +2159,96 @@ html {
 }
 
 /* ============================================
+   INK SPREAD EFFECT ON LINKS
+   ============================================ */
+
+a {
+    position: relative;
+    color: var(--radical-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: radial-gradient(ellipse at center, var(--radical-red) 0%, rgba(196, 30, 58, 0.3) 70%, transparent 100%);
+    transform: translateX(-50%);
+    transition: width 0.4s ease;
+}
+
+a:hover::before {
+    width: 110%;
+}
+
+a:hover {
+    color: var(--ink-black);
+}
+
+/* Specific link types that shouldn't have ink spread */
+.bauhaus-btn,
+.book-link,
+.watch-link,
+.read-more,
+.event-link,
+.nav-link {
+    color: inherit;
+}
+
+.bauhaus-btn::before,
+.book-link::before,
+.watch-link::before,
+.read-more::before,
+.event-link::before,
+.nav-link::before {
+    display: none;
+}
+
+/* ============================================
+   INK BLEED EFFECT ON BORDERS
+   ============================================ */
+
+/* Add subtle blur to thick borders for ink bleed effect */
+.book-item,
+.writing-item,
+.event-card,
+.podcast-embed {
+    position: relative;
+}
+
+.book-item::after,
+.writing-item::after,
+.event-card::after,
+.podcast-embed::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid var(--ink-black);
+    opacity: 0.15;
+    filter: blur(1.5px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Ink bleed on borders */
+.book-cover,
+.book-layout,
+.content-section {
+    filter: drop-shadow(0 0 0.5px rgba(26, 26, 26, 0.3));
+}
+
+.subsection-heading {
+    filter: drop-shadow(0 1px 0.5px rgba(26, 26, 26, 0.2));
+}
+
+/* ============================================
    ACCESSIBILITY: Reduced Motion
    ============================================ */
 
@@ -2154,6 +2269,16 @@ html {
         animation: none !important;
         opacity: 1;
         transform: none;
+    }
+
+    /* Disable fade-up animations */
+    section {
+        opacity: 1 !important;
+        animation: none !important;
+    }
+
+    section.visible {
+        animation: none !important;
     }
 
     /* Disable all animations site-wide */
