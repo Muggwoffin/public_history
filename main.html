@@ -314,5 +314,54 @@
         }
     })();
     </script>
+
+    <!-- Fade-Up on Scroll Script -->
+    <script>
+    (function() {
+        'use strict';
+
+        // Check if user prefers reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            // Show all sections immediately for reduced motion users
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '1';
+            });
+            return;
+        }
+
+        // Intersection Observer for fade-up animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Unobserve after animation to improve performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initScrollAnimations);
+        } else {
+            initScrollAnimations();
+        }
+    })();
+    </script>
 </body>
 </html>
