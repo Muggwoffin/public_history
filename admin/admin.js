@@ -390,8 +390,8 @@ async function loadContentForEditing() {
         const departmentMatch = content.match(/<strong>Institution:<\/strong><br>\s*.*?<br>\s*(.*?)\s*<\/p>/);
         if (departmentMatch) document.getElementById('department-name').value = departmentMatch[1].trim();
 
-        const mediaEmailMatch = content.match(/Media & Speaking[\s\S]*?mailto:([^"]+)/);
-        if (mediaEmailMatch) document.getElementById('media-email').value = mediaEmailMatch[1];
+        const mediaEmailMatch = content.match(/Media (&amp;|&) Speaking[\s\S]*?mailto:([^"]+)/);
+        if (mediaEmailMatch) document.getElementById('media-email').value = mediaEmailMatch[2];
 
         const blueskyMatch = content.match(/href="([^"#]+)"[^>]*class="social-link-block">Bluesky/);
         if (blueskyMatch && blueskyMatch[1] !== '#') document.getElementById('bluesky-url').value = blueskyMatch[1];
@@ -497,7 +497,7 @@ async function saveContent() {
 
         const mediaEmail = document.getElementById('media-email').value.trim();
         if (mediaEmail) {
-            updatedHTML = updatedHTML.replace(/(Media & Speaking[\s\S]*?<a href="mailto:)([^"]+)(">)([^<]+)(<\/a>)/, `$1${mediaEmail}$3${mediaEmail}$5`);
+            updatedHTML = updatedHTML.replace(/(Media (?:&amp;|&) Speaking[\s\S]*?<a href="mailto:)([^"]+)(">)([^<]+)(<\/a>)/, `$1${mediaEmail}$3${mediaEmail}$5`);
         }
 
         const blueskyUrl = document.getElementById('bluesky-url').value.trim();
