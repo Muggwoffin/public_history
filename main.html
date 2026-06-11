@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://*.substack.com https://embed.podcasts.apple.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr Maurice J. Casey - Portfolio</title>
     <link rel="stylesheet" href="style.css">
@@ -189,7 +190,7 @@
                         Subscribe to receive updates on new research, publications, documentary projects, and historical reflections.
 
                     <div id="substack-embed-container">
-                        <iframe src="https://archiverats.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+                        <iframe src="https://archiverats.substack.com/embed" title="Subscribe to the newsletter on Substack" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
                     </div>
 
                     <p class="newsletter-note">
@@ -230,31 +231,7 @@
         </div>
     </div>
 
-    <script>
-        // Timeline toggle functionality - collapsed by default
-        const timelineToggle = document.getElementById('timeline-toggle');
-        const timelineContent = document.getElementById('timeline-content');
-
-        if (timelineToggle && timelineContent) {
-            timelineToggle.addEventListener('click', function() {
-                const isExpanded = timelineToggle.getAttribute('aria-expanded') === 'true';
-
-                if (isExpanded) {
-                    // Collapse
-                    timelineContent.classList.add('collapsed');
-                    timelineToggle.setAttribute('aria-expanded', 'false');
-                    timelineToggle.querySelector('.toggle-text').textContent = 'View Timeline';
-                } else {
-                    // Expand
-                    timelineContent.classList.remove('collapsed');
-                    timelineToggle.setAttribute('aria-expanded', 'true');
-                    timelineToggle.querySelector('.toggle-text').textContent = 'Collapse Timeline';
-                }
-            });
-        }
-    </script>
-
-    <!-- Data files -->
+    <!-- Data files (content managed via the admin panel) -->
     <script src="events.js"></script>
     <script src="reading.js"></script>
     <script src="playing.js"></script>
@@ -263,105 +240,23 @@
     <script src="documentaries.js"></script>
     <script src="podcasts.js"></script>
     <script src="landing-config.js"></script>
-
-    <!-- Timeline scripts -->
     <script src="projects.js"></script>
-    <script src="timeline.js"></script>
 
-    <!-- New feature scripts -->
-    <script src="events-renderer.js"></script>
-    <script src="books-renderer.js"></script>
-    <script src="writing-renderer.js"></script>
-    <script src="documentaries-renderer.js"></script>
-    <script src="podcasts-renderer.js"></script>
-    <script src="reading-modal.js"></script>
-    <script src="playing-modal.js"></script>
-    <script src="author-easter-egg.js"></script>
-    <script src="carousel.js"></script>
+    <!-- Shared core (must load before components and renderers) -->
+    <script src="js/core.js"></script>
 
-    <!-- Masthead Animation & Parallax Script -->
-    <script>
-    (function() {
-        'use strict';
+    <!-- Components -->
+    <script src="js/components/page-effects.js"></script>
+    <script src="js/components/timeline.js"></script>
+    <script src="js/components/content-modal.js"></script>
+    <script src="js/components/author-easter-egg.js"></script>
+    <script src="js/components/carousel.js"></script>
 
-        // Check if user prefers reduced motion
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Initialize masthead animations on DOM load
-        function initMasthead() {
-            const masthead = document.querySelector('.masthead');
-            if (!masthead) return;
-
-            // Trigger text animations
-            if (!prefersReducedMotion) {
-                // Small delay to ensure page is rendered
-                setTimeout(function() {
-                    masthead.classList.add('masthead-animate');
-                }, 100);
-            } else {
-                // For reduced motion users, show content immediately
-                masthead.classList.add('masthead-animate');
-            }
-        }
-
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initMasthead();
-            });
-        } else {
-            initMasthead();
-        }
-    })();
-    </script>
-
-    <!-- Fade-Up on Scroll Script -->
-    <script>
-    (function() {
-        'use strict';
-
-        // Check if user prefers reduced motion
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        if (prefersReducedMotion) {
-            // Show all sections immediately for reduced motion users
-            document.querySelectorAll('section').forEach(section => {
-                section.style.opacity = '1';
-            });
-            return;
-        }
-
-        // Intersection Observer for fade-up animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Unobserve after animation to improve performance
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Observe all sections
-        function initScrollAnimations() {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        }
-
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initScrollAnimations);
-        } else {
-            initScrollAnimations();
-        }
-    })();
-    </script>
+    <!-- Section renderers -->
+    <script src="js/renderers/events-renderer.js"></script>
+    <script src="js/renderers/books-renderer.js"></script>
+    <script src="js/renderers/writing-renderer.js"></script>
+    <script src="js/renderers/documentaries-renderer.js"></script>
+    <script src="js/renderers/podcasts-renderer.js"></script>
 </body>
 </html>

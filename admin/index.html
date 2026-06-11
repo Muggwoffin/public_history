@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://raw.githubusercontent.com data:; connect-src 'self' https://api.github.com https://plausible.io; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="referrer" content="no-referrer">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Dr Maurice J. Casey</title>
     <link rel="stylesheet" href="admin.css">
@@ -19,12 +22,14 @@
 
                 <div class="input-group">
                     <label for="pat-input">Personal Access Token</label>
-                    <input type="password" id="pat-input" placeholder="ghp_xxxxxxxxxxxx">
+                    <input type="password" id="pat-input" placeholder="github_pat_xxxx" autocomplete="off">
                     <small class="help-text">
-                        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio%20Admin" target="_blank" rel="noopener noreferrer">
-                            Generate a new token →
+                        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">
+                            Generate a fine-grained token →
                         </a>
-                        (requires 'repo' scope)
+                        Restrict it to this repository only, with Read and write access to
+                        <strong>Contents</strong> and nothing else. The token is kept for this
+                        browser session only and never stored in the repository.
                     </small>
                 </div>
 
@@ -55,7 +60,7 @@
                 <h1>Portfolio Admin</h1>
                 <div class="header-actions">
                     <span id="repo-info" class="repo-info"></span>
-                    <a href="../index.html" target="_blank" class="btn btn-secondary">View Live Site</a>
+                    <a href="../index.html" target="_blank" rel="noopener" class="btn btn-secondary">View Live Site</a>
                     <button id="logout-btn" class="btn btn-secondary">Log Out</button>
                 </div>
             </div>
@@ -67,7 +72,7 @@
             <button class="nav-tab" data-section="content">Content Editor</button>
             <button class="nav-tab" data-section="images">Image Upload</button>
             <button class="nav-tab" data-section="timeline">Timeline Manager</button>
-            <button class="nav-tab" data-section="events-manager">Events & Timeline</button>
+            <button class="nav-tab" data-section="events-manager">Events</button>
             <button class="nav-tab" data-section="content-boxes">Content Boxes</button>
             <button class="nav-tab" data-section="landing-images">Landing Images</button>
             <button class="nav-tab" data-section="statistics">Statistics</button>
@@ -106,6 +111,10 @@
             <!-- Content Editor Section -->
             <section id="content-section" class="admin-section">
                 <h2>Content Editor</h2>
+                <p class="help-text">
+                    Edits the fixed text of main.html. Books, articles, events, documentaries and
+                    podcasts are managed in their own tabs.
+                </p>
 
                 <div class="editor-container">
                     <!-- General Settings -->
@@ -120,18 +129,7 @@
                         <div class="editor-field">
                             <label for="about-text">About Section</label>
                             <textarea id="about-text" rows="6" placeholder="Loading..."></textarea>
-                            <small class="help-text">Supports markdown formatting</small>
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="archive-food-guide-url">Archive Food Guide URL</label>
-                            <input type="url" id="archive-food-guide-url" placeholder="https://docs.google.com/...">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="whats-reading-url">What I'm Reading URL</label>
-                            <input type="url" id="whats-reading-url" placeholder="https://...">
-                            <small class="help-text">Link to your current reading list or Goodreads profile</small>
+                            <small class="help-text">Plain text; shown as the opening paragraph of the About section</small>
                         </div>
                     </div>
 
@@ -155,7 +153,7 @@
                         </div>
 
                         <div class="editor-field">
-                            <label for="media-email">Media & Speaking Email</label>
+                            <label for="media-email">Media &amp; Speaking Email</label>
                             <input type="email" id="media-email" placeholder="media@email.com">
                         </div>
 
@@ -191,111 +189,6 @@
                         </div>
                     </div>
 
-                    <!-- Podcast Episodes -->
-                    <div class="editor-category">
-                        <h3 class="category-title">Podcast Appearances</h3>
-
-                        <div class="editor-field">
-                            <label for="podcast1-title">Podcast 1 - Title</label>
-                            <input type="text" id="podcast1-title" placeholder="Episode title">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="podcast1-meta">Podcast 1 - Meta Info</label>
-                            <input type="text" id="podcast1-meta" placeholder="Podcast Name • Year">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="podcast1-embed">Podcast 1 - Apple Podcasts Embed URL</label>
-                            <input type="url" id="podcast1-embed" placeholder="https://embed.podcasts.apple.com/...">
-                            <small class="help-text">Full embed URL from Apple Podcasts</small>
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="podcast1-description">Podcast 1 - Description</label>
-                            <textarea id="podcast1-description" rows="3" placeholder="Brief description of the episode"></textarea>
-                        </div>
-
-                        <hr class="field-separator">
-
-                        <div class="editor-field">
-                            <label for="podcast2-title">Podcast 2 - Title</label>
-                            <input type="text" id="podcast2-title" placeholder="Episode title">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="podcast2-meta">Podcast 2 - Meta Info</label>
-                            <input type="text" id="podcast2-meta" placeholder="Podcast Name • Year">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="podcast2-embed">Podcast 2 - Apple Podcasts Embed URL</label>
-                            <input type="url" id="podcast2-embed" placeholder="https://embed.podcasts.apple.com/...">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="podcast2-description">Podcast 2 - Description</label>
-                            <textarea id="podcast2-description" rows="3" placeholder="Brief description of the episode"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Documentary Projects -->
-                    <div class="editor-category">
-                        <h3 class="category-title">Documentary Projects</h3>
-
-                        <div class="editor-field">
-                            <label for="doc1-title">Documentary 1 - Title</label>
-                            <input type="text" id="doc1-title" placeholder="Documentary title">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc1-meta">Documentary 1 - Meta Info</label>
-                            <input type="text" id="doc1-meta" placeholder="Production Company • Year • Runtime">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc1-role">Documentary 1 - Your Role</label>
-                            <input type="text" id="doc1-role" placeholder="Producer / Researcher / Historical Consultant">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc1-description">Documentary 1 - Description</label>
-                            <textarea id="doc1-description" rows="3" placeholder="Brief description of the documentary"></textarea>
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc1-watch-url">Documentary 1 - Watch Link URL</label>
-                            <input type="url" id="doc1-watch-url" placeholder="https://...">
-                        </div>
-
-                        <hr class="field-separator">
-
-                        <div class="editor-field">
-                            <label for="doc2-title">Documentary 2 - Title</label>
-                            <input type="text" id="doc2-title" placeholder="Documentary title">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc2-meta">Documentary 2 - Meta Info</label>
-                            <input type="text" id="doc2-meta" placeholder="Production Company • Year • Runtime">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc2-role">Documentary 2 - Your Role</label>
-                            <input type="text" id="doc2-role" placeholder="Producer / Researcher / Historical Consultant">
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc2-description">Documentary 2 - Description</label>
-                            <textarea id="doc2-description" rows="3" placeholder="Brief description of the documentary"></textarea>
-                        </div>
-
-                        <div class="editor-field">
-                            <label for="doc2-watch-url">Documentary 2 - Watch Link URL</label>
-                            <input type="url" id="doc2-watch-url" placeholder="https://...">
-                        </div>
-                    </div>
-
                     <!-- Save Actions -->
                     <div class="editor-actions">
                         <button id="load-content-btn" class="btn btn-secondary">Reload Content</button>
@@ -319,7 +212,16 @@
                             <label class="quick-upload-label">
                                 <strong>What I'm Reading Cover</strong>
                                 <small>Currently reading book cover</small>
-                                <input type="file" class="quick-upload-input" data-target="images/reading-current.jpg" accept="image/*" style="display: none;">
+                                <input type="file" class="quick-upload-input" data-target="images/current-reading.jpg" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
+                            </label>
+                        </div>
+
+                        <div class="quick-upload-item">
+                            <label class="quick-upload-label">
+                                <strong>What I'm Playing Cover</strong>
+                                <small>Currently playing game cover</small>
+                                <input type="file" class="quick-upload-input" data-target="images/current-playing.png" accept="image/*" style="display: none;">
                                 <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
                             </label>
                         </div>
@@ -337,7 +239,7 @@
                             <label class="quick-upload-label">
                                 <strong>Passport Background</strong>
                                 <small>Landing page background</small>
-                                <input type="file" class="quick-upload-input" data-target="images/passport-bg.jpg" accept="image/*" style="display: none;">
+                                <input type="file" class="quick-upload-input" data-target="images/passport-background.jpg" accept="image/*" style="display: none;">
                                 <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
                             </label>
                         </div>
@@ -347,15 +249,6 @@
                                 <strong>Documentary Logo 1</strong>
                                 <small>First documentary logo</small>
                                 <input type="file" class="quick-upload-input" data-target="images/documentary-logo-1.png" accept="image/*" style="display: none;">
-                                <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
-                            </label>
-                        </div>
-
-                        <div class="quick-upload-item">
-                            <label class="quick-upload-label">
-                                <strong>Documentary Logo 2</strong>
-                                <small>Second documentary logo</small>
-                                <input type="file" class="quick-upload-input" data-target="images/documentary-logo-2.png" accept="image/*" style="display: none;">
                                 <button type="button" class="btn btn-secondary quick-upload-btn">Choose Image</button>
                             </label>
                         </div>
@@ -401,170 +294,78 @@
 
             <!-- Timeline Manager Section -->
             <section id="timeline-section" class="admin-section">
-                <h2>Timeline Manager</h2>
-
-                <div class="timeline-actions">
-                    <button id="add-project-btn" class="btn btn-primary">+ Add New Project</button>
-                    <button id="reload-timeline-btn" class="btn btn-secondary">Reload Timeline</button>
-                </div>
-
-                <div id="timeline-status" class="status-message"></div>
-
-                <div id="projects-list" class="projects-list">
-                    <p class="loading">Loading timeline projects...</p>
+                <div id="timeline-manager">
+                    <!-- Content dynamically generated by managers.js -->
                 </div>
             </section>
 
             <!-- Events Manager Section -->
             <section id="events-manager" class="admin-section">
-                <!-- Content dynamically generated by admin-events.js -->
+                <!-- Content dynamically generated by managers.js -->
             </section>
 
             <!-- Content Boxes Section -->
             <section id="content-boxes" class="admin-section">
                 <div id="reading-editor">
-                    <!-- Content dynamically generated by admin-content.js -->
+                    <!-- Content dynamically generated by managers.js -->
                 </div>
 
                 <hr class="section-divider">
 
                 <div id="playing-editor">
-                    <!-- Content dynamically generated by admin-content.js -->
+                    <!-- Content dynamically generated by managers.js -->
                 </div>
 
                 <hr class="section-divider">
 
                 <div id="books-manager">
-                    <!-- Content dynamically generated by admin-content.js -->
+                    <!-- Content dynamically generated by managers.js -->
                 </div>
 
                 <hr class="section-divider">
 
                 <div id="writing-manager">
-                    <!-- Content dynamically generated by admin-content.js -->
+                    <!-- Content dynamically generated by managers.js -->
                 </div>
 
                 <hr class="section-divider">
 
                 <div id="documentaries-manager">
-                    <!-- Content dynamically generated by admin-content.js -->
+                    <!-- Content dynamically generated by managers.js -->
                 </div>
 
                 <hr class="section-divider">
 
                 <div id="podcasts-manager">
-                    <!-- Content dynamically generated by admin-content.js -->
+                    <!-- Content dynamically generated by managers.js -->
                 </div>
             </section>
 
             <!-- Landing Images Section -->
             <section id="landing-images" class="admin-section">
                 <div id="landing-images-manager">
-                    <!-- Content dynamically generated by admin-images.js -->
+                    <!-- Content dynamically generated by landing-images.js -->
                 </div>
             </section>
 
             <!-- Statistics Section -->
             <section id="statistics" class="admin-section">
                 <div id="statistics-dashboard">
-                    <!-- Content dynamically generated by admin-statistics.js -->
+                    <!-- Content dynamically generated by statistics.js -->
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Project Editor Modal -->
-    <div id="project-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modal-title">Add New Project</h3>
-                <button class="modal-close" id="modal-close">&times;</button>
-            </div>
-
-            <form id="project-form" class="project-form">
-                <input type="hidden" id="project-index" value="">
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="project-title">Title *</label>
-                        <input type="text" id="project-title" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="project-type">Type *</label>
-                        <select id="project-type" required>
-                            <option value="book">Publication</option>
-                            <option value="exhibition">Exhibition</option>
-                            <option value="fellowship">Fellowship</option>
-                            <option value="education">Education</option>
-                            <option value="teaching">Teaching</option>
-                            <option value="media">Media</option>
-                            <option value="talk">Talk</option>
-                        </select>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="project-scope">Scope *</label>
-                        <select id="project-scope" required>
-                            <option value="academic">Academic</option>
-                            <option value="public">Public</option>
-                            <option value="international">International</option>
-                            <option value="national">National</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="project-date">Display Date *</label>
-                        <input type="text" id="project-date" placeholder="e.g., 2024, June 2025, 2018-2019" required>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="project-sortdate">Sort Date *</label>
-                        <input type="date" id="project-sortdate" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="project-venue">Venue/Institution</label>
-                        <input type="text" id="project-venue" placeholder="Optional">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="project-description">Description *</label>
-                        <textarea id="project-description" rows="4" required placeholder="1-2 sentence summary"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-field">
-                        <label for="project-link">Link URL</label>
-                        <input type="url" id="project-link" placeholder="https://example.com">
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary" id="cancel-project-btn">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Project</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Overlay for modals -->
-    <div id="modal-overlay" class="modal-overlay"></div>
-
-    <!-- Load admin JavaScript -->
-    <script src="admin.js"></script>
-    <script src="admin-events.js"></script>
-    <script src="admin-content.js"></script>
-    <script src="admin-images.js"></script>
-    <script src="admin-statistics.js"></script>
+    <!-- Admin JavaScript (load order matters: utilities first, app last) -->
+    <script src="js/dom-utils.js"></script>
+    <script src="js/github-client.js"></script>
+    <script src="js/data-store.js"></script>
+    <script src="js/collection-manager.js"></script>
+    <script src="js/singleton-editor.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/managers.js"></script>
+    <script src="js/landing-images.js"></script>
+    <script src="js/statistics.js"></script>
 </body>
 </html>

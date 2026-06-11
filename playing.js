@@ -12,7 +12,7 @@
 const currentPlaying = {
     "title": "Final Fantasy VII Remake",
     "developer": "Square Enix",
-    "cover": "images/current-playing.jpg",
+    "cover": "images/current-playing.png",
     "note": "Took me a while to get around to this one, but it's excellent. "
 };
 
