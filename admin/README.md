@@ -4,7 +4,7 @@ A client-side content management system for your GitHub Pages portfolio site. Ma
 
 ## Features
 
-✅ **Content Editor** - Edit About section, contact info, and site tagline with live markdown preview
+✅ **Content Editor** - Edit About section, contact info, and site tagline
 ✅ **Image Upload** - Drag-and-drop image uploads directly to your repository
 ✅ **Timeline Manager** - Add, edit, and delete career milestones with a visual interface
 ✅ **Dashboard** - View recent commits and quick stats
@@ -18,28 +18,32 @@ A client-side content management system for your GitHub Pages portfolio site. Ma
 
 The admin panel uses a Personal Access Token to authenticate with GitHub and make changes to your repository.
 
+Use a **fine-grained** token restricted to this one repository — if it ever leaks,
+the damage is limited to this site rather than your whole GitHub account.
+
 **Steps:**
 
-1. Go to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new)
+1. Go to [https://github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
 
 2. Fill in the token details:
-   - **Note**: `Portfolio Admin Panel` (or any descriptive name)
-   - **Expiration**: Choose duration (90 days recommended, or "No expiration" for convenience)
-   - **Scopes**: Select **`repo`** (Full control of private repositories)
-     - This gives access to read and write repository contents
+   - **Token name**: `Portfolio Admin Panel` (or any descriptive name)
+   - **Expiration**: 90 days recommended (you can always generate a new one)
+   - **Repository access**: "Only select repositories" → choose `Muggwoffin/public_history`
+   - **Permissions** → Repository permissions → **Contents: Read and write**
+     - Leave every other permission on "No access"
 
 3. Click **"Generate token"**
 
 4. **Copy the token immediately** - you won't be able to see it again!
-   - Format: `ghp_xxxxxxxxxxxxxxxxxxxx`
+   - Format: `github_pat_xxxxxxxxxxxxxxxxxxxx`
 
 5. Store it securely (password manager recommended)
 
 **Important Security Notes:**
 - Never share your token publicly
 - Never commit it to your repository
-- The admin panel stores it only in `sessionStorage` (cleared when tab closes)
-- If compromised, revoke it immediately at [github.com/settings/tokens](https://github.com/settings/tokens)
+- The admin panel stores it only in `sessionStorage` (cleared when the browser session ends)
+- If compromised, revoke it immediately at [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens)
 
 ### 2. Access the Admin Panel
 
