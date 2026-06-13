@@ -180,9 +180,10 @@ a:focus-visible {
     left: 0;
     right: 0;
     z-index: 300;
-    background-color: rgba(251, 249, 243, 0.9);
-    -webkit-backdrop-filter: blur(12px) saturate(1.1);
-    backdrop-filter: blur(12px) saturate(1.1);
+    /* Near-opaque base so the bar is reliable on mobile, where a
+       backdrop-filter on a fixed + transform-animated element misbehaves
+       (iOS/Android). The frosted blur is layered back on for wider screens. */
+    background-color: rgba(251, 249, 243, 0.96);
     border-bottom: 1px solid var(--rule);
     transform: translateY(-100%);
     transition: transform 0.35s ease;
@@ -279,6 +280,47 @@ a:focus-visible {
 
 .site-nav-links a[aria-current] {
     color: var(--ink);
+}
+
+/* Frosted blur only on wider screens — avoids the mobile fixed-element bug */
+@media (min-width: 700px) {
+    .site-nav {
+        background-color: rgba(251, 249, 243, 0.9);
+        -webkit-backdrop-filter: blur(12px) saturate(1.1);
+        backdrop-filter: blur(12px) saturate(1.1);
+    }
+}
+
+/* On phones, wrap the links into a centred cluster so all six are
+   reachable (no hidden horizontal-scroll overflow), and let the bar
+   grow to fit instead of clipping. */
+@media (max-width: 699px) {
+    .site-nav-inner {
+        height: auto;
+        padding: 8px 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2px 4px;
+    }
+
+    .site-nav-name {
+        width: 100%;
+        text-align: center;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+    }
+
+    .site-nav-links {
+        width: 100%;
+        overflow-x: visible;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0 2px;
+    }
+
+    section[id] {
+        scroll-margin-top: 104px;
+    }
 }
 
 /* ============================================
@@ -1347,10 +1389,36 @@ section {
     margin: 1rem 0;
 }
 
-.footer-ornament {
-    font-size: 1.4rem;
+.footer-star {
+    display: inline-block;
     color: var(--accent);
-    margin-bottom: 0.75rem;
+    line-height: 0;
+    margin-bottom: 0.9rem;
+    background-image: none;
+}
+
+.footer-star-svg {
+    display: block;
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+/* Hover / keyboard focus: a slow twinkle and a soft gold halo */
+.footer-star:hover .footer-star-svg,
+.footer-star:focus-visible .footer-star-svg {
+    filter: drop-shadow(0 0 9px rgba(212, 175, 55, 0.8))
+            drop-shadow(0 0 3px rgba(212, 175, 55, 0.55));
+    animation: starTwinkle 1.3s ease-in-out infinite;
+}
+
+.footer-star:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
+}
+
+@keyframes starTwinkle {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(36deg) scale(1.13); }
+    100% { transform: rotate(72deg) scale(1); }
 }
 
 .colophon {
