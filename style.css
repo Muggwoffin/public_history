@@ -29,6 +29,8 @@
     --accent: #2f7d45;
     --accent-deep: #1f5a31;
     --accent-wash: rgba(47, 125, 69, 0.07);
+    /* Antique gold — the star that meets the wedge in the hero */
+    --gold: #bf9b30;
 
     /* Legacy aliases (kept so nothing referencing the old names breaks) */
     --ink-black: var(--ink);
@@ -382,136 +384,170 @@ section.visible .contact-box:nth-child(3) {
    MASTHEAD / HERO
    ============================================ */
 
+/* Hero — El Lissitzky compositional language reinterpreted: a single
+   green wedge driving up to a small gold star, the name set asymmetrically
+   to the right. No literal poster motifs, no passport background. */
 .masthead {
     position: relative;
-    min-height: min(52vh, 480px);
     display: flex;
     align-items: center;
-    justify-content: center;
     overflow: hidden;
+    min-height: clamp(280px, 40vh, 380px);
+    padding: 2rem clamp(1.5rem, 5vw, 4.5rem);
     border-top: 4px solid var(--ink);
     border-bottom: 1px solid var(--rule-dark);
     margin-bottom: 2.5rem;
 }
 
-.masthead-bg {
+/* The wedge: a green triangle thrusting up-right from the left edge */
+.masthead-wedge {
     position: absolute;
-    inset: 0;
-    background-image: url('images/passport-background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    left: 0;
+    top: 0;
+    width: 48%;
+    height: 100%;
+    background-color: var(--accent);
+    clip-path: polygon(3% 94%, 3% 42%, 96% 16%);
+    transform-origin: 0 100%;
     opacity: 0;
-    animation: fadeInBackground 1.2s ease-out forwards;
-    will-change: opacity;
+    transform: translateX(-28px);
+    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.masthead-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(ellipse at center,
-            rgba(250, 246, 240, 0.82) 0%,
-            rgba(250, 246, 240, 0.93) 78%),
-    linear-gradient(180deg,
-            rgba(250, 246, 240, 0.55) 0%,
-            rgba(250, 246, 240, 0.25) 50%,
-            rgba(250, 246, 240, 0.75) 100%);
-    z-index: 1;
+.masthead-animate .masthead-wedge {
+    animation: wedgeIn 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
-.masthead-highlight {
+/* The gold star sits at the wedge's apex — the point it drives toward */
+.masthead-star {
     position: absolute;
-    inset: -50%;
-    background: linear-gradient(
-        45deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.09) 50%,
-        transparent 70%
-    );
-    mix-blend-mode: overlay;
-    animation: archivalSweep 28s linear infinite;
-    z-index: 2;
-    pointer-events: none;
-    will-change: transform;
+    left: 42%;
+    top: 13%;
+    width: 26px;
+    height: 26px;
+    color: var(--gold);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.masthead-star svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.masthead-animate .masthead-star {
+    animation: starIn 0.7s ease 0.3s forwards;
 }
 
 .masthead-content {
     position: relative;
-    z-index: 3;
-    text-align: center;
-    padding: 3rem 1.25rem;
-    max-width: 860px;
+    z-index: 2;
+    margin-left: auto;
+    width: min(54%, 640px);
+    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* Kicker rules either side of the subtitle, drawn with pseudo-elements */
 .masthead-title {
     font-family: var(--font-display);
-    font-size: var(--text-hero);
-    font-weight: 900;
-    letter-spacing: 0.035em;
-    line-height: 1.05;
-    text-transform: uppercase;
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4.6vw, 3.6rem);
+    line-height: 1.04;
+    letter-spacing: 0.005em;
     color: var(--ink);
-    margin: 0 0 1.1rem;
+    margin: 0;
+    white-space: nowrap;
     opacity: 0;
-    transform: translateY(20px);
-    text-wrap: balance;
+    transform: translateY(14px);
 }
 
 .masthead-animate .masthead-title {
-    animation: fadeInSlideUp 650ms ease-out 150ms forwards;
+    animation: heroFadeUp 0.7s ease 0.15s forwards;
 }
 
-.masthead-subtitle {
+.masthead-subrule {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.42em;
-    text-indent: 0.42em; /* optically recenters tracked-out caps */
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: 0 0 1.5rem;
+    gap: 12px;
+    margin-top: 1.1rem;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(14px);
 }
 
-.masthead-subtitle::before,
-.masthead-subtitle::after {
-    content: '';
-    width: clamp(28px, 6vw, 64px);
+.masthead-subrule-line {
+    width: 36px;
     height: 1px;
-    background-color: var(--accent);
+    background-color: var(--gold);
     flex-shrink: 0;
 }
 
-.masthead-animate .masthead-subtitle {
-    animation: fadeInSlideUp 650ms ease-out 450ms forwards;
+.masthead-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0;
 }
 
-@keyframes fadeInBackground {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.masthead-animate .masthead-subrule {
+    animation: heroFadeUp 0.7s ease 0.32s forwards;
 }
 
-@keyframes fadeInSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+@keyframes wedgeIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes starIn {
+    from { opacity: 0; transform: scale(0.4); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heroFadeUp {
+    to { opacity: 1; transform: none; }
+}
+
+/* Phones: stack the name above a full-width wedge band, star at its peak */
+@media (max-width: 700px) {
+    .masthead {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        min-height: 300px;
+        padding: 2.25rem 1.5rem 0;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-@keyframes archivalSweep {
-    0% { transform: translate(-50%, -50%); }
-    100% { transform: translate(50%, 50%); }
+    .masthead-wedge {
+        width: 100%;
+        height: 42%;
+        top: auto;
+        bottom: 0;
+        clip-path: polygon(0% 100%, 100% 100%, 100% 24%, 0% 60%);
+        transform-origin: 100% 100%;
+    }
+
+    .masthead-star {
+        left: auto;
+        right: 13%;
+        top: auto;
+        bottom: 34%;
+        width: 22px;
+        height: 22px;
+    }
+
+    .masthead-content {
+        margin-left: 0;
+        width: 100%;
+        margin-bottom: auto;
+        padding-top: 0.5rem;
+    }
+
+    .masthead-title {
+        white-space: normal;
+        font-size: clamp(2rem, 9vw, 2.7rem);
+        text-wrap: balance;
+    }
 }
 
 /* ============================================
@@ -1596,21 +1632,16 @@ section {
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
-    .masthead-bg {
-        animation: none !important;
-        opacity: 1;
-    }
-
-    .masthead-highlight {
-        animation: none !important;
-        display: none;
-    }
-
+    .masthead-wedge,
+    .masthead-star,
+    .masthead-content,
+    .masthead-animate .masthead-wedge,
+    .masthead-animate .masthead-star,
     .masthead-animate .masthead-title,
-    .masthead-animate .masthead-subtitle {
+    .masthead-animate .masthead-subrule {
         animation: none !important;
-        opacity: 1;
-        transform: none;
+        opacity: 1 !important;
+        transform: none !important;
     }
 
     section {
@@ -1654,11 +1685,14 @@ section {
     .skip-link,
     .back-to-top,
     .timeline-toggle-container,
-    #substack-embed-container,
-    .masthead-bg,
-    .masthead-overlay,
-    .masthead-highlight {
+    #substack-embed-container {
         display: none !important;
+    }
+
+    .masthead-wedge,
+    .masthead-star {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     section {

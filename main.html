@@ -13,6 +13,7 @@
         <style>
             section { opacity: 1 !important; }
             .site-nav { display: none; }
+            .masthead-wedge, .masthead-star, .masthead-title, .masthead-subrule { opacity: 1 !important; transform: none !important; }
             .timeline-content-wrapper.collapsed { max-height: none; opacity: 1; }
         </style>
     </noscript>
@@ -39,12 +40,18 @@
     <div class="newspaper-wrapper">
         <!-- Masthead -->
         <header class="masthead">
-            <div class="masthead-bg"></div>
-            <div class="masthead-overlay"></div>
-            <div class="masthead-highlight"></div>
+            <div class="masthead-wedge" aria-hidden="true"></div>
+            <span class="masthead-star" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M12 2 L14.81 8.62 L21.9 9.27 L16.55 13.97 L18.18 20.93 L12 17.27 L5.82 20.93 L7.45 13.97 L2.1 9.27 L9.19 8.62 Z" fill="currentColor"/>
+                </svg>
+            </span>
             <div class="masthead-content">
-                <h1 class="masthead-title">Dr Maurice J. Casey</h1>
-                <p class="masthead-subtitle">Historian &amp; Writer</p>
+                <h1 class="masthead-title">Maurice J. Casey</h1>
+                <div class="masthead-subrule">
+                    <span class="masthead-subrule-line" aria-hidden="true"></span>
+                    <p class="masthead-subtitle">Historian &amp; Writer</p>
+                </div>
             </div>
         </header>
 
