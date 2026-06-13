@@ -49,11 +49,21 @@ html, body {
 
 body {
     background-color: var(--paper);
-    background-image: url('images/passport-background.jpg');
-    background-size: 110%;
-    background-position: center;
-    background-attachment: fixed;
-    animation: slowPan 60s ease-in-out infinite alternate;
+}
+
+/* Drifting passport-collage backdrop.
+   An oversized fixed layer moved with transform — smooth, GPU-friendly,
+   and (unlike background-attachment: fixed + animated background-position)
+   it drifts perceptibly and works on mobile. The -14% inset and 1.06
+   scale give slack so the edges never show during the drift. */
+.landing-bg {
+    position: fixed;
+    inset: -14%;
+    z-index: -2;
+    background: url('images/passport-background.jpg') center / cover no-repeat;
+    transform: translate3d(-3%, -2%, 0) scale(1.06);
+    animation: bgDrift 75s ease-in-out infinite alternate;
+    will-change: transform;
 }
 
 /* Warm paper veil over the passport collage, plus a faint grain */
@@ -61,6 +71,7 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
+    z-index: -1;
     background-color: rgba(246, 243, 234, 0.82);
     background-image: linear-gradient(
         90deg,
@@ -68,13 +79,12 @@ body::before {
         transparent 1px,
         transparent 3px
     );
-    background-size: auto, 3px 100%;
-    z-index: -1;
+    background-size: 3px 100%;
 }
 
-@keyframes slowPan {
-    0% { background-position: 35% 50%; }
-    100% { background-position: 65% 50%; }
+@keyframes bgDrift {
+    from { transform: translate3d(-3%, -2%, 0) scale(1.06); }
+    to   { transform: translate3d(3%, 2.5%, 0) scale(1.06); }
 }
 
 .sr-only {
@@ -237,23 +247,6 @@ body::before {
     transition: filter 0.4s ease, transform 0.4s ease;
 }
 
-/* Folio number — an archival catalogue tab */
-.card-number {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: 1.1rem;
-    line-height: 1;
-    color: var(--accent);
-    background-color: var(--paper-raised);
-    padding: 4px 9px 5px;
-    border-right: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-}
-
 .image-caption {
     display: block;
     width: 100%;
@@ -352,7 +345,7 @@ body::before {
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
-    body { animation: none !important; }
+    .landing-bg { animation: none !important; }
 
     *,
     *::before,
