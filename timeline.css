@@ -75,7 +75,7 @@
 }
 
 .timeline-filter-btn:focus-visible {
-    outline: 2px solid var(--red);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
 
@@ -86,8 +86,8 @@
 }
 
 .timeline-filter-btn.active:hover {
-    background-color: var(--red-deep);
-    border-color: var(--red-deep);
+    background-color: var(--accent-deep);
+    border-color: var(--accent-deep);
 }
 
 /* ============================================
@@ -160,8 +160,8 @@
 }
 
 .timeline-item:hover .timeline-marker {
-    background-color: var(--red);
-    border-color: var(--red);
+    background-color: var(--accent);
+    border-color: var(--accent);
     transform: rotate(45deg) scale(1.15);
 }
 
@@ -197,7 +197,7 @@
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.06em;
-    color: var(--red-deep);
+    color: var(--accent-deep);
     margin-right: 0.25rem;
 }
 
@@ -245,7 +245,7 @@
 
 .timeline-title a {
     color: var(--ink);
-    background-image: linear-gradient(var(--red), var(--red));
+    background-image: linear-gradient(var(--accent), var(--accent));
     background-repeat: no-repeat;
     background-position: 0 100%;
     background-size: 0% 1.5px;
@@ -253,12 +253,12 @@
 }
 
 .timeline-title a:hover {
-    color: var(--red-deep);
+    color: var(--accent-deep);
     background-size: 100% 1.5px;
 }
 
 .timeline-title a:focus-visible {
-    outline: 2px solid var(--red);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
 

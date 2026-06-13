@@ -24,14 +24,16 @@
     --ink-faint: #8d8678;
     --rule: #ddd6c6;
     --rule-dark: #45413a;
-    --red: #b51e32;
-    --red-deep: #8e1626;
-    --red-wash: rgba(181, 30, 50, 0.055);
+    /* Esperanto green — the verda stelo, emblem of the socialist
+       internationalism Casey writes about. Replaces the earlier red. */
+    --accent: #2f7d45;
+    --accent-deep: #1f5a31;
+    --accent-wash: rgba(47, 125, 69, 0.07);
 
     /* Legacy aliases (kept so nothing referencing the old names breaks) */
     --ink-black: var(--ink);
     --newsprint-white: var(--paper);
-    --radical-red: var(--red);
+    --radical-red: var(--accent);
     --gray-rule: var(--ink-soft);
     --light-gray: var(--rule);
     --dark-gray: var(--ink-soft);
@@ -96,7 +98,7 @@ body {
 }
 
 ::selection {
-    background-color: var(--red);
+    background-color: var(--accent);
     color: var(--paper-raised);
 }
 
@@ -109,7 +111,7 @@ img {
    ============================================ */
 
 a {
-    color: var(--red-deep);
+    color: var(--accent-deep);
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
     background-repeat: no-repeat;
@@ -123,7 +125,7 @@ a:hover {
 }
 
 a:focus-visible {
-    outline: 2px solid var(--red);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
 }
 
@@ -197,7 +199,7 @@ a:focus-visible {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: var(--red);
+    background-color: var(--accent);
     transform: scaleX(0);
     transform-origin: 0 50%;
 }
@@ -224,7 +226,7 @@ a:focus-visible {
 }
 
 .site-nav-name:hover {
-    color: var(--red);
+    color: var(--accent);
 }
 
 .site-nav-links {
@@ -260,7 +262,7 @@ a:focus-visible {
     right: 0.7rem;
     bottom: 0.2rem;
     height: 2px;
-    background-color: var(--red);
+    background-color: var(--accent);
     transform: scaleX(0);
     transform-origin: 0 50%;
     transition: transform 0.25s ease;
@@ -441,7 +443,7 @@ section.visible .contact-box:nth-child(3) {
     content: '';
     width: clamp(28px, 6vw, 64px);
     height: 1px;
-    background-color: var(--red);
+    background-color: var(--accent);
     flex-shrink: 0;
 }
 
@@ -502,7 +504,7 @@ section {
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.35em;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 0.85rem;
 }
 
@@ -512,7 +514,7 @@ section {
     width: 100%;
     height: 2px;
     background:
-        linear-gradient(to right, var(--red) 0, var(--red) 56px, transparent 56px),
+        linear-gradient(to right, var(--accent) 0, var(--accent) 56px, transparent 56px),
         linear-gradient(to right, transparent 0, transparent 64px, var(--rule-dark) 64px);
     background-size: 100% 2px, 100% 1px;
     background-position: 0 0, 0 50%;
@@ -533,17 +535,17 @@ section {
 }
 
 .subsection-heading::before {
-    content: '◆';
-    color: var(--red);
-    font-size: 0.8em;
+    content: '★';
+    color: var(--accent);
+    font-size: 0.85em;
     margin-right: 0.75rem;
 }
 
 .intro-text {
     position: relative;
     max-width: 64ch;
-    background-color: var(--red-wash);
-    border-left: 3px solid var(--red);
+    background-color: var(--accent-wash);
+    border-left: 3px solid var(--accent);
     padding: 1.4rem 1.6rem;
     margin-bottom: 2.25rem;
     font-size: var(--text-base);
@@ -553,7 +555,7 @@ section {
 .decorative-line {
     width: 100px;
     height: 2px;
-    background-color: var(--red);
+    background-color: var(--accent);
     margin: 1rem auto 0;
 }
 
@@ -623,7 +625,7 @@ section {
 }
 
 .author-photo-container:focus {
-    outline: 2px solid var(--red);
+    outline: 2px solid var(--accent);
     outline-offset: 4px;
 }
 
@@ -634,7 +636,7 @@ section {
     line-height: 0.78;
     float: left;
     margin: 0.12em 0.55rem 0 0;
-    color: var(--red);
+    color: var(--accent);
 }
 
 .reading-links-container {
@@ -665,7 +667,7 @@ section {
     background-color: var(--ink);
     color: var(--paper-raised);
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--red);
+    box-shadow: 4px 4px 0 var(--accent);
 }
 
 /* ============================================
@@ -700,11 +702,11 @@ section {
     background-color: var(--paper-raised);
     color: var(--ink);
     transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 var(--red);
+    box-shadow: 4px 4px 0 var(--accent);
 }
 
 .timeline-toggle-btn:focus-visible {
-    outline: 2px solid var(--red);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
 }
 
@@ -817,7 +819,7 @@ section {
     font-weight: 700;
     letter-spacing: var(--label-tracking);
     text-transform: uppercase;
-    color: var(--red-deep);
+    color: var(--accent-deep);
     border-bottom: 1.5px solid transparent;
     padding-bottom: 2px;
     transition: color 0.25s ease, border-color 0.25s ease;
@@ -825,7 +827,7 @@ section {
 
 .book-link:hover {
     color: var(--ink);
-    border-bottom-color: var(--red);
+    border-bottom-color: var(--accent);
 }
 
 .bookshop-link {
@@ -884,7 +886,7 @@ section {
     left: -1px;
     right: -1px;
     height: 3px;
-    background-color: var(--red);
+    background-color: var(--accent);
     transform: scaleX(0);
     transform-origin: 0 50%;
     transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -957,7 +959,7 @@ section {
     font-weight: 700;
     letter-spacing: var(--label-tracking);
     text-transform: uppercase;
-    color: var(--red-deep);
+    color: var(--accent-deep);
     border-bottom: 1.5px solid transparent;
     padding-bottom: 2px;
     transition: color 0.25s ease, border-color 0.25s ease;
@@ -966,7 +968,7 @@ section {
 .read-more:hover,
 .watch-link:hover {
     color: var(--ink);
-    border-bottom-color: var(--red);
+    border-bottom-color: var(--accent);
 }
 
 /* ============================================
@@ -987,7 +989,7 @@ section {
 
 .media-item:hover {
     transform: translateY(-3px);
-    border-left-color: var(--red);
+    border-left-color: var(--accent);
     box-shadow: var(--shadow-lifted);
 }
 
@@ -1103,7 +1105,7 @@ section {
     margin-bottom: 1.1rem;
     padding: 1rem 1.25rem;
     background-color: var(--paper);
-    border-left: 3px solid var(--red);
+    border-left: 3px solid var(--accent);
 }
 
 .event-date,
@@ -1144,7 +1146,7 @@ section {
 }
 
 .event-link:hover {
-    background-color: var(--red);
+    background-color: var(--accent);
     transform: translate(-1px, -1px);
     box-shadow: 4px 4px 0 var(--paper-recessed);
 }
@@ -1181,7 +1183,7 @@ section {
 
 .podcast-embed:hover {
     transform: translateY(-3px);
-    border-left-color: var(--red);
+    border-left-color: var(--accent);
     box-shadow: var(--shadow-lifted);
 }
 
@@ -1240,13 +1242,13 @@ section {
 }
 
 .contact-box::before {
-    content: '✦';
+    content: '★';
     position: absolute;
     top: -13px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--paper);
-    color: var(--red);
+    color: var(--accent);
     font-size: 1.3rem;
     padding: 0 0.6rem;
     line-height: 1;
@@ -1269,7 +1271,7 @@ section {
 }
 
 .contact-detail a {
-    color: var(--red-deep);
+    color: var(--accent-deep);
     font-weight: 700;
 }
 
@@ -1284,8 +1286,8 @@ section {
 }
 
 .social-link-block:hover {
-    color: var(--red-deep);
-    border-bottom-color: var(--red);
+    color: var(--accent-deep);
+    border-bottom-color: var(--accent);
     transform: translateX(3px);
 }
 
@@ -1347,7 +1349,7 @@ section {
 
 .footer-ornament {
     font-size: 1.4rem;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 0.75rem;
 }
 
@@ -1376,8 +1378,8 @@ section {
 }
 
 .back-to-top:hover {
-    color: var(--red-deep);
-    border-color: var(--red);
+    color: var(--accent-deep);
+    border-color: var(--accent);
     transform: translateY(-2px);
 }
 
@@ -1406,7 +1408,7 @@ section {
     overflow-y: auto;
     position: relative;
     border: 1px solid var(--rule-dark);
-    border-top: 4px solid var(--red);
+    border-top: 4px solid var(--accent);
     box-shadow: var(--shadow-lifted);
     animation: modalRise 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -1437,7 +1439,7 @@ section {
 }
 
 .reading-modal-close:hover {
-    color: var(--red);
+    color: var(--accent);
     transform: rotate(90deg);
 }
 
