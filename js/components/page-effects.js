@@ -41,6 +41,39 @@
         }
     }
 
+    /**
+     * Hero parallax: the green wedge, gold star, and name drift on separate
+     * planes as the pointer moves, with slow easing for a premium feel.
+     * Restricted to fine pointers (skips touch) and disabled for
+     * reduced-motion. Returning the pointer settles everything back.
+     */
+    function initHeroParallax() {
+        if (prefersReducedMotion()) return;
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+        const hero = document.querySelector('.masthead');
+        if (!hero) return;
+        const wedge = hero.querySelector('.masthead-wedge');
+        const star = hero.querySelector('.masthead-star');
+        const content = hero.querySelector('.masthead-content');
+        if (!wedge || !star) return;
+
+        hero.addEventListener('pointermove', (e) => {
+            const r = hero.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - 0.5;
+            const py = (e.clientY - r.top) / r.height - 0.5;
+            wedge.style.transform = `translate(${px * 13}px, ${py * 10}px) rotate(${px * 0.6}deg)`;
+            star.style.transform = `translate(${-px * 11}px, ${-py * 8}px)`;
+            if (content) content.style.transform = `translate(${-px * 4}px, ${-py * 3}px)`;
+        });
+
+        hero.addEventListener('pointerleave', () => {
+            wedge.style.transform = '';
+            star.style.transform = '';
+            if (content) content.style.transform = '';
+        });
+    }
+
     function initScrollAnimations() {
         const sections = document.querySelectorAll('section');
 
@@ -122,6 +155,7 @@
     onReady(() => {
         initTimelineToggle();
         initMasthead();
+        initHeroParallax();
         initScrollAnimations();
         initStickyNav();
     });
