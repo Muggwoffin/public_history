@@ -1,7 +1,13 @@
 /*
- * Landing Page - Simplified Design
+ * Landing Page — Editorial "contents cover"
  * Dr Maurice J. Casey Portfolio
+ *
+ * Six archival prints scattered around a central masthead, each a
+ * doorway into a section. Warm paper, ink, and Esperanto green —
+ * matching the main site's design system.
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Baskerville:ital,wght@0,400;1,400&family=Archivo:wght@500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -9,23 +15,40 @@
     box-sizing: border-box;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@500;600;700&display=swap');
-
 :root {
-    --cream: #f5f5f0;
-    --dark-gray: #2a2a2a;
-    --medium-gray: #666;
-    --radical-red: #c41e3a;
-    --newsprint-sepia: #f5f5f0;
+    --paper: #f6f3ea;
+    --paper-raised: #fbf9f3;
+    --paper-recessed: #efebdf;
+    --ink: #1b1813;
+    --ink-soft: #4b463d;
+    --ink-faint: #8d8678;
+    --rule: #ddd6c6;
+    --rule-dark: #45413a;
+    /* Esperanto green — the verda stelo */
+    --accent: #2f7d45;
+    --accent-deep: #1f5a31;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Libre Baskerville', Georgia, serif;
+    --font-sans: 'Archivo', 'Franklin Gothic Medium', sans-serif;
+
+    --shadow-paper:
+        0 1px 2px rgba(27, 24, 19, 0.05),
+        0 10px 26px -14px rgba(27, 24, 19, 0.2);
+    --shadow-lifted:
+        0 2px 4px rgba(27, 24, 19, 0.07),
+        0 22px 42px -16px rgba(27, 24, 19, 0.3);
 }
 
-body, html {
+html, body {
     width: 100%;
     min-height: 100%;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-body);
+    color: var(--ink);
 }
 
 body {
+    background-color: var(--paper);
     background-image: url('images/passport-background.jpg');
     background-size: 110%;
     background-position: center;
@@ -33,24 +56,36 @@ body {
     animation: slowPan 60s ease-in-out infinite alternate;
 }
 
-@keyframes slowPan {
-    0% {
-        background-position: 35% 50%;
-    }
-    100% {
-        background-position: 65% 50%;
-    }
-}
-
+/* Warm paper veil over the passport collage, plus a faint grain */
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(245, 245, 240, 0.77);
+    inset: 0;
+    background-color: rgba(246, 243, 234, 0.82);
+    background-image: linear-gradient(
+        90deg,
+        rgba(27, 24, 19, 0.015) 0px,
+        transparent 1px,
+        transparent 3px
+    );
+    background-size: auto, 3px 100%;
     z-index: -1;
+}
+
+@keyframes slowPan {
+    0% { background-position: 35% 50%; }
+    100% { background-position: 65% 50%; }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 .landing-container {
@@ -63,12 +98,15 @@ body::before {
     justify-content: center;
 }
 
-/* Masthead Layout - Buttons Around Image */
+/* ============================================
+   MASTHEAD LAYOUT — prints around the centre
+   ============================================ */
+
 .masthead-layout {
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-template-rows: auto auto auto;
-    gap: 3rem;
+    gap: 3rem 3.5rem;
     align-items: center;
     justify-items: center;
     max-width: 1600px;
@@ -76,36 +114,20 @@ body::before {
     padding: 2rem;
 }
 
-/* Title Section - Center Masthead */
+/* Central masthead */
 .title-section {
-    text-align: center;
-    opacity: 0;
-    animation: fadeIn 1.5s ease-out forwards;
     grid-column: 2 / 4;
     grid-row: 2;
+    text-align: center;
     padding: 0 2rem;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    opacity: 0;
+    animation: fadeIn 1.2s ease-out 0.2s forwards;
 }
 
 .masthead-link {
     display: block;
     text-decoration: none;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.masthead-link:hover {
-    transform: scale(1.03);
-    opacity: 0.85;
+    transition: transform 0.4s ease;
 }
 
 .masthead-image {
@@ -116,247 +138,222 @@ body::before {
     transition: filter 0.4s ease;
 }
 
+.masthead-link:hover {
+    transform: scale(1.02);
+}
+
 .masthead-link:hover .masthead-image {
-    filter: brightness(1.05);
+    filter: brightness(1.04);
 }
 
-/* Button Positioning */
-.card-left {
-    grid-column: 1;
-    grid-row: 2;
+.masthead-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
 }
 
-.card-top-left {
-    grid-column: 2;
-    grid-row: 1;
+/* Verda-stelo ornament beneath the masthead */
+.masthead-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1.2s ease-out 0.5s forwards;
 }
 
-.card-top-right {
-    grid-column: 3;
-    grid-row: 1;
+.masthead-ornament .rule {
+    width: 54px;
+    height: 1px;
+    background-color: var(--accent);
 }
 
-.card-right {
-    grid-column: 4;
-    grid-row: 2;
+.masthead-ornament .star {
+    color: var(--accent);
+    font-size: 1.1rem;
+    line-height: 1;
 }
 
-.card-bottom-left {
-    grid-column: 2;
-    grid-row: 3;
-}
+/* ============================================
+   PRINTS (section doorways)
+   ============================================ */
 
-.card-bottom-right {
-    grid-column: 3;
-    grid-row: 3;
-}
+.card-left        { grid-column: 1; grid-row: 2; }
+.card-top-left    { grid-column: 2; grid-row: 1; }
+.card-top-right   { grid-column: 3; grid-row: 1; }
+.card-right       { grid-column: 4; grid-row: 2; }
+.card-bottom-left { grid-column: 2; grid-row: 3; }
+.card-bottom-right{ grid-column: 3; grid-row: 3; }
 
 .image-card {
-    text-decoration: none;
-    color: var(--dark-gray);
-    transition: transform 0.3s ease;
     display: block;
-    backface-visibility: hidden;
+    text-decoration: none;
+    color: var(--ink);
     max-width: 224px;
     opacity: 0;
-    animation: fadeIn 1.5s ease-out 1.2s forwards;
+    animation: fadeInCard 1s ease-out forwards;
+    transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.image-card:hover {
-    transform: translateY(-5px);
-}
+/* Staggered settle, so the prints land in sequence */
+.card-top-left    { animation-delay: 0.70s; }
+.card-top-right   { animation-delay: 0.80s; }
+.card-left        { animation-delay: 0.90s; }
+.card-right       { animation-delay: 1.00s; }
+.card-bottom-left { animation-delay: 1.10s; }
+.card-bottom-right{ animation-delay: 1.20s; }
 
 .image-wrapper {
+    position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
     overflow: hidden;
-    background-color: white;
-    border: 8px solid white;
-    box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.12),
-        0 4px 8px rgba(0, 0, 0, 0.08),
-        0 8px 16px rgba(0, 0, 0, 0.06);
+    background-color: var(--paper-raised);
+    border: 6px solid var(--paper-raised);
+    outline: 1px solid var(--rule);
+    box-shadow: var(--shadow-paper);
     margin-bottom: 1rem;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    backface-visibility: hidden;
+    transition: box-shadow 0.35s ease, outline-color 0.35s ease;
 }
 
-.card-left .image-wrapper {
-    transform: rotate(-1.5deg);
-}
+/* Each print sits at a slight angle, like a photograph on a desk */
+.card-left .image-wrapper        { transform: rotate(-1.5deg); }
+.card-top-left .image-wrapper    { transform: rotate(1deg); }
+.card-top-right .image-wrapper   { transform: rotate(-0.8deg); }
+.card-right .image-wrapper       { transform: rotate(1.2deg); }
+.card-bottom-left .image-wrapper { transform: rotate(-0.5deg); }
+.card-bottom-right .image-wrapper{ transform: rotate(0.8deg); }
 
-.card-top-left .image-wrapper {
-    transform: rotate(1deg);
-}
-
-.card-top-right .image-wrapper {
-    transform: rotate(-0.8deg);
-}
-
-.card-right .image-wrapper {
-    transform: rotate(1.2deg);
-}
-
-.card-bottom-left .image-wrapper {
-    transform: rotate(-0.5deg);
-}
-
-.card-bottom-right .image-wrapper {
-    transform: rotate(0.8deg);
-}
-
-.image-card:hover .image-wrapper {
-    transform: rotate(0deg) !important;
-    box-shadow:
-        0 4px 8px rgba(0, 0, 0, 0.15),
-        0 8px 16px rgba(0, 0, 0, 0.1),
-        0 12px 24px rgba(0, 0, 0, 0.08);
+.image-wrapper {
+    transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+                box-shadow 0.35s ease, outline-color 0.35s ease;
 }
 
 .image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%) sepia(5%);
-    transition: filter 0.3s ease;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    will-change: filter;
+    filter: grayscale(100%) sepia(14%);
+    transition: filter 0.4s ease, transform 0.4s ease;
 }
 
-.image-card:hover .image-wrapper img {
-    filter: grayscale(40%) sepia(0%);
+/* Folio number — an archival catalogue tab */
+.card-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--accent);
+    background-color: var(--paper-raised);
+    padding: 4px 9px 5px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
 }
 
 .image-caption {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-align: center;
-    color: var(--dark-gray);
-    background-color: var(--newsprint-sepia);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.6rem 1.2rem;
-    border: 2px solid var(--dark-gray);
-    border-radius: 8px;
-    display: inline-block;
+    display: block;
     width: 100%;
-    opacity: 0;
-    animation: fadeInCaption 1.5s ease-out 1.2s forwards;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background-color: var(--paper-raised);
+    border: 1.5px solid var(--ink);
+    padding: 0.6rem 0.8rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.image-card:hover .image-caption {
-    background-color: var(--dark-gray);
-    color: white;
-    border-color: var(--dark-gray);
+/* Hover / focus: straighten, lift, warm the photo, ink the label */
+.image-card:hover,
+.image-card:focus-visible {
+    transform: translateY(-5px);
 }
 
-@keyframes fadeInCaption {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.image-card:hover .image-wrapper,
+.image-card:focus-visible .image-wrapper {
+    transform: rotate(0deg);
+    box-shadow: var(--shadow-lifted);
+    outline-color: var(--rule-dark);
 }
 
-/* Responsive Design */
+.image-card:hover .image-wrapper img,
+.image-card:focus-visible .image-wrapper img {
+    filter: grayscale(25%) sepia(0%);
+    transform: scale(1.04);
+}
+
+.image-card:hover .image-caption,
+.image-card:focus-visible .image-caption {
+    background-color: var(--ink);
+    color: var(--paper-raised);
+}
+
+.image-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   RESPONSIVE — collapse to a single column
+   ============================================ */
+
 @media (max-width: 1200px) {
-    .masthead-layout {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        gap: 2.5rem;
-    }
-
-    .title-section,
-    .card-left,
-    .card-top-left,
-    .card-top-right,
-    .card-right,
-    .card-bottom-left,
-    .card-bottom-right {
-        grid-column: 1;
-        grid-row: auto;
-    }
-
-    .title-section {
-        order: 1;
-        padding: 0;
-    }
-
-    .card-left { order: 2; }
-    .card-top-left { order: 3; }
-    .card-top-right { order: 4; }
-    .card-right { order: 5; }
-    .card-bottom-left { order: 6; }
-    .card-bottom-right { order: 7; }
-
     .masthead-layout {
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 2.5rem;
     }
 
-    .image-card {
-        max-width: 240px;
-    }
+    .title-section { order: 1; padding: 0; }
+    .card-left { order: 2; }
+    .card-top-left { order: 3; }
+    .card-top-right { order: 4; }
+    .card-bottom-left { order: 5; }
+    .card-right { order: 6; }
+    .card-bottom-right { order: 7; }
+
+    /* Keep the gentle tilt but flatten the heavy angles on stack */
+    .image-card { max-width: 248px; }
 }
 
 @media (max-width: 768px) {
-    .landing-container {
-        padding: 3rem 1.5rem;
-    }
-
-    .masthead-layout {
-        gap: 2rem;
-        padding: 1rem;
-    }
-
-    .image-card {
-        max-width: 200px;
-    }
-
-    .image-caption {
-        font-size: 1.1rem;
-    }
+    .landing-container { padding: 3rem 1.5rem; }
+    .masthead-layout { gap: 2rem; padding: 1rem; }
+    .image-card { max-width: 220px; }
+    .image-caption { font-size: 0.72rem; }
 }
 
 @media (max-width: 480px) {
-    .landing-container {
-        padding: 2rem 1rem;
-    }
-
-    .masthead-layout {
-        gap: 1.5rem;
-        padding: 0.5rem;
-    }
-
-    .image-card {
-        max-width: 100%;
-    }
-
-    .image-caption {
-        font-size: 1rem;
-    }
+    .landing-container { padding: 2rem 1rem; }
+    .masthead-layout { gap: 1.75rem; padding: 0.5rem; }
+    .image-card { max-width: 100%; width: 260px; }
 }
 
 /* ============================================
-   ACCESSIBILITY: Reduced Motion
+   ACCESSIBILITY: REDUCED MOTION
    ============================================ */
 
-/* PERF: Respect user motion preferences for accessibility and performance */
 @media (prefers-reduced-motion: reduce) {
-    /* Disable background panning animation */
-    body {
-        animation: none !important;
-    }
+    body { animation: none !important; }
 
-    /* Disable all fade-in and transform animations */
     *,
     *::before,
     *::after {
@@ -365,10 +362,18 @@ body::before {
         transition-duration: 0.01ms !important;
     }
 
-    /* Ensure content is immediately visible */
     .title-section,
+    .masthead-ornament,
     .image-card {
         opacity: 1 !important;
         transform: none !important;
     }
+
+    /* Preserve the resting tilt of the prints */
+    .card-left .image-wrapper { transform: rotate(-1.5deg) !important; }
+    .card-top-left .image-wrapper { transform: rotate(1deg) !important; }
+    .card-top-right .image-wrapper { transform: rotate(-0.8deg) !important; }
+    .card-right .image-wrapper { transform: rotate(1.2deg) !important; }
+    .card-bottom-left .image-wrapper { transform: rotate(-0.5deg) !important; }
+    .card-bottom-right .image-wrapper { transform: rotate(0.8deg) !important; }
 }
