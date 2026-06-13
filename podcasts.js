@@ -5,7 +5,7 @@
 
 const podcasts = [
     {
-        "title": "HHotel Lux: the guesthouse of world revolution",
+        "title": "Hotel Lux: the guesthouse of world revolution",
         "podcastName": "BBC History Extra",
         "year": "2024",
         "embedUrl": "https://embed.podcasts.apple.com/gb/podcast/hotel-lux-the-guesthouse-of-world-revolution/id256580326?i=1000682866429",
