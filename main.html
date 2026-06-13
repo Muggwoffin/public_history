@@ -8,8 +8,34 @@
     <title>Dr Maurice J. Casey - Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="timeline.css">
+    <noscript>
+        <!-- Sections are revealed by scroll scripts; keep everything visible without JS -->
+        <style>
+            section { opacity: 1 !important; }
+            .site-nav { display: none; }
+            .timeline-content-wrapper.collapsed { max-height: none; opacity: 1; }
+        </style>
+    </noscript>
 </head>
 <body>
+    <a class="skip-link" href="#about">Skip to content</a>
+
+    <!-- Sticky section navigation (revealed after scrolling past the masthead) -->
+    <nav class="site-nav" id="site-nav" aria-label="Page sections">
+        <div class="site-nav-progress" id="scroll-progress" aria-hidden="true"></div>
+        <div class="site-nav-inner">
+            <a class="site-nav-name" href="index.html">Maurice&nbsp;J.&nbsp;Casey</a>
+            <div class="site-nav-links">
+                <a href="#about">About</a>
+                <a href="#books">Books</a>
+                <a href="#selected-writing">Writing</a>
+                <a href="#public-history">Public History</a>
+                <a href="#contact">Contact</a>
+                <a href="#newsletter">Newsletter</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="newspaper-wrapper">
         <!-- Masthead -->
         <header class="masthead">
@@ -204,7 +230,9 @@
         <footer class="footer">
             <div class="decorative-line"></div>
             <div class="footer-content">
+                <p class="footer-ornament" aria-hidden="true">❦</p>
                 <p class="colophon">© Dr Maurice J. Casey • All Rights Reserved</p>
+                <a class="back-to-top" href="#top" aria-label="Back to top">↑ Back to top</a>
             </div>
         </footer>
     </div>

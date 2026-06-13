@@ -1,20 +1,19 @@
 /**
  * Interactive Timeline Styles
- * Clean, academic aesthetic with generous whitespace
+ * Archival-editorial treatment matching style.css: ink rules, paper
+ * cards, register-mark markers, muted print-tone badges.
  */
 
 /* ============================================
-   TIMELINE CONTAINER
+   CONTAINER
    ============================================ */
 
 #timeline-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 2rem 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    padding: 2rem 0.5rem;
 }
 
-/* Screen reader only content */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -33,58 +32,62 @@
 
 .timeline-filters {
     margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 2px solid #e5e5e5;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--rule);
 }
 
 .timeline-filters-title {
-    font-size: 1rem;
-    font-weight: 600;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #333;
+    letter-spacing: var(--label-tracking);
+    color: var(--ink-faint);
     margin-bottom: 1rem;
 }
 
 .timeline-filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.6rem;
 }
 
 .timeline-filter-btn {
-    padding: 0.5rem 1.25rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #555;
-    background-color: #f5f5f5;
-    border: 2px solid #e0e0e0;
-    border-radius: 4px;
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background-color: transparent;
+    border: 1px solid var(--rule-dark);
     cursor: pointer;
-    transition: all 0.2s ease;
     white-space: nowrap;
+    transition: background-color 0.25s ease, color 0.25s ease,
+                border-color 0.25s ease, transform 0.25s ease;
 }
 
 .timeline-filter-btn:hover {
-    background-color: #e8e8e8;
-    border-color: #d0d0d0;
-    color: #333;
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: translateY(-1px);
 }
 
-.timeline-filter-btn:focus {
-    outline: 2px solid #4a90e2;
+.timeline-filter-btn:focus-visible {
+    outline: 2px solid var(--red);
     outline-offset: 2px;
 }
 
 .timeline-filter-btn.active {
-    background-color: #2a2a2a;
-    color: white;
-    border-color: #2a2a2a;
+    background-color: var(--ink);
+    color: var(--paper-raised);
+    border-color: var(--ink);
 }
 
 .timeline-filter-btn.active:hover {
-    background-color: #1a1a1a;
-    border-color: #1a1a1a;
+    background-color: var(--red-deep);
+    border-color: var(--red-deep);
 }
 
 /* ============================================
@@ -93,49 +96,47 @@
 
 .timeline-list {
     position: relative;
-    padding-left: 2.5rem;
+    padding-left: 2.25rem;
 }
 
-/* Vertical line */
+/* Vertical spine, fading out at the foot */
 .timeline-list::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 5px;
+    top: 0.4rem;
     bottom: 0;
-    width: 3px;
-    background: linear-gradient(to bottom, #e0e0e0 0%, #e0e0e0 100%);
+    width: 1px;
+    background: linear-gradient(
+        to bottom,
+        var(--rule-dark) 0%,
+        var(--rule-dark) 88%,
+        transparent 100%
+    );
 }
 
 .timeline-empty {
     font-size: 1rem;
-    color: #777;
+    color: var(--ink-faint);
     font-style: italic;
     padding: 2rem 0;
 }
 
 /* ============================================
-   TIMELINE ITEMS
+   ITEMS
    ============================================ */
 
 .timeline-item {
     position: relative;
-    margin-bottom: 3rem;
+    margin-bottom: 2.25rem;
     opacity: 0;
-    animation: fadeInUp 0.5s ease forwards;
+    animation: timelineFadeIn 0.5s ease forwards;
 }
 
-/* FIX: Ensure items are visible after animation completes */
-.timeline-item.animated,
-.timeline-list .timeline-item {
-    opacity: 1;
-    animation: fadeInUp 0.5s ease forwards;
-}
-
-@keyframes fadeInUp {
+@keyframes timelineFadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(14px);
     }
     to {
         opacity: 1;
@@ -143,238 +144,195 @@
     }
 }
 
-/* Timeline marker (dot) */
+/* Register-mark marker: a rotated ink square that turns red on hover */
 .timeline-marker {
     position: absolute;
-    left: -2.5rem;
-    top: 0.25rem;
-    width: 16px;
-    height: 16px;
-    background-color: #2a2a2a;
-    border: 3px solid white;
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px #e0e0e0;
+    left: -2.25rem;
+    top: 0.55rem;
+    width: 11px;
+    height: 11px;
+    background-color: var(--paper);
+    border: 2px solid var(--ink);
+    transform: rotate(45deg);
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+                transform 0.3s ease;
     z-index: 1;
 }
 
-/* Timeline content */
+.timeline-item:hover .timeline-marker {
+    background-color: var(--red);
+    border-color: var(--red);
+    transform: rotate(45deg) scale(1.15);
+}
+
 .timeline-content {
-    background-color: white;
-    padding: 1.5rem;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
+    background-color: var(--paper-raised);
+    padding: 1.4rem 1.6rem;
+    border: 1px solid var(--rule);
+    box-shadow: var(--shadow-paper);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease,
+                transform 0.3s ease;
 }
 
 .timeline-item:hover .timeline-content {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border-color: #d0d0d0;
+    border-color: var(--rule-dark);
+    box-shadow: var(--shadow-lifted);
+    transform: translateX(3px);
 }
 
-/* Header section */
+/* ============================================
+   ITEM ANATOMY
+   ============================================ */
+
 .timeline-header {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
 }
 
 .timeline-date {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #2a2a2a;
-    letter-spacing: 0.02em;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--red-deep);
+    margin-right: 0.25rem;
 }
 
-/* Badges */
 .timeline-badge,
 .timeline-scope {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 600;
+    padding: 0.22rem 0.65rem;
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-radius: 3px;
-    line-height: 1.2;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    border: 1px solid transparent;
 }
 
-/* Type badges */
-.timeline-badge-book {
-    background-color: #e3f2fd;
-    color: #1565c0;
+/* Type badges — muted print tones on warm paper */
+.timeline-badge-book        { background-color: #ece4d2; color: #6b5524; }
+.timeline-badge-exhibition  { background-color: #e7dde4; color: #6d4a62; }
+.timeline-badge-fellowship  { background-color: #f0e0d4; color: #8a4a23; }
+.timeline-badge-teaching    { background-color: #dfe5d8; color: #4a5e3c; }
+.timeline-badge-media       { background-color: #f0dcda; color: #8e3a33; }
+.timeline-badge-talk        { background-color: #dce4e2; color: #3d5f58; }
+.timeline-badge-education   { background-color: #ece7d2; color: #6f6224; }
+
+/* Scope badges — outlined, quieter than type badges */
+.timeline-scope {
+    background-color: transparent;
+    border-color: var(--rule);
+    color: var(--ink-faint);
 }
 
-.timeline-badge-exhibition {
-    background-color: #f3e5f5;
-    color: #7b1fa2;
-}
+.timeline-scope-international { border-color: #b9c4c2; color: #3d5f58; }
+.timeline-scope-public        { border-color: #c9bfc6; color: #6d4a62; }
+.timeline-scope-national      { border-color: #d4c6a8; color: #6b5524; }
 
-.timeline-badge-fellowship {
-    background-color: #fff3e0;
-    color: #e65100;
-}
-
-.timeline-badge-teaching {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-}
-
-.timeline-badge-media {
-    background-color: #fce4ec;
-    color: #c2185b;
-}
-
-.timeline-badge-talk {
-    background-color: #e0f2f1;
-    color: #00695c;
-}
-
-.timeline-badge-education {
-    background-color: #fff8e1;
-    color: #f57c00;
-}
-
-/* Scope badges */
-.timeline-scope-academic {
-    background-color: #f5f5f5;
-    color: #555;
-}
-
-.timeline-scope-public {
-    background-color: #e8eaf6;
-    color: #3949ab;
-}
-
-.timeline-scope-international {
-    background-color: #e0f7fa;
-    color: #00838f;
-}
-
-.timeline-scope-national {
-    background-color: #fff9c4;
-    color: #f57f17;
-}
-
-/* Title */
 .timeline-title {
+    font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 700;
-    color: #2a2a2a;
-    margin: 0.5rem 0;
-    line-height: 1.4;
+    color: var(--ink);
+    margin: 0.4rem 0;
+    line-height: 1.35;
 }
 
 .timeline-title a {
-    color: #2a2a2a;
-    text-decoration: none;
-    transition: color 0.2s ease;
+    color: var(--ink);
+    background-image: linear-gradient(var(--red), var(--red));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1.5px;
+    transition: background-size 0.3s ease, color 0.3s ease;
 }
 
 .timeline-title a:hover {
-    color: #4a90e2;
-    text-decoration: underline;
+    color: var(--red-deep);
+    background-size: 100% 1.5px;
 }
 
-.timeline-title a:focus {
-    outline: 2px solid #4a90e2;
+.timeline-title a:focus-visible {
+    outline: 2px solid var(--red);
     outline-offset: 2px;
-    border-radius: 2px;
 }
 
-/* Venue */
 .timeline-venue {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #666;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
     font-style: italic;
-    margin: 0.5rem 0;
+    margin: 0.35rem 0;
 }
 
-/* Description */
 .timeline-description {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555;
-    margin: 0.75rem 0 0 0;
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0.6rem 0 0;
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    ============================================ */
 
 @media (max-width: 768px) {
     #timeline-container {
-        padding: 1.5rem 1rem;
+        padding: 1.5rem 0;
     }
 
     .timeline-list {
-        padding-left: 2rem;
-    }
-
-    .timeline-list::before {
-        width: 2px;
+        padding-left: 1.75rem;
     }
 
     .timeline-marker {
-        left: -2rem;
-        width: 14px;
-        height: 14px;
-        border-width: 2px;
+        left: -1.75rem;
+        width: 9px;
+        height: 9px;
     }
 
     .timeline-content {
-        padding: 1.25rem;
+        padding: 1.2rem 1.3rem;
     }
 
     .timeline-title {
         font-size: 1.1rem;
     }
 
-    .timeline-filters-title {
-        font-size: 0.9rem;
-    }
-
     .timeline-filter-btn {
-        font-size: 0.85rem;
-        padding: 0.45rem 1rem;
+        font-size: 0.7rem;
+        padding: 0.45rem 0.9rem;
     }
 }
 
 @media (max-width: 480px) {
     .timeline-filter-buttons {
-        gap: 0.5rem;
-    }
-
-    .timeline-filter-btn {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.85rem;
+        gap: 0.45rem;
     }
 
     .timeline-header {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 0.4rem;
     }
 
     .timeline-badge,
     .timeline-scope {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.6rem;
+        font-size: 0.58rem;
+        padding: 0.18rem 0.5rem;
     }
 }
 
 /* ============================================
-   ACCESSIBILITY: Reduced Motion
+   ACCESSIBILITY: REDUCED MOTION
    ============================================ */
 
-/* PERF: Respect user motion preferences for accessibility and performance */
 @media (prefers-reduced-motion: reduce) {
     .timeline-item {
         animation: none !important;
-        opacity: 1 !important; /* FIX: Ensure items are visible when animation is disabled */
+        opacity: 1 !important;
     }
 
     *,
@@ -386,7 +344,7 @@
 }
 
 /* ============================================
-   PRINT STYLES
+   PRINT
    ============================================ */
 
 @media print {
@@ -397,6 +355,7 @@
     .timeline-item {
         page-break-inside: avoid;
         margin-bottom: 1.5rem;
+        opacity: 1 !important;
     }
 
     .timeline-content {
