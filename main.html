@@ -13,7 +13,6 @@
         <style>
             section { opacity: 1 !important; }
             .site-nav { display: none; }
-            .masthead-wedge, .masthead-star, .mh-line, .masthead-subrule { opacity: 1 !important; transform: none !important; }
             .timeline-content-wrapper.collapsed { max-height: none; opacity: 1; }
         </style>
     </noscript>
@@ -49,21 +48,14 @@
         <!-- Masthead -->
         <header class="masthead">
             <div class="masthead-wedge" aria-hidden="true"></div>
+            <div class="masthead-ring" aria-hidden="true"></div>
             <span class="masthead-star" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
                     <path d="M12 2 L14.81 8.62 L21.9 9.27 L16.55 13.97 L18.18 20.93 L12 17.27 L5.82 20.93 L7.45 13.97 L2.1 9.27 L9.19 8.62 Z" fill="currentColor"/>
                 </svg>
             </span>
-            <div class="masthead-content">
-                <h1 class="masthead-title" aria-label="Maurice J. Casey">
-                    <span class="mh-line mh-line-1">Maurice</span>
-                    <span class="mh-line mh-line-2">J. Casey</span>
-                </h1>
-                <div class="masthead-subrule">
-                    <span class="masthead-subrule-line" aria-hidden="true"></span>
-                    <p class="masthead-subtitle">Historian &amp; Writer</p>
-                </div>
-            </div>
+            <h1 class="masthead-title">Maurice J. Casey</h1>
+            <p class="masthead-subtitle">Historian &amp; Writer</p>
         </header>
 
         <!-- About Section -->
@@ -291,18 +283,18 @@ My broader work traces how early twentieth century revolutionaries navigated the
     <script src="writing.js"></script>
     <script src="documentaries.js"></script>
     <script src="podcasts.js"></script>
-    <script src="landing-config.js"></script>
     <script src="projects.js"></script>
 
     <!-- Shared core (must load before components and renderers) -->
     <script src="js/core.js"></script>
 
-    <!-- Components -->
-    <script src="js/components/page-effects.js"></script>
+    <!-- Components (one behaviour per module) -->
+    <script src="js/components/timeline-toggle.js"></script>
     <script src="js/components/timeline.js"></script>
+    <script src="js/components/scroll-reveal.js"></script>
+    <script src="js/components/sticky-nav.js"></script>
     <script src="js/components/content-modal.js"></script>
     <script src="js/components/author-easter-egg.js"></script>
-    <script src="js/components/carousel.js"></script>
 
     <!-- Section renderers -->
     <script src="js/renderers/events-renderer.js"></script>
