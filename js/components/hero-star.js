@@ -33,14 +33,42 @@
         star.setAttribute('aria-label', 'Show the name in another language');
 
         let index = 0;
+        let switching = false;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        function cycle() {
-            index = (index + 1) % VARIANTS.length;
-            const variant = VARIANTS[index];
+        function apply(variant) {
             title.textContent = variant.name;
             title.setAttribute('lang', variant.lang);
             subtitle.textContent = variant.subtitle;
             subtitle.setAttribute('lang', variant.lang);
+        }
+
+        function cycle() {
+            if (switching) return;
+            index = (index + 1) % VARIANTS.length;
+            const variant = VARIANTS[index];
+
+            if (reduceMotion) {
+                apply(variant);
+                return;
+            }
+
+            // Clear the entrance animation so its forwards-fill no longer
+            // pins opacity, letting the opacity transition take over.
+            title.style.animation = 'none';
+            subtitle.style.animation = 'none';
+
+            switching = true;
+            title.style.opacity = '0';
+            subtitle.style.opacity = '0';
+
+            // Swap the text while invisible, then fade back in
+            setTimeout(() => {
+                apply(variant);
+                title.style.opacity = '1';
+                subtitle.style.opacity = '1';
+                switching = false;
+            }, 280);
         }
 
         star.addEventListener('click', cycle);
