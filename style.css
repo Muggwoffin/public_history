@@ -384,51 +384,59 @@ section.visible .contact-box:nth-child(3) {
    MASTHEAD / HERO
    ============================================ */
 
-/* Hero — El Lissitzky compositional language reinterpreted. The name is
-   structural: its two lines straddle a full-bleed "spine" rule that also
-   crosses the green wedge, binding type and geometry into one composition.
-   A gold star marks the wedge's apex. No literal poster motifs. */
+/* Hero — El Lissitzky compositional language reinterpreted. A green wedge
+   drives rightward into a thin ringed circle; the name runs down the wedge's
+   upper edge and the subtitle up its lower edge, both converging on the
+   circle and the gold star it frames. On load the parts settle into
+   alignment. No passport background, no literal poster motifs.
+
+   The entrance is pure CSS (animation-fill-mode: both): each element rests
+   in its final state, so without animation support — or under reduced
+   motion — everything is simply visible and correctly placed. */
 .masthead {
     position: relative;
-    display: flex;
-    align-items: center;
     overflow: hidden;
-    min-height: clamp(300px, 42vh, 400px);
-    padding: 2.5rem clamp(1.5rem, 5vw, 4.5rem);
+    min-height: clamp(330px, 44vh, 440px);
     border-top: 4px solid var(--ink);
     border-bottom: 1px solid var(--rule-dark);
     margin-bottom: 2.5rem;
 }
 
-/* The wedge: a green triangle thrusting up-right from the left edge */
+/* The wedge drives in from the left */
 .masthead-wedge {
     position: absolute;
     left: 0;
     top: 0;
-    width: 46%;
+    width: 62%;
     height: 100%;
     background-color: var(--accent);
-    clip-path: polygon(3% 92%, 3% 40%, 100% 18%);
-    transform-origin: 0 100%;
-    opacity: 0;
-    transform: translateX(-28px);
-    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    clip-path: polygon(0% 22%, 0% 78%, 100% 50%);
+    animation: heroWedgeIn 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) 0.05s both;
 }
 
-.masthead-animate .masthead-wedge {
-    animation: wedgeIn 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+/* The Lissitzky circle at the wedge's point */
+.masthead-ring {
+    position: absolute;
+    left: 62%;
+    top: 50%;
+    width: clamp(58px, 7vw, 84px);
+    height: clamp(58px, 7vw, 84px);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: heroRingIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.55s both;
 }
 
-/* The gold star marks the wedge's apex */
+/* The gold star — the target framed by the circle */
 .masthead-star {
     position: absolute;
-    left: 41%;
-    top: 12%;
-    width: 26px;
-    height: 26px;
+    left: 62%;
+    top: 50%;
+    width: clamp(18px, 2.2vw, 24px);
+    height: clamp(18px, 2.2vw, 24px);
     color: var(--gold);
-    opacity: 0;
-    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform: translate(-50%, -50%);
+    animation: heroStarIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.72s both;
 }
 
 .masthead-star svg {
@@ -437,158 +445,127 @@ section.visible .contact-box:nth-child(3) {
     height: 100%;
 }
 
-.masthead-animate .masthead-star {
-    animation: starIn 0.7s ease 0.3s forwards;
-}
-
-.masthead-content {
-    position: relative;
-    z-index: 2;
-    margin-left: auto;
-    width: min(56%, 660px);
-    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
+/* Name along the upper diagonal, converging on the circle */
 .masthead-title {
+    position: absolute;
+    left: 3%;
+    right: 42%;
+    top: 30%;
     margin: 0;
+    text-align: right;
+    white-space: nowrap;
+    transform-origin: right center;
+    transform: rotate(15deg);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(2rem, 5vw, 3.6rem);
-    line-height: 1.0;
-    letter-spacing: 0.004em;
+    font-size: clamp(1.9rem, 4.4vw, 3.2rem);
+    letter-spacing: -0.01em;
     color: var(--ink);
+    animation: heroNameIn 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) 0.28s both;
 }
 
-/* Two stacked lines; the second steps off-axis to the right */
-.mh-line {
-    display: block;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translateY(14px);
-}
-
-.mh-line-2 {
-    position: relative;
-    margin-left: 1.25em;
-    margin-top: 0.3em;
-}
-
-/* The spine: a full-bleed rule sitting in the gap between the two name
-   lines, anchored to the type (em units) so it always tracks the leading,
-   and extended past the viewport so it crosses the wedge to the left. */
-.mh-line-2::before {
-    content: '';
-    position: absolute;
-    top: -0.17em;
-    left: -100vw;
-    width: 200vw;
-    height: 2px;
-    background-color: var(--ink);
-}
-
-.masthead-animate .mh-line-1 {
-    animation: heroFadeUp 0.7s ease 0.15s forwards;
-}
-
-.masthead-animate .mh-line-2 {
-    animation: heroFadeUp 0.7s ease 0.3s forwards;
-}
-
-/* Subtitle: a measured sans label keyed beneath the off-axis second line */
-.masthead-subrule {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 1.4rem;
-    margin-left: 1.25em;
-    opacity: 0;
-    transform: translateY(14px);
-}
-
-.masthead-subrule-line {
-    width: 34px;
-    height: 1px;
-    background-color: var(--gold);
-    flex-shrink: 0;
-}
-
+/* Subtitle along the lower diagonal, converging on the circle */
 .masthead-subtitle {
+    position: absolute;
+    left: 14%;
+    right: 42%;
+    top: 64%;
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+    transform-origin: right center;
+    transform: rotate(-15deg);
     font-family: var(--font-sans);
-    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.36em;
+    font-size: clamp(0.7rem, 1.1vw, 0.85rem);
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin: 0;
+    animation: heroSubIn 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) 0.40s both;
 }
 
-.masthead-animate .masthead-subrule {
-    animation: heroFadeUp 0.7s ease 0.45s forwards;
+@keyframes heroWedgeIn {
+    from { opacity: 0; transform: translateX(-44px); }
+    to   { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes wedgeIn {
-    to { opacity: 1; transform: translateX(0); }
+@keyframes heroNameIn {
+    from { opacity: 0; transform: rotate(15deg) translateX(-38px); }
+    to   { opacity: 1; transform: rotate(15deg) translateX(0); }
 }
 
-@keyframes starIn {
-    from { opacity: 0; transform: scale(0.4); }
-    to { opacity: 1; transform: scale(1); }
+@keyframes heroSubIn {
+    from { opacity: 0; transform: rotate(-15deg) translateX(-30px); }
+    to   { opacity: 1; transform: rotate(-15deg) translateX(0); }
 }
 
-@keyframes heroFadeUp {
-    to { opacity: 1; transform: none; }
+@keyframes heroRingIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Phones: stack the name above a full-width wedge band, star at its peak.
-   The spine still threads the name's two lines. */
+@keyframes heroStarIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes heroFadeStatic {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* Phones: flatten the diagonals to a readable left-aligned stack above a
+   full-width wedge band, with the ring + star resting on the band. */
 @media (max-width: 700px) {
     .masthead {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        min-height: 320px;
+        min-height: 300px;
         padding: 2.5rem 1.5rem 0;
     }
 
     .masthead-wedge {
         width: 100%;
-        height: 40%;
+        height: 38%;
         top: auto;
         bottom: 0;
-        clip-path: polygon(0% 100%, 100% 100%, 100% 26%, 0% 60%);
-        transform-origin: 100% 100%;
-    }
-
-    .masthead-star {
-        left: auto;
-        right: 14%;
-        top: auto;
-        bottom: 32%;
-        width: 22px;
-        height: 22px;
-    }
-
-    .masthead-content {
-        margin-left: 0;
-        width: 100%;
-        margin-bottom: auto;
-        padding-top: 0.5rem;
+        clip-path: polygon(0% 100%, 100% 100%, 100% 34%, 0% 66%);
     }
 
     .masthead-title {
-        font-size: clamp(2rem, 9vw, 2.8rem);
-    }
-
-    .mh-line {
+        position: static;
+        transform: none;
+        transform-origin: center;
+        text-align: left;
+        left: auto;
+        right: auto;
         white-space: normal;
+        font-size: clamp(2rem, 9vw, 2.7rem);
+        padding-top: 0.5rem;
+        animation-name: heroFadeStatic;
     }
 
-    .mh-line-2 {
-        margin-left: 0.8em;
+    .masthead-subtitle {
+        position: static;
+        transform: none;
+        transform-origin: center;
+        text-align: left;
+        left: auto;
+        right: auto;
+        margin-top: 1rem;
+        animation-name: heroFadeStatic;
     }
 
-    .masthead-subrule {
-        margin-left: 0.8em;
+    .masthead-ring {
+        left: 76%;
+        top: 58%;
+        right: auto;
+        bottom: auto;
+    }
+
+    .masthead-star {
+        left: 76%;
+        top: 58%;
+        right: auto;
+        bottom: auto;
     }
 }
 
@@ -1674,14 +1651,15 @@ section {
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
+    /* Hero already rests in its final state; just cancel the settle
+       animation. Do NOT reset transform — the diagonal name/subtitle and
+       the ring/star centering depend on it. */
     .masthead-wedge,
+    .masthead-ring,
     .masthead-star,
-    .masthead-content,
-    .mh-line,
-    .masthead-subrule {
+    .masthead-title,
+    .masthead-subtitle {
         animation: none !important;
-        opacity: 1 !important;
-        transform: none !important;
     }
 
     section {
