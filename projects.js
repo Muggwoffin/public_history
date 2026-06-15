@@ -510,6 +510,17 @@ const timelineData = [
         "description": "Level 7 course in video game development, passed with commendation.",
         "link": null,
         "venue": "Queen's University Belfast"
+    },
+    {
+        "id": "project-1781514241108",
+        "title": "The Alpenpost: A Girl's Guide to Fighting Hitler and Stalin",
+        "type": "media",
+        "date": "March 2026",
+        "sortDate": "2026-03-08",
+        "scope": "academic",
+        "description": "An audio documentary commissioned by the BBC, exploring a child's eye view of anti-Nazi resistance.",
+        "link": "https://www.bbc.co.uk/programmes/m002sclz",
+        "venue": "BBC Radio 4"
     }
 ];
 
