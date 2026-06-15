@@ -1,22 +1,7 @@
 /**
  * Career Timeline Data for Dr. Maurice Casey
- *
- * DATA STRUCTURE:
- * Each project object contains:
- * - id: Unique identifier (string)
- * - title: Project/achievement title (string)
- * - type: Category - 'book', 'exhibition', 'fellowship', 'education', 'teaching', 'media', 'talk' (string)
- * - date: Display date (string) - e.g., "2024", "2018-2019", "June 2025"
- * - sortDate: Date for sorting in YYYY-MM-DD format (string)
- * - scope: Audience/reach - 'academic', 'public', 'international', 'national' (string)
- * - description: 1-2 sentence summary (string)
- * - link: Optional URL for more details (string or null)
- * - venue: Optional location/institution (string or null)
- *
- * The data below is JSON so it can be managed safely by the admin panel.
- * TO ADD A NEW ITEM MANUALLY:
- * Copy an existing object, update the fields, and keep JSON formatting
- * (double-quoted keys and strings). sortDate must be YYYY-MM-DD.
+ * Managed via the admin panel Timeline Manager.
+ * sortDate must be YYYY-MM-DD; data must remain valid JSON.
  */
 
 const timelineData = [
@@ -514,10 +499,21 @@ const timelineData = [
         "description": "Series of invited talks on Hotel Lux and interwar radical history, engaging diverse audiences with accessible historical narratives.",
         "link": null,
         "venue": "Various venues"
+    },
+    {
+        "id": "project-1781514146254",
+        "title": "PgCert in Games Technologies",
+        "type": "education",
+        "date": "2026",
+        "sortDate": "2026-06-26",
+        "scope": "academic",
+        "description": "Level 7 course in video game development, passed with commendation.",
+        "link": null,
+        "venue": "Queen's University Belfast"
     }
 ];
 
-// Export for use in timeline.js
+// Export for use in main site
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = timelineData;
 }
