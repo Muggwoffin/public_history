@@ -51,14 +51,14 @@ const timelineData = [
     },
     {
         "id": "teaching-oxford-blackfriars-2019-2020",
-        "title": "20th Century British History Course",
+        "title": "Modern British History Course",
         "type": "teaching",
         "date": "2019-2020",
         "sortDate": "2019-09-01",
         "scope": "academic",
-        "description": "Designed and taught course covering political, social, and cultural transformations in 20th-century Britain.",
+        "description": "Designed and taught course covering political, social, and cultural transformations in modern Britain.",
         "link": null,
-        "venue": "Blackfriars College, Oxford"
+        "venue": "Blackfriars Hall, Oxford"
     },
     {
         "id": "teaching-bath-2020",
