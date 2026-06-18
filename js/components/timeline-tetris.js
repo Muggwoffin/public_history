@@ -494,20 +494,20 @@
             if (kind === 'intro') {
                 s.appendChild(el('div', 'tt-screen-star', '★'));
                 s.appendChild(el('h2', null, 'Play Timeline Tetris'));
-                s.appendChild(el('p', null, 'Reorganise the CV. Clear lines. Preserve history. Each block is a real entry from the timeline.'));
+                s.appendChild(el('p', null, 'See how my career trajectory plays out! Each block is a real item from my CV.'));
                 this.startBtn = el('button', 'tt-cta', 'Begin');
                 this.startBtn.addEventListener('click', () => this.beginPlay());
                 s.appendChild(this.startBtn);
             } else if (kind === 'pause') {
                 s.appendChild(el('h2', null, 'Paused'));
-                s.appendChild(el('p', null, 'The archive waits. Press P to resume, or Esc to return to the timeline.'));
+                s.appendChild(el('p', null, 'The academic job market awaits. Press P to resume, or Esc to return to the timeline.'));
                 const resume = el('button', 'tt-cta', 'Resume');
                 resume.addEventListener('click', () => this.togglePause());
                 s.appendChild(resume);
             } else if (kind === 'over') {
                 s.appendChild(el('div', 'tt-screen-star', '★'));
-                s.appendChild(el('h2', null, 'Archive complete'));
-                s.appendChild(el('p', null, 'You organised ' + sorted + ' milestone' + (sorted === 1 ? '' : 's') + ' across ' + phases + ' phase' + (phases === 1 ? '' : 's') + '.'));
+                s.appendChild(el('h2', null, 'Career stability achieved'));
+                s.appendChild(el('p', null, 'You organised ' + sorted + ' CV lines' + (sorted === 1 ? '' : 's') + ' across ' + phases + ' phase' + (phases === 1 ? '' : 's') + '.'));
                 const again = el('button', 'tt-cta', 'Play again');
                 again.addEventListener('click', () => this.restart());
                 s.appendChild(again);
@@ -568,9 +568,9 @@
                 scores.appendChild(wrap);
                 return num;
             };
-            this.elSorted = mkScore('Milestones sorted');
-            this.elLines = mkScore('Lines archived');
-            this.elLevel = mkScore('Career stability');
+            this.elSorted = mkScore('CV Lines');
+            this.elLines = mkScore('Jop Applications');
+            this.elLevel = mkScore('Career Milestones');
             this.elLevel.textContent = '1';
             const actions = el('div', 'tt-actions');
             const pauseBtn = el('button', 'tt-btn', 'Pause');
