@@ -57,7 +57,7 @@
 
         var msg = el('p', 'consent-text',
             "This site uses Google Analytics to understand how it's used. " +
-            'May I enable analytics cookies?');
+            'Enable analytics cookies?');
 
         var actions = el('div', 'consent-actions');
         var decline = el('button', 'consent-btn consent-decline', 'Decline');
