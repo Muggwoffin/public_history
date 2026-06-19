@@ -31,3 +31,19 @@ if (/(?:^|; )mjc_consent=granted(?:;|$)/.test(document.cookie)) {
 
 gtag('js', new Date());
 gtag('config', 'G-BQBYCGSSWC');
+
+/**
+ * Consent-gated custom-event helper.
+ *
+ * Components call window.trackEvent('name', { ... }) for interaction events
+ * (section views, the Tetris easter egg). Events are only sent once the
+ * visitor has actively granted analytics consent, so nothing fires before
+ * "Accept". Returns true when the event was sent, letting callers avoid
+ * marking something as reported while consent is still pending.
+ */
+window.trackEvent = function (name, params) {
+    if (typeof window.gtag !== 'function') return false;
+    if (!/(?:^|; )mjc_consent=granted(?:;|$)/.test(document.cookie)) return false;
+    window.gtag('event', name, params || {});
+    return true;
+};
