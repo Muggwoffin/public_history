@@ -12,5 +12,22 @@
 
 window.dataLayer = window.dataLayer || [];
 function gtag() { dataLayer.push(arguments); }
+
+// Consent Mode v2 — deny everything by default until the visitor chooses.
+// This must run before config() (and before gtag.js processes any hit).
+// While denied, GA4 sends only cookieless, modelled pings — no cookies.
+gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+});
+
+// Restore a previously granted choice so returning visitors aren't re-asked.
+if (/(?:^|; )mjc_consent=granted(?:;|$)/.test(document.cookie)) {
+    gtag('consent', 'update', { analytics_storage: 'granted' });
+}
+
 gtag('js', new Date());
 gtag('config', 'G-BQBYCGSSWC');
