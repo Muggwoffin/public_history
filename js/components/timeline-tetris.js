@@ -23,6 +23,8 @@
     const COLS = 10;
     const ROWS = 20;
     const AUDIO_SRC = 'audio/timeline-tetris.mp3';
+    const AUDIO_VOLUME = 0.5;           // tweak: target music volume
+    const AUDIO_FADE_MS = 5000;         // tweak: fade-in duration (ms)
     const LINES_PER_LEVEL = 6;          // tweak: difficulty ramp
     const BASE_INTERVAL = 800;          // tweak: starting fall speed (ms)
     const LEVEL_STEP = 70;              // tweak: speed-up per level (ms)
@@ -166,9 +168,10 @@
 
         exit() {
             clearTimeout(this.timer);
+            if (this.fadeRAF) cancelAnimationFrame(this.fadeRAF);
             document.removeEventListener('keydown', this.onKey);
             document.body.style.overflow = '';
-            if (this.audio) { this.audio.pause(); this.audio.currentTime = 0; }
+            if (this.audio) { this.audio.pause(); this.audio.currentTime = 0; this.audio = null; }
             this.overlay.classList.remove('tt-visible');
             const remove = () => this.overlay.remove();
             if (this.reduce) remove();
@@ -179,10 +182,26 @@
         initAudio() {
             this.audio = new Audio(AUDIO_SRC);
             this.audio.loop = true;
-            this.audio.volume = 0.5;
+            this.audio.volume = 0;
             // play() is invoked from the Start click, satisfying autoplay rules
             const p = this.audio.play();
             if (p && p.catch) p.catch(() => { /* audio optional */ });
+            this.fadeInAudio();
+        }
+
+        // Ramp the volume from 0 to AUDIO_VOLUME so the music eases in
+        // rather than starting abruptly.
+        fadeInAudio() {
+            if (!this.audio) return;
+            const from = this.audio.volume;
+            const start = performance.now();
+            const step = (now) => {
+                if (!this.audio) return;
+                const t = Math.min((now - start) / AUDIO_FADE_MS, 1);
+                this.audio.volume = from + (AUDIO_VOLUME - from) * t;
+                if (t < 1) this.fadeRAF = requestAnimationFrame(step);
+            };
+            this.fadeRAF = requestAnimationFrame(step);
         }
 
         // ---- piece flow ----
@@ -538,7 +557,7 @@
             this.archivedList.textContent = '';
             this.updateScores();
             this.hideScreen();
-            if (this.audio) { this.audio.currentTime = 0; this.audio.play().catch(() => {}); }
+            if (this.audio) { this.audio.currentTime = 0; this.audio.volume = 0; this.audio.play().catch(() => {}); this.fadeInAudio(); }
             this.spawn();
             this.schedule();
             this.boardWrap.focus();
@@ -598,11 +617,14 @@
                 this.board.appendChild(c);
                 this.cells.push(c);
             }
-            // Delegated hover inspection of locked blocks
-            this.board.addEventListener('mouseover', (e) => {
-                if (e.target._item) this.renderCard(e.target._item);
+            // Delegated hover inspection of locked blocks. pointermove +
+            // closest() is more robust than mouseover/event.target (cells
+            // are tiny and re-rendered constantly).
+            this.board.addEventListener('pointermove', (e) => {
+                const cell = e.target.closest && e.target.closest('.tt-cell');
+                if (cell && cell._item) this.renderCard(cell._item);
             });
-            this.board.addEventListener('mouseleave', () => {
+            this.board.addEventListener('pointerleave', () => {
                 if (this.current) this.renderCard(this.current.item);
             });
             this.screen = el('div', 'tt-screen');
@@ -610,7 +632,10 @@
             this.boardWrap.appendChild(this.screen);
 
             const side = el('aside', 'tt-side');
-            const nowSec = el('section', 'tt-now');
+            // NB: these panels are <div>, not <section> — the site has a
+            // global `section { opacity: 0 }` scroll-reveal rule that would
+            // otherwise hide them (they are added after the observer runs).
+            const nowSec = el('div', 'tt-now');
             nowSec.appendChild(el('h3', null, 'Now placing'));
             this.card = el('div', 'tt-card');
             this.card.setAttribute('aria-live', 'polite');
@@ -622,7 +647,7 @@
             this.card.appendChild(this.cardDesc);
             nowSec.appendChild(this.card);
 
-            const nextSec = el('section', 'tt-next');
+            const nextSec = el('div', 'tt-next');
             nextSec.appendChild(el('h3', null, 'Next'));
             this.nextGrid = el('div', 'tt-next-grid');
             this.nextCells = [];
@@ -633,7 +658,7 @@
             }
             nextSec.appendChild(this.nextGrid);
 
-            const archSec = el('section', 'tt-archived');
+            const archSec = el('div', 'tt-archived');
             archSec.appendChild(el('h3', null, 'Just archived'));
             this.archivedList = el('ul', 'tt-archived-list');
             archSec.appendChild(this.archivedList);
