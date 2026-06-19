@@ -598,11 +598,14 @@
                 this.board.appendChild(c);
                 this.cells.push(c);
             }
-            // Delegated hover inspection of locked blocks
-            this.board.addEventListener('mouseover', (e) => {
-                if (e.target._item) this.renderCard(e.target._item);
+            // Delegated hover inspection of locked blocks. pointermove +
+            // closest() is more robust than mouseover/event.target (cells
+            // are tiny and re-rendered constantly).
+            this.board.addEventListener('pointermove', (e) => {
+                const cell = e.target.closest && e.target.closest('.tt-cell');
+                if (cell && cell._item) this.renderCard(cell._item);
             });
-            this.board.addEventListener('mouseleave', () => {
+            this.board.addEventListener('pointerleave', () => {
                 if (this.current) this.renderCard(this.current.item);
             });
             this.screen = el('div', 'tt-screen');
@@ -610,7 +613,10 @@
             this.boardWrap.appendChild(this.screen);
 
             const side = el('aside', 'tt-side');
-            const nowSec = el('section', 'tt-now');
+            // NB: these panels are <div>, not <section> — the site has a
+            // global `section { opacity: 0 }` scroll-reveal rule that would
+            // otherwise hide them (they are added after the observer runs).
+            const nowSec = el('div', 'tt-now');
             nowSec.appendChild(el('h3', null, 'Now placing'));
             this.card = el('div', 'tt-card');
             this.card.setAttribute('aria-live', 'polite');
@@ -622,7 +628,7 @@
             this.card.appendChild(this.cardDesc);
             nowSec.appendChild(this.card);
 
-            const nextSec = el('section', 'tt-next');
+            const nextSec = el('div', 'tt-next');
             nextSec.appendChild(el('h3', null, 'Next'));
             this.nextGrid = el('div', 'tt-next-grid');
             this.nextCells = [];
@@ -633,7 +639,7 @@
             }
             nextSec.appendChild(this.nextGrid);
 
-            const archSec = el('section', 'tt-archived');
+            const archSec = el('div', 'tt-archived');
             archSec.appendChild(el('h3', null, 'Just archived'));
             this.archivedList = el('ul', 'tt-archived-list');
             archSec.appendChild(this.archivedList);

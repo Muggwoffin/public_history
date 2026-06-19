@@ -314,9 +314,9 @@
 /* ---- Side panel ---- */
 
 .tt-side {
-    flex: 1;
-    min-width: 0;
-    max-width: 320px;
+    /* Fixed-basis flex item so it can never collapse next to the board */
+    flex: 0 0 300px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
@@ -447,8 +447,9 @@
     }
 
     .tt-side {
-        max-width: none;
+        flex: 0 0 auto;
         width: 100%;
+        max-width: 420px;
     }
 
     .tt-hint {
