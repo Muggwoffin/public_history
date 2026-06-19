@@ -526,7 +526,7 @@
             } else if (kind === 'over') {
                 s.appendChild(el('div', 'tt-screen-star', '★'));
                 s.appendChild(el('h2', null, 'Career stability achieved'));
-                s.appendChild(el('p', null, 'You organised ' + sorted + ' CV lines' + (sorted === 1 ? '' : 's') + ' across ' + phases + ' phase' + (phases === 1 ? '' : 's') + '.'));
+                s.appendChild(el('p', null, 'You organised ' + sorted + ' CV line' + (sorted === 1 ? '' : 's') + ' across ' + phases + ' job application' + (phases === 1 ? '' : 's') + '.'));
                 const again = el('button', 'tt-cta', 'Play again');
                 again.addEventListener('click', () => this.restart());
                 s.appendChild(again);
@@ -588,8 +588,8 @@
                 return num;
             };
             this.elSorted = mkScore('CV Lines');
-            this.elLines = mkScore('Jop Applications');
-            this.elLevel = mkScore('Career Milestones');
+            this.elLines = mkScore('Cover Letters');
+            this.elLevel = mkScore('Job Applications');
             this.elLevel.textContent = '1';
             const actions = el('div', 'tt-actions');
             const pauseBtn = el('button', 'tt-btn', 'Pause');
