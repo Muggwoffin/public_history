@@ -23,6 +23,8 @@
     const COLS = 10;
     const ROWS = 20;
     const AUDIO_SRC = 'audio/timeline-tetris.mp3';
+    const AUDIO_VOLUME = 0.5;           // tweak: target music volume
+    const AUDIO_FADE_MS = 5000;         // tweak: fade-in duration (ms)
     const LINES_PER_LEVEL = 6;          // tweak: difficulty ramp
     const BASE_INTERVAL = 800;          // tweak: starting fall speed (ms)
     const LEVEL_STEP = 70;              // tweak: speed-up per level (ms)
@@ -166,9 +168,10 @@
 
         exit() {
             clearTimeout(this.timer);
+            if (this.fadeRAF) cancelAnimationFrame(this.fadeRAF);
             document.removeEventListener('keydown', this.onKey);
             document.body.style.overflow = '';
-            if (this.audio) { this.audio.pause(); this.audio.currentTime = 0; }
+            if (this.audio) { this.audio.pause(); this.audio.currentTime = 0; this.audio = null; }
             this.overlay.classList.remove('tt-visible');
             const remove = () => this.overlay.remove();
             if (this.reduce) remove();
@@ -179,10 +182,26 @@
         initAudio() {
             this.audio = new Audio(AUDIO_SRC);
             this.audio.loop = true;
-            this.audio.volume = 0.5;
+            this.audio.volume = 0;
             // play() is invoked from the Start click, satisfying autoplay rules
             const p = this.audio.play();
             if (p && p.catch) p.catch(() => { /* audio optional */ });
+            this.fadeInAudio();
+        }
+
+        // Ramp the volume from 0 to AUDIO_VOLUME so the music eases in
+        // rather than starting abruptly.
+        fadeInAudio() {
+            if (!this.audio) return;
+            const from = this.audio.volume;
+            const start = performance.now();
+            const step = (now) => {
+                if (!this.audio) return;
+                const t = Math.min((now - start) / AUDIO_FADE_MS, 1);
+                this.audio.volume = from + (AUDIO_VOLUME - from) * t;
+                if (t < 1) this.fadeRAF = requestAnimationFrame(step);
+            };
+            this.fadeRAF = requestAnimationFrame(step);
         }
 
         // ---- piece flow ----
@@ -538,7 +557,7 @@
             this.archivedList.textContent = '';
             this.updateScores();
             this.hideScreen();
-            if (this.audio) { this.audio.currentTime = 0; this.audio.play().catch(() => {}); }
+            if (this.audio) { this.audio.currentTime = 0; this.audio.volume = 0; this.audio.play().catch(() => {}); this.fadeInAudio(); }
             this.spawn();
             this.schedule();
             this.boardWrap.focus();
