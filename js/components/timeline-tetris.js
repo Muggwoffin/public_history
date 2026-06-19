@@ -158,6 +158,7 @@
 
         beginPlay() {
             this.started = true;
+            if (window.trackEvent) window.trackEvent('play_timeline_tetris');
             this.hideScreen();
             this.initAudio();
             this.spawn();
@@ -376,6 +377,13 @@
             clearTimeout(this.timer);
             if (this.audio) this.audio.pause();
             const phases = this.seenCategories.size;
+            if (window.trackEvent) {
+                window.trackEvent('tetris_complete', {
+                    milestones_sorted: this.piecesLocked,
+                    lines_archived: this.linesCleared,
+                    phases_seen: phases
+                });
+            }
             this.showScreen('over', this.piecesLocked, phases);
         }
 
