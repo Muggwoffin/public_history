@@ -1,0 +1,89 @@
+/*
+ * Consent banner — restrained, editorial, matching the site's tokens.
+ * Tokens (--paper, --ink, --accent, fonts, shadows) are defined in both
+ * style.css and landing.css, so this works on both public pages.
+ */
+
+.consent-banner {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    max-width: 560px;
+    margin: 0 auto;
+    z-index: 500;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--paper-raised);
+    border: 1px solid var(--rule-dark);
+    border-left: 3px solid var(--accent);
+    box-shadow: var(--shadow-lifted);
+    font-family: var(--font-body);
+    transform: translateY(150%);
+    transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.consent-banner.consent-show { transform: none; }
+.consent-banner.consent-hide { transform: translateY(150%); }
+
+.consent-text {
+    flex: 1 1 240px;
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+}
+
+.consent-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-left: auto;
+}
+
+.consent-btn {
+    padding: 0.6rem 1.15rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1.5px solid var(--ink);
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.consent-decline {
+    background-color: transparent;
+    color: var(--ink);
+}
+
+.consent-decline:hover {
+    background-color: var(--paper-recessed);
+}
+
+.consent-accept {
+    background-color: var(--ink);
+    color: var(--paper-raised);
+}
+
+.consent-accept:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.consent-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+@media (max-width: 540px) {
+    .consent-actions { width: 100%; }
+    .consent-btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .consent-banner { transition: none; }
+}
