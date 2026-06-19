@@ -1,21 +1,14 @@
 /**
  * Podcasts Data
  * Recent podcast appearances and interviews
- *
- * DATA STRUCTURE:
- * - title: Episode title (string)
- * - podcastName: Name of the podcast (string)
- * - year: Year of episode (string)
- * - embedUrl: Podcast embed URL (string)
- * - description: Brief description (string)
  */
 
 const podcasts = [
     {
-        "title": "Hotel Lux: An Intimate History of Communism's",
-        "podcastName": "The History Show",
+        "title": "Hotel Lux: the guesthouse of world revolution",
+        "podcastName": "BBC History Extra",
         "year": "2024",
-        "embedUrl": "https://embed.podcasts.apple.com/gb/podcast/hotel-lux-an-intimate-history-of-communisms/id401651007?i=1000671202117",
+        "embedUrl": "https://embed.podcasts.apple.com/gb/podcast/hotel-lux-the-guesthouse-of-world-revolution/id256580326?i=1000682866429",
         "description": "A discussion of the Hotel Lux in Moscow and the revolutionary families who intersected there during the tumultuous 1920s."
     },
     {

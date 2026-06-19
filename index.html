@@ -5,13 +5,17 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Google Analytics (GA4) — loader + external config (keeps CSP strict) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQBYCGSSWC"></script>
-    <script src="js/analytics.js"></script>
-
-    <title>Dr Maurice J. Casey</title>
+    <title>Maurice J. Casey</title>
     <link rel="stylesheet" href="landing.css">
+
+      <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQBYCGSSWC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BQBYCGSSWC');
+  </script>
 </head>
 <body>
     <div class="landing-bg" aria-hidden="true"></div>
