@@ -609,6 +609,17 @@ const timelineData = [
         "description": "Invited seminar paper",
         "link": null,
         "venue": "Georgetown University"
+    },
+    {
+        "id": "project-1782132795701",
+        "title": "Queer Northern Ireland: Sexuality before Liberation",
+        "type": "talk",
+        "date": "Sept 2023",
+        "sortDate": "2023-09-01",
+        "scope": "academic",
+        "description": "Invited seminar paper",
+        "link": null,
+        "venue": "Boston College"
     }
 ];
 
