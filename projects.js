@@ -299,7 +299,7 @@ const timelineData = [
         "sortDate": "2025-03-01",
         "scope": "academic",
         "description": "Peer-reviewed article exploring connections between esoteric thought and queer sexuality in Irish literary and political circles, examining how figures navigated identity before modern gay liberation.",
-        "link": null,
+        "link": "https://pure.qub.ac.uk/en/publications/i-want-to-be-to-ireland-what-walt-whitman-was-to-america-esoteric/",
         "venue": "History Workshop Journal"
     },
     {
