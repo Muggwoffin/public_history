@@ -675,6 +675,17 @@ const timelineData = [
         "description": "Peer reviewed edited collection chapter.",
         "link": "https://pure.qub.ac.uk/en/publications/from-votes-for-women-to-world-revolution-british-and-irish-suffra/",
         "venue": "The Politics of Women’s Suffrage: Local, National and International Dimensions"
+    },
+    {
+        "id": "project-1782133469314",
+        "title": "Nancy Cunard, the interwar poet and rebel descended from Robert Emmet’s family",
+        "type": "media",
+        "date": "August 2020",
+        "sortDate": "2020-08-04",
+        "scope": "national",
+        "description": "Biographical article",
+        "link": "https://www.irishtimes.com/life-and-style/abroad/nancy-cunard-the-interwar-poet-and-rebel-descended-from-robert-emmet-s-family-1.4318923",
+        "venue": "Irish Times"
     }
 ];
 
