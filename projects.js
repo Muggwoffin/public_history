@@ -474,7 +474,7 @@ const timelineData = [
         "date": "February 2025",
         "sortDate": "2025-02-01",
         "scope": "international",
-        "description": "Prestigious inaugural lecture series exploring intimate histories of international communism through the lens of Hotel Lux.",
+        "description": "Inaugural lecture of the Horkan Fellowship: 'The Maddens of Stockport:\nRevolutions, Revelations and Renaissance Art in an Irish Family Archive'",
         "link": null,
         "venue": "Sidney Sussex College, Cambridge"
     },
