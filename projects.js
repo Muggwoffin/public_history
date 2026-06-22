@@ -620,6 +620,17 @@ const timelineData = [
         "description": "Invited seminar paper",
         "link": null,
         "venue": "Boston College"
+    },
+    {
+        "id": "project-1782132845644",
+        "title": "Feeling Political",
+        "type": "talk",
+        "date": "April 2023",
+        "sortDate": "2023-04-01",
+        "scope": "academic",
+        "description": "Invited seminar paper at the Intimacy and Political History workshop.",
+        "link": null,
+        "venue": "Durham University"
     }
 ];
 
