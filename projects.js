@@ -83,17 +83,6 @@ const timelineData = [
         "venue": "Queen's University Belfast"
     },
     {
-        "id": "digital-pasts-2024",
-        "title": "Digital Technologies and Digital Pasts",
-        "type": "teaching",
-        "date": "2024",
-        "sortDate": "2024-01-01",
-        "scope": "academic",
-        "description": "Designed and taught innovative module exploring the intersection of digital humanities and historical practice for MA students in Public History.",
-        "link": null,
-        "venue": "Queen's University Belfast"
-    },
-    {
         "id": "award-2017",
         "title": "Early Career Research Prize",
         "type": "fellowship",
