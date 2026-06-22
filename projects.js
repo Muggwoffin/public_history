@@ -642,6 +642,17 @@ const timelineData = [
         "description": "Invited talk",
         "link": null,
         "venue": "Herzen University St Petersburg"
+    },
+    {
+        "id": "project-1782132933950",
+        "title": "A History of Ireland’s Recent Transformation: Marriage Equality and Repeal’",
+        "type": "talk",
+        "date": "Jan 2019",
+        "sortDate": "2019-01-01",
+        "scope": "academic",
+        "description": "Invited talk",
+        "link": null,
+        "venue": "Western Coast United States Irish Consulate, San Francisco"
     }
 ];
 
