@@ -587,6 +587,17 @@ const timelineData = [
         "description": "Designed and delivered a module on 'Digital Technologies and Difficult Pasts'",
         "link": null,
         "venue": "QUB"
+    },
+    {
+        "id": "project-1782132281270",
+        "title": "ANT1006 Understanding Northern Ireland",
+        "type": "teaching",
+        "date": "2024",
+        "sortDate": "2024-01-09",
+        "scope": "academic",
+        "description": "Contributed to Anthropology undergraduate course.",
+        "link": null,
+        "venue": null
     }
 ];
 
