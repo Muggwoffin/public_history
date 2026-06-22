@@ -331,6 +331,65 @@
 
     const toLines = (text) => text.split('\n').map(s => s.trim()).filter(Boolean);
 
+    /**
+     * Repeating-row editor for a tool's folder structure. Each row pairs
+     * depth and kind dropdowns with a free-text label, plus add/remove.
+     * Returns the { element, get, set } shape the CollectionManager widget
+     * field expects.
+     */
+    function makeStructureWidget() {
+        const { el } = AdminDom;
+        const DEPTHS = ['0', '1', '2'];
+        const KINDS = ['root', 'folder', 'file'];
+        const list = el('div', { className: 'tools-structure-rows' });
+
+        function makeRow(node) {
+            const data = node || { depth: 1, kind: 'folder', label: '' };
+
+            const depth = el('select', { className: 'tools-row-depth', attrs: { 'aria-label': 'Depth' } });
+            DEPTHS.forEach(d => depth.appendChild(el('option', { text: d, attrs: { value: d } })));
+            depth.value = String(data.depth);
+
+            const kind = el('select', { className: 'tools-row-kind', attrs: { 'aria-label': 'Kind' } });
+            KINDS.forEach(k => kind.appendChild(el('option', { text: k, attrs: { value: k } })));
+            kind.value = data.kind;
+
+            const label = el('input', {
+                className: 'tools-row-label',
+                attrs: { type: 'text', placeholder: 'Label', 'aria-label': 'Label' }
+            });
+            label.value = data.label || '';
+
+            const remove = el('button', {
+                className: 'btn btn-sm btn-danger', text: '×',
+                attrs: { type: 'button', 'aria-label': 'Remove row' }
+            });
+            const row = el('div', { className: 'tools-structure-row' }, [depth, kind, label, remove]);
+            remove.addEventListener('click', () => row.remove());
+            return row;
+        }
+
+        const addBtn = el('button', {
+            className: 'btn btn-sm btn-secondary', text: '+ Add row', attrs: { type: 'button' }
+        });
+        addBtn.addEventListener('click', () => list.appendChild(makeRow()));
+
+        return {
+            element: el('div', {}, [list, addBtn]),
+            set(rows) {
+                AdminDom.clear(list);
+                (rows || []).forEach(node => list.appendChild(makeRow(node)));
+            },
+            get() {
+                return Array.from(list.querySelectorAll('.tools-structure-row')).map(row => ({
+                    depth: Number(row.querySelector('.tools-row-depth').value) || 0,
+                    kind: row.querySelector('.tools-row-kind').value,
+                    label: row.querySelector('.tools-row-label').value.trim()
+                })).filter(node => node.label);
+            }
+        };
+    }
+
     const toolsManager = new CollectionManager({
         containerId: 'tools-manager',
         title: 'Tools Manager',
@@ -356,9 +415,9 @@
                 help: 'One card per line:  Title | description'
             },
             {
-                name: 'structure', label: 'Folder structure', type: 'textarea', rows: 6,
-                fromItem: (t) => (t.structure || []).map(n => `${n.depth} | ${n.kind} | ${n.label}`).join('\n'),
-                help: 'One row per line:  depth | kind | label   (depth 0–2; kind: root, folder or file)'
+                name: 'structure', label: 'Folder structure', type: 'widget',
+                widget: makeStructureWidget, empty: [],
+                help: 'Each row: depth (0–2), kind, and a label. Combine siblings in one label, e.g. “People · Organisations”.'
             },
             {
                 name: 'steps', label: 'Get-started steps', type: 'textarea', rows: 5,
@@ -386,10 +445,7 @@
                     ? { title: line.slice(0, i).trim(), text: line.slice(i + 1).trim() }
                     : { title: line, text: '' };
             }),
-            structure: toLines(values.structure).map(line => {
-                const parts = line.split('|').map(p => p.trim());
-                return { depth: Number(parts[0]) || 0, kind: parts[1] || 'folder', label: parts[2] || '' };
-            }),
+            structure: values.structure,
             steps: toLines(values.steps)
         })
     });
