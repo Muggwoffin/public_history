@@ -525,7 +525,7 @@ const timelineData = [
     {
         "id": "project-1782131564276",
         "title": "MHY7020 The Historian's Craft",
-        "type": "book",
+        "type": "teaching",
         "date": "2025 to present",
         "sortDate": "2025-11-01",
         "scope": "academic",
