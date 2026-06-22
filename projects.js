@@ -664,6 +664,17 @@ const timelineData = [
         "description": "Scripted and presented a sold-out audio installation, designed in collaboration with SARC QUB sound engineers and Hive Choir.",
         "link": "https://www.beinghumanfestival.org/events/sonic-seance",
         "venue": "Being Human Festival/Outburst Queer Arts Festival"
+    },
+    {
+        "id": "project-1782133277267",
+        "title": "British and Irish suffragettes and international communism, 1919–39",
+        "type": "book",
+        "date": "2021",
+        "sortDate": "2021-01-01",
+        "scope": "academic",
+        "description": "Peer reviewed edited collection chapter.",
+        "link": "https://pure.qub.ac.uk/en/publications/from-votes-for-women-to-world-revolution-british-and-irish-suffra/",
+        "venue": "The Politics of Women’s Suffrage: Local, National and International Dimensions"
     }
 ];
 
