@@ -598,6 +598,17 @@ const timelineData = [
         "description": "Invited conference paper",
         "link": null,
         "venue": "Love & War Conference, QUB"
+    },
+    {
+        "id": "project-1782132765445",
+        "title": "Queer Americans in Post-Revolutionary Ireland: Sex, Socialism and the Occult, 1921–1933",
+        "type": "talk",
+        "date": "Sept 2023",
+        "sortDate": "2023-09-01",
+        "scope": "academic",
+        "description": "Invited seminar paper",
+        "link": null,
+        "venue": "Georgetown University"
     }
 ];
 
