@@ -1,0 +1,307 @@
+/**
+ * Tools page styles (tools.html)
+ * Builds on the shared design tokens in style.css. Editorial "field kit"
+ * treatment: paper cards, Esperanto-green accents and the recurring star.
+ */
+
+/* ---- Page masthead --------------------------------------------------- */
+.tools-masthead {
+    text-align: center;
+    padding: 3.5rem 1rem 0.5rem;
+}
+
+.tools-page-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 1.04;
+    margin: 0.4rem 0 0.5rem;
+    color: var(--ink);
+}
+
+.tools-page-subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    max-width: 34rem;
+    margin: 0 auto;
+}
+
+.tools-ornament {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    max-width: 18rem;
+    margin: 1.5rem auto 0;
+}
+
+.tools-ornament-line {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+}
+
+.tools-ornament-star {
+    color: var(--accent);
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ---- Section kicker -------------------------------------------------- */
+.tools-kicker {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent-deep);
+    margin: 0 0 0.6rem;
+}
+
+.tools-section {
+    margin-top: 2.4rem;
+}
+
+.tool-block + .tool-block {
+    margin-top: 3.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule);
+}
+
+/* ---- Feature card --------------------------------------------------- */
+.tool-feature {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.8rem 2rem;
+}
+
+.tool-feature-motif {
+    flex: none;
+}
+
+.tool-feature-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.tool-feature-head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.tool-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.8rem;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--ink);
+}
+
+.tool-version {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 2px 11px;
+}
+
+.tool-desc {
+    font-family: var(--font-body);
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin: 0.8rem 0 0;
+}
+
+.tool-meta {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
+    margin: 1rem 0 0;
+}
+
+.tool-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+}
+
+.tool-btn {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border-radius: 9px;
+    padding: 0.7rem 1.15rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tool-btn--primary {
+    background: var(--accent);
+    color: var(--paper-raised);
+    border: 1px solid var(--accent-deep);
+}
+
+.tool-btn--primary:hover {
+    background: var(--accent-deep);
+}
+
+.tool-btn--ghost {
+    background: transparent;
+    color: var(--accent-deep);
+    border: 1px solid var(--accent);
+}
+
+.tool-btn--ghost:hover {
+    background: var(--accent-wash);
+}
+
+.tool-btn-star {
+    color: var(--gold);
+    font-size: 0.95em;
+}
+
+.tool-btn:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+}
+
+/* ---- Decorative motif (SVG) ----------------------------------------- */
+.tool-motif-spoke { stroke: var(--accent); stroke-width: 1.4; }
+.tool-motif-web { stroke: var(--rule); stroke-width: 1.2; }
+.tool-motif-node { fill: var(--accent); }
+.tool-motif-hub { fill: var(--paper-raised); stroke: var(--accent-deep); stroke-width: 2.5; }
+.tool-motif-star { fill: var(--gold); font-size: 15px; }
+
+/* ---- What's inside grid --------------------------------------------- */
+.tools-inside-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.9rem;
+}
+
+.tools-inside-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 0.95rem 1.05rem;
+}
+
+.tools-inside-star {
+    color: var(--accent);
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.tools-inside-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0.45rem 0 0.3rem;
+    color: var(--ink);
+}
+
+.tools-inside-text {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+}
+
+/* ---- Two-column: structure + steps ---------------------------------- */
+.tools-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.8rem;
+}
+
+/* ---- Folder tree ---------------------------------------------------- */
+.tools-tree {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    background: var(--paper-recessed);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 1.1rem 1.2rem;
+}
+
+.tools-tree-row { white-space: nowrap; }
+.tools-tree-row.depth-1 { padding-left: 18px; }
+.tools-tree-row.depth-2 { padding-left: 36px; }
+
+.tools-tree-row.is-root .tools-tree-label { color: var(--ink); font-weight: 600; }
+.tools-tree-row.is-folder .tools-tree-label { color: var(--accent); }
+.tools-tree-row.is-file .tools-tree-label { color: var(--ink-faint); }
+.tools-tree-row.is-folder .tools-tree-label::before { content: '▸ '; }
+.tools-tree-row.is-file .tools-tree-label::before { content: '· '; }
+
+/* ---- Get started steps ---------------------------------------------- */
+.tools-step {
+    display: flex;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.tools-step-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.35rem;
+    line-height: 1.1;
+    color: var(--accent);
+    min-width: 1.4rem;
+}
+
+.tools-step-text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+}
+
+.tools-empty {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--ink-faint);
+}
+
+/* ---- Responsive ----------------------------------------------------- */
+@media (max-width: 640px) {
+    .tool-feature {
+        flex-direction: column;
+        text-align: center;
+    }
+    .tool-feature-head,
+    .tool-actions {
+        justify-content: center;
+    }
+    .tools-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tool-btn { transition: none; }
+}
