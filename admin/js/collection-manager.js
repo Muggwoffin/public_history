@@ -126,6 +126,20 @@ class CollectionManager {
         const { el } = AdminDom;
         const fieldId = `${this.config.containerId}-${field.name}`;
 
+        // Custom widget field: the config supplies a factory returning
+        // { element, get, set }. Stored as the field's "control" so
+        // openModal/readFormValues drive it via set()/get(), not .value.
+        if (field.type === 'widget') {
+            const widget = field.widget();
+            this.fieldInputs[field.name] = widget;
+            const group = el('div', { className: 'form-group' }, [
+                el('label', { text: field.label + (field.required ? ' *' : '') }),
+                widget.element
+            ]);
+            if (field.help) group.appendChild(el('small', { text: field.help }));
+            return group;
+        }
+
         let input;
         if (field.type === 'textarea') {
             input = el('textarea', {
@@ -232,14 +246,27 @@ class CollectionManager {
             this.modalTitle.textContent = `Edit ${this.config.noun}`;
             const item = this.items[index];
             this.config.fields.forEach(field => {
+                const control = this.fieldInputs[field.name];
                 const value = field.fromItem
                     ? field.fromItem(item)
                     : item[field.name];
-                this.fieldInputs[field.name].value = value !== null && value !== undefined
-                    ? String(value) : '';
+                if (control && typeof control.set === 'function') {
+                    control.set(value);
+                } else {
+                    control.value = value !== null && value !== undefined
+                        ? String(value) : '';
+                }
             });
         } else {
             this.modalTitle.textContent = `Add New ${this.config.noun}`;
+            // form.reset() clears inputs/selects; widget fields need an
+            // explicit reset to their empty state.
+            this.config.fields.forEach(field => {
+                const control = this.fieldInputs[field.name];
+                if (control && typeof control.set === 'function') {
+                    control.set(field.empty !== undefined ? field.empty : []);
+                }
+            });
         }
         this.modal.style.display = 'flex';
     }
@@ -253,7 +280,10 @@ class CollectionManager {
     readFormValues() {
         const values = {};
         this.config.fields.forEach(field => {
-            values[field.name] = this.fieldInputs[field.name].value.trim();
+            const control = this.fieldInputs[field.name];
+            values[field.name] = typeof control.get === 'function'
+                ? control.get()
+                : control.value.trim();
         });
         return values;
     }

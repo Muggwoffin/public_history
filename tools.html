@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Analytics (GA4) — loader + external config (keeps CSP strict) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQBYCGSSWC"></script>
+    <script src="js/analytics.js"></script>
+
+    <title>Tools — Maurice J. Casey</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tools.css">
+    <link rel="stylesheet" href="consent-banner.css">
+    <noscript>
+        <!-- Sections are revealed by scroll scripts; keep everything visible without JS -->
+        <style>
+            section { opacity: 1 !important; }
+            .site-nav { display: none; }
+        </style>
+    </noscript>
+</head>
+<body>
+    <a class="skip-link" href="#tools">Skip to content</a>
+
+    <!-- Sticky section navigation (revealed after scrolling past the masthead) -->
+    <nav class="site-nav" id="site-nav" aria-label="Site sections">
+        <div class="site-nav-progress" id="scroll-progress" aria-hidden="true"></div>
+        <div class="site-nav-inner">
+            <a class="site-nav-name" href="index.html">Maurice&nbsp;J.&nbsp;Casey</a>
+            <div class="site-nav-links">
+                <a href="main.html#about">About</a>
+                <a href="main.html#books">Books</a>
+                <a href="main.html#selected-writing">Writing</a>
+                <a href="main.html#public-history">Public History</a>
+                <a href="main.html#contact">Contact</a>
+                <a href="tools.html" aria-current="page">Tools</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="newspaper-wrapper">
+        <!-- Page masthead -->
+        <header class="tools-masthead">
+            <p class="tools-kicker">Research tools</p>
+            <h1 class="tools-page-title">Tools</h1>
+            <p class="tools-page-subtitle">Open-source tools and templates for studying people and the past.</p>
+            <div class="tools-ornament" aria-hidden="true">
+                <span class="tools-ornament-line"></span>
+                <span class="tools-ornament-star">★</span>
+                <span class="tools-ornament-line"></span>
+            </div>
+        </header>
+
+        <!-- Tools (dynamically rendered from tools.js by tools-renderer.js) -->
+        <section id="tools">
+            <div class="content-section">
+                <div id="tools-list"></div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="decorative-line"></div>
+            <div class="footer-content">
+                <a class="footer-star" href="https://en.wikipedia.org/wiki/L._L._Zamenhof" target="_blank" rel="noopener noreferrer" aria-label="L. L. Zamenhof, creator of Esperanto — Wikipedia (opens in a new tab)">
+                    <svg class="footer-star-svg" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" focusable="false">
+                        <path d="M12 2 L14.81 8.62 L21.9 9.27 L16.55 13.97 L18.18 20.93 L12 17.27 L5.82 20.93 L7.45 13.97 L2.1 9.27 L9.19 8.62 Z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <p class="colophon">© Dr Maurice J. Casey • All Rights Reserved</p>
+                <a class="back-to-top" href="#top" aria-label="Back to top">↑ Back to top</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Data files (content managed via the admin panel) -->
+    <script src="tools.js"></script>
+
+    <!-- Shared core (must load before components and renderers) -->
+    <script src="js/core.js"></script>
+
+    <!-- Components (one behaviour per module) -->
+    <script src="js/components/consent-banner.js"></script>
+    <script src="js/components/scroll-reveal.js"></script>
+    <script src="js/components/analytics-events.js"></script>
+    <script src="js/components/sticky-nav.js"></script>
+
+    <!-- Section renderers -->
+    <script src="js/renderers/tools-renderer.js"></script>
+</body>
+</html>

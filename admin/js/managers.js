@@ -323,10 +323,138 @@
         ]
     });
 
+    // ------------------------------------------------------------------
+    // Tools (tools.js) — research tools shown on the Tools page.
+    // The nested arrays are edited as simple line/comma formats and parsed
+    // back into structured data on save (fromItem serialises, buildItem parses).
+    // ------------------------------------------------------------------
+
+    const toLines = (text) => text.split('\n').map(s => s.trim()).filter(Boolean);
+
+    /**
+     * Repeating-row editor for a tool's folder structure. Each row pairs
+     * depth and kind dropdowns with a free-text label, plus add/remove.
+     * Returns the { element, get, set } shape the CollectionManager widget
+     * field expects.
+     */
+    function makeStructureWidget() {
+        const { el } = AdminDom;
+        const DEPTHS = ['0', '1', '2'];
+        const KINDS = ['root', 'folder', 'file'];
+        const list = el('div', { className: 'tools-structure-rows' });
+
+        function makeRow(node) {
+            const data = node || { depth: 1, kind: 'folder', label: '' };
+
+            const depth = el('select', { className: 'tools-row-depth', attrs: { 'aria-label': 'Depth' } });
+            DEPTHS.forEach(d => depth.appendChild(el('option', { text: d, attrs: { value: d } })));
+            depth.value = String(data.depth);
+
+            const kind = el('select', { className: 'tools-row-kind', attrs: { 'aria-label': 'Kind' } });
+            KINDS.forEach(k => kind.appendChild(el('option', { text: k, attrs: { value: k } })));
+            kind.value = data.kind;
+
+            const label = el('input', {
+                className: 'tools-row-label',
+                attrs: { type: 'text', placeholder: 'Label', 'aria-label': 'Label' }
+            });
+            label.value = data.label || '';
+
+            const remove = el('button', {
+                className: 'btn btn-sm btn-danger', text: '×',
+                attrs: { type: 'button', 'aria-label': 'Remove row' }
+            });
+            const row = el('div', { className: 'tools-structure-row' }, [depth, kind, label, remove]);
+            remove.addEventListener('click', () => row.remove());
+            return row;
+        }
+
+        const addBtn = el('button', {
+            className: 'btn btn-sm btn-secondary', text: '+ Add row', attrs: { type: 'button' }
+        });
+        addBtn.addEventListener('click', () => list.appendChild(makeRow()));
+
+        return {
+            element: el('div', {}, [list, addBtn]),
+            set(rows) {
+                AdminDom.clear(list);
+                (rows || []).forEach(node => list.appendChild(makeRow(node)));
+            },
+            get() {
+                return Array.from(list.querySelectorAll('.tools-structure-row')).map(row => ({
+                    depth: Number(row.querySelector('.tools-row-depth').value) || 0,
+                    kind: row.querySelector('.tools-row-kind').value,
+                    label: row.querySelector('.tools-row-label').value.trim()
+                })).filter(node => node.label);
+            }
+        };
+    }
+
+    const toolsManager = new CollectionManager({
+        containerId: 'tools-manager',
+        title: 'Tools Manager',
+        noun: 'Tool',
+        fileKey: 'tools',
+        store,
+        fields: [
+            { name: 'name', label: 'Name', required: true, placeholder: 'Personae' },
+            { name: 'version', label: 'Version', required: true, placeholder: '1.3.0', help: 'Without a leading "v"' },
+            { name: 'tagline', label: 'Tagline', placeholder: 'An Obsidian vault for people who research people' },
+            { name: 'description', label: 'Description', type: 'textarea', rows: 4, required: true },
+            { name: 'license', label: 'Licence', placeholder: 'MIT' },
+            {
+                name: 'plugins', label: 'Key plugins',
+                fromItem: (t) => (t.plugins || []).join(', '),
+                help: 'Comma-separated, e.g. Dataview, Templater, Leaflet, Zotero'
+            },
+            { name: 'downloadUrl', label: 'Download URL', type: 'url', required: true, placeholder: 'https://github.com/.../archive/refs/heads/main.zip' },
+            { name: 'repoUrl', label: 'Repository URL', type: 'url', required: true, placeholder: 'https://github.com/user/repo' },
+            {
+                name: 'inside', label: "What's inside", type: 'textarea', rows: 6,
+                fromItem: (t) => (t.inside || []).map(c => `${c.title} | ${c.text}`).join('\n'),
+                help: 'One card per line:  Title | description'
+            },
+            {
+                name: 'structure', label: 'Folder structure', type: 'widget',
+                widget: makeStructureWidget, empty: [],
+                help: 'Each row: depth (0–2), kind, and a label. Combine siblings in one label, e.g. “People · Organisations”.'
+            },
+            {
+                name: 'steps', label: 'Get-started steps', type: 'textarea', rows: 5,
+                fromItem: (t) => (t.steps || []).join('\n'),
+                help: 'One step per line'
+            }
+        ],
+        summarize: (tool) => ({
+            title: tool.name,
+            meta: `v${tool.version}${tool.license ? ' • ' + tool.license : ''}`,
+            detail: tool.tagline
+        }),
+        buildItem: (values) => ({
+            name: values.name,
+            version: values.version,
+            tagline: values.tagline,
+            description: values.description,
+            license: values.license,
+            plugins: values.plugins.split(',').map(s => s.trim()).filter(Boolean),
+            downloadUrl: values.downloadUrl,
+            repoUrl: values.repoUrl,
+            inside: toLines(values.inside).map(line => {
+                const i = line.indexOf('|');
+                return i >= 0
+                    ? { title: line.slice(0, i).trim(), text: line.slice(i + 1).trim() }
+                    : { title: line, text: '' };
+            }),
+            structure: values.structure,
+            steps: toLines(values.steps)
+        })
+    });
+
     // Section initializers used by navigation (app.js)
     window.AdminManagers = {
         'events-manager': () => eventsManager.init(),
         'timeline': () => timelineManager.init(),
+        'tools-manager': () => toolsManager.init(),
         'content-boxes': () => {
             readingEditor.init();
             playingEditor.init();
