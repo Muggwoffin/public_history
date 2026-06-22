@@ -631,6 +631,17 @@ const timelineData = [
         "description": "Invited seminar paper at the Intimacy and Political History workshop.",
         "link": null,
         "venue": "Durham University"
+    },
+    {
+        "id": "project-1782132893779",
+        "title": "How were Soviet Citizens introduced to Irish Literature and History?",
+        "type": "talk",
+        "date": "Nov 2020",
+        "sortDate": "2020-11-01",
+        "scope": "academic",
+        "description": "Invited talk",
+        "link": null,
+        "venue": "Herzen University St Petersburg"
     }
 ];
 
