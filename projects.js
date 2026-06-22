@@ -587,6 +587,17 @@ const timelineData = [
         "description": "Contributing to team-taught module with lecture and tutorial on political history.",
         "link": null,
         "venue": null
+    },
+    {
+        "id": "project-1782131889487",
+        "title": "MHY7097",
+        "type": "book",
+        "date": "2023",
+        "sortDate": "2023-02-01",
+        "scope": "academic",
+        "description": "Designed and delivered a module on 'Digital Technologies and Difficult Pasts'",
+        "link": null,
+        "venue": "QUB"
     }
 ];
 
