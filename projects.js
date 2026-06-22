@@ -185,7 +185,7 @@ const timelineData = [
         "id": "qub-researcher-2024",
         "title": "Visiting Researcher",
         "type": "fellowship",
-        "date": "2024-Present",
+        "date": "2024",
         "sortDate": "2024-01-01",
         "scope": "academic",
         "description": "Research fellowship at Queen's University Belfast, teaching in the MA in Public History program and supervising postgraduate and undergraduate students.",
