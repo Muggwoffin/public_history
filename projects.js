@@ -526,7 +526,7 @@ const timelineData = [
         "id": "project-1782131504995",
         "title": "MHY7097 Telling Stories",
         "type": "teaching",
-        "date": "2025/2026",
+        "date": "2025 to Present",
         "sortDate": "2026-01-01",
         "scope": "academic",
         "description": "Teaching on narrative non-fiction approaches to Historical writing.",
