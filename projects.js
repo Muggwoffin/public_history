@@ -653,6 +653,17 @@ const timelineData = [
         "description": "Invited talk",
         "link": null,
         "venue": "Western Coast United States Irish Consulate, San Francisco"
+    },
+    {
+        "id": "project-1782133039783",
+        "title": "The Sonic Seance",
+        "type": "exhibition",
+        "date": "Nov 2023",
+        "sortDate": "2023-11-16",
+        "scope": "academic",
+        "description": "Scripted and presented a sold-out audio installation, designed in collaboration with SARC QUB sound engineers and Hive Choir.",
+        "link": "https://www.beinghumanfestival.org/events/sonic-seance",
+        "venue": "Being Human Festival/Outburst Queer Arts Festival"
     }
 ];
 
