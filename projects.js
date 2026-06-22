@@ -565,6 +565,17 @@ const timelineData = [
         "description": "Lecturing and co-convening a series on approaches to Public History.",
         "link": null,
         "venue": "QUB"
+    },
+    {
+        "id": "project-1782131746370",
+        "title": "HIS3128 Sin Cities? Everyday Life in the Modern Metropolis",
+        "type": "teaching",
+        "date": "2023/2024",
+        "sortDate": "2023-01-01",
+        "scope": "academic",
+        "description": "Guest lecturing on urban history.",
+        "link": null,
+        "venue": "QUB"
     }
 ];
 
