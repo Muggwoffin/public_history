@@ -580,7 +580,7 @@ const timelineData = [
     {
         "id": "project-1782131889487",
         "title": "MHY7097 Difficult Pasts",
-        "type": "book",
+        "type": "teaching",
         "date": "2023",
         "sortDate": "2023-02-01",
         "scope": "academic",
