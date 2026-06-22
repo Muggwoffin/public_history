@@ -543,6 +543,17 @@ const timelineData = [
         "description": "Teaching on debates on AI/LLMs and Historical Research",
         "link": null,
         "venue": "QUB"
+    },
+    {
+        "id": "project-1782131639156",
+        "title": "MHY7077 Public History Internship",
+        "type": "teaching",
+        "date": "2024 to Present",
+        "sortDate": "2024-01-01",
+        "scope": "academic",
+        "description": "Assisting with assessment for the Public History internship.",
+        "link": null,
+        "venue": "QUB"
     }
 ];
 
