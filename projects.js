@@ -424,17 +424,6 @@ const timelineData = [
         "venue": "Rural Queer Lives Festival, Ulster Folk Museum"
     },
     {
-        "id": "talk-georgetown-2023",
-        "title": "Global Irish Studies Seminar",
-        "type": "talk",
-        "date": "October 2023",
-        "sortDate": "2023-10-01",
-        "scope": "international",
-        "description": "Presentation on transnational approaches to Irish history and the importance of global perspectives on Irish radical politics.",
-        "link": null,
-        "venue": "Georgetown University, Washington DC"
-    },
-    {
         "id": "talk-oxford-modern-history-2024",
         "title": "Hotel Lux: Writing an Intimate History of the Comintern's Moscow Dormitory",
         "type": "talk",
