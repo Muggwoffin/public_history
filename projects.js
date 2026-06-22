@@ -94,17 +94,6 @@ const timelineData = [
         "venue": "Queen's University Belfast"
     },
     {
-        "id": "ma-public-history",
-        "title": "MA in Public History Teaching",
-        "type": "teaching",
-        "date": "2024-Present",
-        "sortDate": "2024-01-01",
-        "scope": "academic",
-        "description": "Teaching undergraduate and postgraduate courses in public history, supervising MA dissertations and undergraduate research projects on diverse topics in twentieth-century history.",
-        "link": null,
-        "venue": "Queen's University Belfast"
-    },
-    {
         "id": "award-2017",
         "title": "Early Career Research Prize",
         "type": "fellowship",
