@@ -730,6 +730,17 @@ const timelineData = [
         "description": "Book review.",
         "link": "https://www.the-tls.com/history/twentieth-century-onwards-history/three-revolutions-simon-hall-book-review-maurice-j-casey",
         "venue": "Times Literary Supplement"
+    },
+    {
+        "id": "project-1782133772490",
+        "title": "Friendship and Bad Cooking",
+        "type": "book",
+        "date": "August 2025",
+        "sortDate": "2025-08-22",
+        "scope": "academic",
+        "description": "Book review",
+        "link": "https://www.the-tls.com/history/the-paris-commune-in-britain-laura-c-forster-book-review-maurice-j-casey",
+        "venue": "Times Literary Supplement"
     }
 ];
 
