@@ -576,6 +576,17 @@ const timelineData = [
         "description": "Guest lecturing on urban history.",
         "link": null,
         "venue": "QUB"
+    },
+    {
+        "id": "project-1782131803776",
+        "title": "MHY7089 Case Studies in History",
+        "type": "teaching",
+        "date": "2025 to Present",
+        "sortDate": "2025-02-01",
+        "scope": "academic",
+        "description": "Contributing to team-taught module with lecture and tutorial on political history.",
+        "link": null,
+        "venue": null
     }
 ];
 
