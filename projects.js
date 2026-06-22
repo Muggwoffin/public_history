@@ -458,7 +458,7 @@ const timelineData = [
     },
     {
         "id": "talk-oxford-modern-history-2024",
-        "title": "Intimate History of the Comintern's Moscow Dormitory",
+        "title": "Hotel Lux: Writing an Intimate History of the Comintern's Moscow Dormitory",
         "type": "talk",
         "date": "January 2024",
         "sortDate": "2024-01-01",
