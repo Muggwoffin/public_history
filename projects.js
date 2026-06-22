@@ -521,6 +521,17 @@ const timelineData = [
         "description": "An audio documentary commissioned by the BBC, exploring a child's eye view of anti-Nazi resistance.",
         "link": "https://www.bbc.co.uk/programmes/m002sclz",
         "venue": "BBC Radio 4"
+    },
+    {
+        "id": "project-1782131504995",
+        "title": "MHY7097 Telling Stories",
+        "type": "teaching",
+        "date": "2025/2026",
+        "sortDate": "2026-01-01",
+        "scope": "academic",
+        "description": "Teaching on narrative non-fiction approaches to Historical writing.",
+        "link": null,
+        "venue": "QUB"
     }
 ];
 
