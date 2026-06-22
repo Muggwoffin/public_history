@@ -48,6 +48,12 @@ const SiteData = (function () {
             kind: 'array',
             header: 'Podcasts Data\n * Recent podcast appearances and interviews'
         },
+        tools: {
+            path: 'tools.js',
+            varName: 'tools',
+            kind: 'array',
+            header: 'Tools Data\n * Research tools and resources shown on the Tools page (tools.html)'
+        },
         projects: {
             path: 'projects.js',
             varName: 'timelineData',
