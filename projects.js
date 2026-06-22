@@ -660,7 +660,7 @@ const timelineData = [
         "type": "exhibition",
         "date": "Nov 2023",
         "sortDate": "2023-11-16",
-        "scope": "academic",
+        "scope": "public",
         "description": "Scripted and presented a sold-out audio installation, designed in collaboration with SARC QUB sound engineers and Hive Choir.",
         "link": "https://www.beinghumanfestival.org/events/sonic-seance",
         "venue": "Being Human Festival/Outburst Queer Arts Festival"
