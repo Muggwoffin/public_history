@@ -708,6 +708,17 @@ const timelineData = [
         "description": "Biographical article",
         "link": "https://www.irishtimes.com/life-and-style/abroad/the-irishman-who-fought-with-mandela-for-freedom-1.4771006",
         "venue": "Irish Times"
+    },
+    {
+        "id": "project-1782133678476",
+        "title": "Who are 'the Irish'?",
+        "type": "media",
+        "date": "September 2024",
+        "sortDate": "2024-09-25",
+        "scope": "international",
+        "description": "Op-ed for the Guardian",
+        "link": "https://www.theguardian.com/commentisfree/2024/sep/25/who-are-the-irish-history-shows-weve-been-a-mixed-bunch-for-centuries",
+        "venue": "The Guardian"
     }
 ];
 
