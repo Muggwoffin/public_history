@@ -719,6 +719,17 @@ const timelineData = [
         "description": "Op-ed for the Guardian",
         "link": "https://www.theguardian.com/commentisfree/2024/sep/25/who-are-the-irish-history-shows-weve-been-a-mixed-bunch-for-centuries",
         "venue": "The Guardian"
+    },
+    {
+        "id": "project-1782133731915",
+        "title": "Fellow Travellers",
+        "type": "media",
+        "date": "October 2025",
+        "sortDate": "2025-10-03",
+        "scope": "international",
+        "description": "Book review.",
+        "link": "https://www.the-tls.com/history/twentieth-century-onwards-history/three-revolutions-simon-hall-book-review-maurice-j-casey",
+        "venue": "Times Literary Supplement"
     }
 ];
 
