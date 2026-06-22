@@ -697,6 +697,17 @@ const timelineData = [
         "description": "Biographical article",
         "link": "https://www.irishtimes.com/life-and-style/abroad/mother-mooney-the-mayo-woman-who-campaigned-for-justice-for-her-wronged-son-1.4300452",
         "venue": "Irish Times"
+    },
+    {
+        "id": "project-1782133604638",
+        "title": "The Irishman who fought with Mandela for freedom",
+        "type": "media",
+        "date": "January 2022",
+        "sortDate": "2022-01-11",
+        "scope": "national",
+        "description": "Biographical article",
+        "link": "https://www.irishtimes.com/life-and-style/abroad/the-irishman-who-fought-with-mandela-for-freedom-1.4771006",
+        "venue": "Irish Times"
     }
 ];
 
