@@ -532,6 +532,17 @@ const timelineData = [
         "description": "Teaching on narrative non-fiction approaches to Historical writing.",
         "link": null,
         "venue": "QUB"
+    },
+    {
+        "id": "project-1782131564276",
+        "title": "MHY7020 The Historian's Craft",
+        "type": "book",
+        "date": "2025 to present",
+        "sortDate": "2025-11-01",
+        "scope": "academic",
+        "description": "Teaching on debates on AI/LLMs and Historical Research",
+        "link": null,
+        "venue": "QUB"
     }
 ];
 
