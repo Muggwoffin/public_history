@@ -587,6 +587,17 @@ const timelineData = [
         "description": "Contributed to Anthropology undergraduate course.",
         "link": null,
         "venue": null
+    },
+    {
+        "id": "project-1782132731178",
+        "title": "The Leonhards: A Family History of Refugee Route",
+        "type": "talk",
+        "date": "May 2024",
+        "sortDate": "2024-05-01",
+        "scope": "academic",
+        "description": "Invited conference paper",
+        "link": null,
+        "venue": "Love & War Conference, QUB"
     }
 ];
 
