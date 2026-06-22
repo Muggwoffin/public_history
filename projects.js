@@ -266,7 +266,7 @@ const timelineData = [
         "sortDate": "2023-11-01",
         "scope": "academic",
         "description": "Peer-reviewed article analyzing how an Irish revolutionary and Latvian socialist navigated political commitments and personal relationships across borders during the revolutionary period.",
-        "link": null,
+        "link": "https://www.cambridge.org/core/journals/contemporary-european-history/article/save-me-from-my-friends-the-transnational-intimacies-of-an-irishlatvian-couple-within-and-beyond-the-irish-revolution-19161921/81B4DEFEED69302DBEF16BEABEC11F56",
         "venue": "Contemporary European History"
     },
     {
