@@ -686,6 +686,17 @@ const timelineData = [
         "description": "Biographical article",
         "link": "https://www.irishtimes.com/life-and-style/abroad/nancy-cunard-the-interwar-poet-and-rebel-descended-from-robert-emmet-s-family-1.4318923",
         "venue": "Irish Times"
+    },
+    {
+        "id": "project-1782133519984",
+        "title": "‘Mother Mooney’, the Mayo woman who campaigned for justice for her wronged son",
+        "type": "media",
+        "date": "July 2020",
+        "sortDate": "2020-07-14",
+        "scope": "national",
+        "description": "Biographical article",
+        "link": "https://www.irishtimes.com/life-and-style/abroad/mother-mooney-the-mayo-woman-who-campaigned-for-justice-for-her-wronged-son-1.4300452",
+        "venue": "Irish Times"
     }
 ];
 
