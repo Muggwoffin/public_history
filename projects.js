@@ -554,6 +554,17 @@ const timelineData = [
         "description": "Assisting with assessment for the Public History internship.",
         "link": null,
         "venue": "QUB"
+    },
+    {
+        "id": "project-1782131696352",
+        "title": "MHY7092 History and its Audiences",
+        "type": "teaching",
+        "date": "2024 to Present",
+        "sortDate": "2024-02-01",
+        "scope": "academic",
+        "description": "Lecturing and co-convening a series on approaches to Public History.",
+        "link": null,
+        "venue": "QUB"
     }
 ];
 
