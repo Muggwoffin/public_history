@@ -424,17 +424,6 @@ const timelineData = [
         "venue": "Rural Queer Lives Festival, Ulster Folk Museum"
     },
     {
-        "id": "talk-boston-college-2023",
-        "title": "Irish Studies Seminar",
-        "type": "talk",
-        "date": "September 2023",
-        "sortDate": "2023-09-01",
-        "scope": "international",
-        "description": "Research presentation exploring Irish connections to international communist movements and the Comintern.",
-        "link": null,
-        "venue": "Boston College, Massachusetts"
-    },
-    {
         "id": "talk-georgetown-2023",
         "title": "Global Irish Studies Seminar",
         "type": "talk",
