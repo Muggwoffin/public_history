@@ -734,7 +734,7 @@ const timelineData = [
     {
         "id": "project-1782133772490",
         "title": "Friendship and Bad Cooking",
-        "type": "book",
+        "type": "media",
         "date": "August 2025",
         "sortDate": "2025-08-22",
         "scope": "academic",
