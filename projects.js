@@ -199,7 +199,7 @@ const timelineData = [
         "date": "Early 2025",
         "sortDate": "2025-01-01",
         "scope": "international",
-        "description": "Prestigious visiting fellowship including delivery of the inaugural Horkan Lecture on intimate histories of communism.",
+        "description": "Prestigious visiting fellowship including delivery of the inaugural Horkan Lecture on methodological issues in researching and writing about family histories",
         "link": null,
         "venue": "Sidney Sussex College, Cambridge University"
     },
