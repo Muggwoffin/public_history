@@ -23,7 +23,7 @@ const tools = [
         "name": "Personae",
         "version": "1.3.0",
         "tagline": "An Obsidian vault for people who research people",
-        "description": "A complete working environment for qualitative research about people — everything organised by people, events, places, organisations, concepts and sources, all cross-linked, mapped and timelined. It ships with a Russian Revolution sample to explore before you make it your own.",
+        "description": "A complete Obsidian working environment for qualitative research about people. Everything organised by people, events, places, organisations, concepts and sources, all cross-linked, mapped and timelined. It comes with a Russian Revolution sample to explore before you make it your own.",
         "license": "MIT",
         "plugins": ["Dataview", "Templater", "Leaflet", "Zotero"],
         "downloadUrl": "https://github.com/Muggwoffin/Personae/archive/refs/heads/main.zip",

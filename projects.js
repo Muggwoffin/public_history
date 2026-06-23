@@ -83,28 +83,6 @@ const timelineData = [
         "venue": "Queen's University Belfast"
     },
     {
-        "id": "digital-pasts-2024",
-        "title": "Digital Technologies and Digital Pasts",
-        "type": "teaching",
-        "date": "2024",
-        "sortDate": "2024-01-01",
-        "scope": "academic",
-        "description": "Designed and taught innovative module exploring the intersection of digital humanities and historical practice for MA students in Public History.",
-        "link": null,
-        "venue": "Queen's University Belfast"
-    },
-    {
-        "id": "ma-public-history",
-        "title": "MA in Public History Teaching",
-        "type": "teaching",
-        "date": "2024-Present",
-        "sortDate": "2024-01-01",
-        "scope": "academic",
-        "description": "Teaching undergraduate and postgraduate courses in public history, supervising MA dissertations and undergraduate research projects on diverse topics in twentieth-century history.",
-        "link": null,
-        "venue": "Queen's University Belfast"
-    },
-    {
         "id": "award-2017",
         "title": "Early Career Research Prize",
         "type": "fellowship",
@@ -196,7 +174,7 @@ const timelineData = [
         "id": "qub-researcher-2024",
         "title": "Visiting Researcher",
         "type": "fellowship",
-        "date": "2024-Present",
+        "date": "2024",
         "sortDate": "2024-01-01",
         "scope": "academic",
         "description": "Research fellowship at Queen's University Belfast, teaching in the MA in Public History program and supervising postgraduate and undergraduate students.",
@@ -210,7 +188,7 @@ const timelineData = [
         "date": "Early 2025",
         "sortDate": "2025-01-01",
         "scope": "international",
-        "description": "Prestigious visiting fellowship including delivery of the inaugural Horkan Lecture on intimate histories of communism.",
+        "description": "Prestigious visiting fellowship including delivery of the inaugural Horkan Lecture on methodological issues in researching and writing about family histories",
         "link": null,
         "venue": "Sidney Sussex College, Cambridge University"
     },
@@ -288,7 +266,7 @@ const timelineData = [
         "sortDate": "2023-11-01",
         "scope": "academic",
         "description": "Peer-reviewed article analyzing how an Irish revolutionary and Latvian socialist navigated political commitments and personal relationships across borders during the revolutionary period.",
-        "link": null,
+        "link": "https://www.cambridge.org/core/journals/contemporary-european-history/article/save-me-from-my-friends-the-transnational-intimacies-of-an-irishlatvian-couple-within-and-beyond-the-irish-revolution-19161921/81B4DEFEED69302DBEF16BEABEC11F56",
         "venue": "Contemporary European History"
     },
     {
@@ -321,7 +299,7 @@ const timelineData = [
         "sortDate": "2025-03-01",
         "scope": "academic",
         "description": "Peer-reviewed article exploring connections between esoteric thought and queer sexuality in Irish literary and political circles, examining how figures navigated identity before modern gay liberation.",
-        "link": null,
+        "link": "https://pure.qub.ac.uk/en/publications/i-want-to-be-to-ireland-what-walt-whitman-was-to-america-esoteric/",
         "venue": "History Workshop Journal"
     },
     {
@@ -446,30 +424,8 @@ const timelineData = [
         "venue": "Rural Queer Lives Festival, Ulster Folk Museum"
     },
     {
-        "id": "talk-boston-college-2023",
-        "title": "Irish Studies Seminar",
-        "type": "talk",
-        "date": "September 2023",
-        "sortDate": "2023-09-01",
-        "scope": "international",
-        "description": "Research presentation exploring Irish connections to international communist movements and the Comintern.",
-        "link": null,
-        "venue": "Boston College, Massachusetts"
-    },
-    {
-        "id": "talk-georgetown-2023",
-        "title": "Global Irish Studies Seminar",
-        "type": "talk",
-        "date": "October 2023",
-        "sortDate": "2023-10-01",
-        "scope": "international",
-        "description": "Presentation on transnational approaches to Irish history and the importance of global perspectives on Irish radical politics.",
-        "link": null,
-        "venue": "Georgetown University, Washington DC"
-    },
-    {
         "id": "talk-oxford-modern-history-2024",
-        "title": "Intimate History of the Comintern's Moscow Dormitory",
+        "title": "Hotel Lux: Writing an Intimate History of the Comintern's Moscow Dormitory",
         "type": "talk",
         "date": "January 2024",
         "sortDate": "2024-01-01",
@@ -485,7 +441,7 @@ const timelineData = [
         "date": "February 2025",
         "sortDate": "2025-02-01",
         "scope": "international",
-        "description": "Prestigious inaugural lecture series exploring intimate histories of international communism through the lens of Hotel Lux.",
+        "description": "Inaugural lecture of the Horkan Fellowship: 'The Maddens of Stockport:\nRevolutions, Revelations and Renaissance Art in an Irish Family Archive'",
         "link": null,
         "venue": "Sidney Sussex College, Cambridge"
     },
@@ -521,6 +477,248 @@ const timelineData = [
         "description": "An audio documentary commissioned by the BBC, exploring a child's eye view of anti-Nazi resistance.",
         "link": "https://www.bbc.co.uk/programmes/m002sclz",
         "venue": "BBC Radio 4"
+    },
+    {
+        "id": "project-1782131504995",
+        "title": "MHY7097 Telling Stories",
+        "type": "teaching",
+        "date": "2025 to Present",
+        "sortDate": "2026-01-01",
+        "scope": "academic",
+        "description": "Teaching on narrative non-fiction approaches to Historical writing.",
+        "link": null,
+        "venue": "QUB"
+    },
+    {
+        "id": "project-1782131564276",
+        "title": "MHY7020 The Historian's Craft",
+        "type": "teaching",
+        "date": "2025 to present",
+        "sortDate": "2025-11-01",
+        "scope": "academic",
+        "description": "Teaching on debates on AI/LLMs and Historical Research",
+        "link": null,
+        "venue": "QUB"
+    },
+    {
+        "id": "project-1782131639156",
+        "title": "MHY7077 Public History Internship",
+        "type": "teaching",
+        "date": "2024 to Present",
+        "sortDate": "2024-01-01",
+        "scope": "academic",
+        "description": "Assisting with assessment for the Public History internship.",
+        "link": null,
+        "venue": "QUB"
+    },
+    {
+        "id": "project-1782131696352",
+        "title": "MHY7092 History and its Audiences",
+        "type": "teaching",
+        "date": "2024 to Present",
+        "sortDate": "2024-02-01",
+        "scope": "academic",
+        "description": "Lecturing and co-convening a series on approaches to Public History.",
+        "link": null,
+        "venue": "QUB"
+    },
+    {
+        "id": "project-1782131746370",
+        "title": "HIS3128 Sin Cities? Everyday Life in the Modern Metropolis",
+        "type": "teaching",
+        "date": "2023/2024",
+        "sortDate": "2023-01-01",
+        "scope": "academic",
+        "description": "Guest lecturing on urban history.",
+        "link": null,
+        "venue": "QUB"
+    },
+    {
+        "id": "project-1782131803776",
+        "title": "MHY7089 Case Studies in History",
+        "type": "teaching",
+        "date": "2025 to Present",
+        "sortDate": "2025-02-01",
+        "scope": "academic",
+        "description": "Contributing to team-taught module with lecture and tutorial on political history.",
+        "link": null,
+        "venue": null
+    },
+    {
+        "id": "project-1782131889487",
+        "title": "MHY7097 Digital Technologies and Difficult Pasts",
+        "type": "teaching",
+        "date": "2023",
+        "sortDate": "2023-02-01",
+        "scope": "academic",
+        "description": "Designed and delivered a module on 'Digital Technologies and Difficult Pasts'",
+        "link": null,
+        "venue": "QUB"
+    },
+    {
+        "id": "project-1782132281270",
+        "title": "ANT1006 Understanding Northern Ireland",
+        "type": "teaching",
+        "date": "2024",
+        "sortDate": "2024-01-09",
+        "scope": "academic",
+        "description": "Contributed to Anthropology undergraduate course.",
+        "link": null,
+        "venue": null
+    },
+    {
+        "id": "project-1782132731178",
+        "title": "The Leonhards: A Family History of Refugee Route",
+        "type": "talk",
+        "date": "May 2024",
+        "sortDate": "2024-05-01",
+        "scope": "academic",
+        "description": "Invited conference paper",
+        "link": null,
+        "venue": "Love & War Conference, QUB"
+    },
+    {
+        "id": "project-1782132765445",
+        "title": "Queer Americans in Post-Revolutionary Ireland: Sex, Socialism and the Occult, 1921–1933",
+        "type": "talk",
+        "date": "Sept 2023",
+        "sortDate": "2023-09-01",
+        "scope": "academic",
+        "description": "Invited seminar paper",
+        "link": null,
+        "venue": "Georgetown University"
+    },
+    {
+        "id": "project-1782132795701",
+        "title": "Queer Northern Ireland: Sexuality before Liberation",
+        "type": "talk",
+        "date": "Sept 2023",
+        "sortDate": "2023-09-01",
+        "scope": "academic",
+        "description": "Invited seminar paper",
+        "link": null,
+        "venue": "Boston College"
+    },
+    {
+        "id": "project-1782132845644",
+        "title": "Feeling Political",
+        "type": "talk",
+        "date": "April 2023",
+        "sortDate": "2023-04-01",
+        "scope": "academic",
+        "description": "Invited seminar paper at the Intimacy and Political History workshop.",
+        "link": null,
+        "venue": "Durham University"
+    },
+    {
+        "id": "project-1782132893779",
+        "title": "How were Soviet Citizens introduced to Irish Literature and History?",
+        "type": "talk",
+        "date": "Nov 2020",
+        "sortDate": "2020-11-01",
+        "scope": "academic",
+        "description": "Invited talk",
+        "link": null,
+        "venue": "Herzen University St Petersburg"
+    },
+    {
+        "id": "project-1782132933950",
+        "title": "A History of Ireland’s Recent Transformation: Marriage Equality and Repeal’",
+        "type": "talk",
+        "date": "Jan 2019",
+        "sortDate": "2019-01-01",
+        "scope": "academic",
+        "description": "Invited talk",
+        "link": null,
+        "venue": "Western Coast United States Irish Consulate, San Francisco"
+    },
+    {
+        "id": "project-1782133039783",
+        "title": "The Sonic Seance",
+        "type": "exhibition",
+        "date": "Nov 2023",
+        "sortDate": "2023-11-16",
+        "scope": "public",
+        "description": "Scripted and presented a sold-out audio installation, designed in collaboration with SARC QUB sound engineers and Hive Choir.",
+        "link": "https://www.beinghumanfestival.org/events/sonic-seance",
+        "venue": "Being Human Festival/Outburst Queer Arts Festival"
+    },
+    {
+        "id": "project-1782133277267",
+        "title": "British and Irish suffragettes and international communism, 1919–39",
+        "type": "book",
+        "date": "2021",
+        "sortDate": "2021-01-01",
+        "scope": "academic",
+        "description": "Peer reviewed edited collection chapter.",
+        "link": "https://pure.qub.ac.uk/en/publications/from-votes-for-women-to-world-revolution-british-and-irish-suffra/",
+        "venue": "The Politics of Women’s Suffrage: Local, National and International Dimensions"
+    },
+    {
+        "id": "project-1782133469314",
+        "title": "Nancy Cunard, the interwar poet and rebel descended from Robert Emmet’s family",
+        "type": "media",
+        "date": "August 2020",
+        "sortDate": "2020-08-04",
+        "scope": "national",
+        "description": "Biographical article",
+        "link": "https://www.irishtimes.com/life-and-style/abroad/nancy-cunard-the-interwar-poet-and-rebel-descended-from-robert-emmet-s-family-1.4318923",
+        "venue": "Irish Times"
+    },
+    {
+        "id": "project-1782133519984",
+        "title": "‘Mother Mooney’, the Mayo woman who campaigned for justice for her wronged son",
+        "type": "media",
+        "date": "July 2020",
+        "sortDate": "2020-07-14",
+        "scope": "national",
+        "description": "Biographical article",
+        "link": "https://www.irishtimes.com/life-and-style/abroad/mother-mooney-the-mayo-woman-who-campaigned-for-justice-for-her-wronged-son-1.4300452",
+        "venue": "Irish Times"
+    },
+    {
+        "id": "project-1782133604638",
+        "title": "The Irishman who fought with Mandela for freedom",
+        "type": "media",
+        "date": "January 2022",
+        "sortDate": "2022-01-11",
+        "scope": "national",
+        "description": "Biographical article",
+        "link": "https://www.irishtimes.com/life-and-style/abroad/the-irishman-who-fought-with-mandela-for-freedom-1.4771006",
+        "venue": "Irish Times"
+    },
+    {
+        "id": "project-1782133678476",
+        "title": "Who are 'the Irish'?",
+        "type": "media",
+        "date": "September 2024",
+        "sortDate": "2024-09-25",
+        "scope": "international",
+        "description": "Op-ed for the Guardian",
+        "link": "https://www.theguardian.com/commentisfree/2024/sep/25/who-are-the-irish-history-shows-weve-been-a-mixed-bunch-for-centuries",
+        "venue": "The Guardian"
+    },
+    {
+        "id": "project-1782133731915",
+        "title": "Fellow Travellers",
+        "type": "media",
+        "date": "October 2025",
+        "sortDate": "2025-10-03",
+        "scope": "international",
+        "description": "Book review.",
+        "link": "https://www.the-tls.com/history/twentieth-century-onwards-history/three-revolutions-simon-hall-book-review-maurice-j-casey",
+        "venue": "Times Literary Supplement"
+    },
+    {
+        "id": "project-1782133772490",
+        "title": "Friendship and Bad Cooking",
+        "type": "media",
+        "date": "August 2025",
+        "sortDate": "2025-08-22",
+        "scope": "academic",
+        "description": "Book review",
+        "link": "https://www.the-tls.com/history/the-paris-commune-in-britain-laura-c-forster-book-review-maurice-j-casey",
+        "venue": "Times Literary Supplement"
     }
 ];
 
