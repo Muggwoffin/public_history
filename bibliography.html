@@ -10,20 +10,17 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BQBYCGSSWC"></script>
     <script src="js/analytics.js"></script>
 
-    <title>Tools — Maurice J. Casey</title>
+    <title>Bibliography — Maurice J. Casey</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="tools.css">
+    <link rel="stylesheet" href="bibliography.css">
     <link rel="stylesheet" href="consent-banner.css">
     <noscript>
-        <!-- Sections are revealed by scroll scripts; keep everything visible without JS -->
-        <style>
-            section { opacity: 1 !important; }
-            .site-nav { display: none; }
-        </style>
+        <style>.bib-noscript { display: block !important; }</style>
     </noscript>
 </head>
 <body>
-    <a class="skip-link" href="#tools">Skip to content</a>
+    <a class="skip-link" href="#bibliography">Skip to content</a>
 
     <!-- Sticky section navigation (revealed after scrolling past the masthead) -->
     <nav class="site-nav" id="site-nav" aria-label="Site sections">
@@ -42,24 +39,18 @@
     </nav>
 
     <div class="newspaper-wrapper">
-        <!-- Page masthead -->
-        <header class="tools-masthead">
-            <p class="tools-kicker">Research tools</p>
-            <h1 class="tools-page-title">Tools</h1>
-            <p class="tools-page-subtitle">Open-source tools and resources developed alongside my historical research.</p>
-            <div class="tools-ornament" aria-hidden="true">
-                <span class="tools-ornament-line"></span>
-                <span class="tools-ornament-star">★</span>
-                <span class="tools-ornament-line"></span>
-            </div>
-        </header>
+        <!-- Masthead (filled by bibliography-renderer.js) -->
+        <header id="bib-masthead" class="tools-masthead"></header>
 
-        <!-- Tools & resources (rendered from tools.js + resources.js) -->
-        <section id="tools">
+        <section>
             <div class="content-section">
-                <div class="sechead"><p class="tools-kicker">Vaults &amp; software</p></div>
-                <div id="tools-list"></div>
-                <div id="resources-list"></div>
+                <noscript>
+                    <p class="bib-noscript" style="text-align:center;color:#8d8678">
+                        This bibliography is rendered with JavaScript. Please enable it, or
+                        view the source list in <code>bibliographies.js</code>.
+                    </p>
+                </noscript>
+                <div id="bibliography"></div>
             </div>
         </section>
 
@@ -78,21 +69,17 @@
         </footer>
     </div>
 
-    <!-- Data files (content managed via the admin panel) -->
-    <script src="tools.js"></script>
-    <script src="resources.js"></script>
+    <!-- Data files -->
+    <script src="bibliographies.js"></script>
 
     <!-- Shared core (must load before components and renderers) -->
     <script src="js/core.js"></script>
 
-    <!-- Components (one behaviour per module) -->
+    <!-- Components -->
     <script src="js/components/consent-banner.js"></script>
-    <script src="js/components/scroll-reveal.js"></script>
-    <script src="js/components/analytics-events.js"></script>
     <script src="js/components/sticky-nav.js"></script>
 
-    <!-- Section renderers -->
-    <script src="js/renderers/tools-renderer.js"></script>
-    <script src="js/renderers/resources-renderer.js"></script>
+    <!-- Renderer -->
+    <script src="js/renderers/bibliography-renderer.js"></script>
 </body>
 </html>

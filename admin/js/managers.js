@@ -450,11 +450,71 @@
         })
     });
 
+    // ------------------------------------------------------------------
+    // Resources (resources.js) — bibliographies, guides and datasets shown
+    // on the Tools page. A flat collection: each card links out to an
+    // in-repo page or file. The URL is a plain text field so relative paths
+    // (e.g. bibliography.html?slug=...) are allowed alongside full URLs.
+    // ------------------------------------------------------------------
+
+    const resourcesManager = new CollectionManager({
+        containerId: 'resources-manager',
+        title: 'Resources Manager',
+        noun: 'Resource',
+        fileKey: 'resources',
+        store,
+        fields: [
+            {
+                name: 'category', label: 'Category', type: 'select', required: true,
+                options: [
+                    { value: 'Bibliography', label: 'Bibliography' },
+                    { value: 'Reading guide', label: 'Reading guide' },
+                    { value: 'Dataset', label: 'Dataset' },
+                    { value: 'Other', label: 'Other' }
+                ]
+            },
+            { name: 'title', label: 'Title', required: true },
+            { name: 'source', label: 'Source', placeholder: 'e.g. From Hotel Lux (2024)' },
+            { name: 'format', label: 'Format', placeholder: 'e.g. Web list, PDF · 18 pp, .ris' },
+            { name: 'description', label: 'Description', type: 'textarea', rows: 3 },
+            { name: 'url', label: 'Link (URL or in-repo path)', required: true, placeholder: 'bibliography.html?slug=… or https://…' },
+            {
+                name: 'linkLabel', label: 'Link label', type: 'select',
+                options: [
+                    { value: 'View', label: 'View' },
+                    { value: 'Download', label: 'Download' },
+                    { value: 'Open', label: 'Open' }
+                ]
+            }
+        ],
+        summarize: (resource) => ({
+            title: resource.title,
+            meta: resource.category + (resource.format ? ' • ' + resource.format : ''),
+            detail: resource.source
+        }),
+        groupForDisplay: (items) => {
+            const order = ['Bibliography', 'Reading guide', 'Dataset', 'Other'];
+            const sorted = [...items].sort((a, b) =>
+                order.indexOf(a.category) - order.indexOf(b.category));
+            return [{ label: null, items: sorted }];
+        },
+        buildItem: (values) => ({
+            category: values.category,
+            title: values.title,
+            source: values.source,
+            format: values.format,
+            description: values.description,
+            url: values.url,
+            linkLabel: values.linkLabel || 'View'
+        })
+    });
+
     // Section initializers used by navigation (app.js)
     window.AdminManagers = {
         'events-manager': () => eventsManager.init(),
         'timeline': () => timelineManager.init(),
         'tools-manager': () => toolsManager.init(),
+        'resources-manager': () => resourcesManager.init(),
         'content-boxes': () => {
             readingEditor.init();
             playingEditor.init();

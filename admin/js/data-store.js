@@ -54,6 +54,12 @@ const SiteData = (function () {
             kind: 'array',
             header: 'Tools Data\n * Research tools and resources shown on the Tools page (tools.html)'
         },
+        resources: {
+            path: 'resources.js',
+            varName: 'resources',
+            kind: 'array',
+            header: 'Resources Data\n * Research resources (bibliographies, guides, datasets) shown on the Tools page'
+        },
         projects: {
             path: 'projects.js',
             varName: 'timelineData',
