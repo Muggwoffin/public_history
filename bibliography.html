@@ -40,7 +40,12 @@
     <link rel="stylesheet" href="bibliography.css">
     <link rel="stylesheet" href="consent-banner.css">
     <noscript>
-        <style>.bib-noscript { display: block !important; }</style>
+        <!-- Sections are revealed by scroll scripts; keep everything visible without JS -->
+        <style>
+            section { opacity: 1 !important; }
+            .site-nav { display: none; }
+            .bib-noscript { display: block !important; }
+        </style>
     </noscript>
 </head>
 <body>
@@ -101,6 +106,7 @@
 
     <!-- Components -->
     <script src="js/components/consent-banner.js"></script>
+    <script src="js/components/scroll-reveal.js"></script>
     <script src="js/components/sticky-nav.js"></script>
 
     <!-- Renderer -->
