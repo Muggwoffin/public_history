@@ -133,7 +133,10 @@
                 }, [span, anchor]));
             });
 
-            const wrap = el('section', { className: 'bib-section', attrs: { id } }, [
+            // A <div>, not <section>: style.css hides bare <section>s until
+            // scroll-reveal marks them visible, and these are created after
+            // scroll-reveal has already scanned the page.
+            const wrap = el('div', { className: 'bib-section', attrs: { id } }, [
                 el('h2', { className: 'bib-section-title', text: section.title }),
                 list
             ]);
