@@ -12,7 +12,10 @@
         const logoDiv = el('div', { className: 'outlet-logo' });
         if (article.outletLogo) {
             logoDiv.appendChild(el('img', {
-                attrs: { src: article.outletLogo, alt: article.outlet || 'Outlet' }
+                attrs: {
+                    src: article.outletLogo, alt: article.outlet || 'Outlet',
+                    loading: 'lazy', decoding: 'async'
+                }
             }));
         }
 

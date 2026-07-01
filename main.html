@@ -61,6 +61,11 @@
     }
     </script>
 
+    <!-- Fonts: preconnect + direct link (faster than CSS @import) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Archivo:wght@500;600;700&display=swap">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="timeline.css">
     <link rel="stylesheet" href="timeline-tetris.css">
@@ -116,7 +121,7 @@
                 <div class="about-layout">
                     <div class="author-photo-container">
                         <div class="author-photo">
-                            <img src="images/author-photo.jpg" data-alt-src="images/author-photo-alt.jpg" alt="Dr Maurice J. Casey" class="author-photo-img">
+                            <img src="images/author-photo.jpg" data-alt-src="images/author-photo-alt.jpg" alt="Dr Maurice J. Casey" class="author-photo-img" loading="lazy" decoding="async">
                         </div>
                     </div>
                     <div class="intro-text">

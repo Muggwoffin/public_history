@@ -15,7 +15,10 @@
         if (doc.logo) {
             item.appendChild(el('div', { className: 'documentary-logo' }, [
                 el('img', {
-                    attrs: { src: doc.logo, alt: doc.productionCompany || 'Documentary Logo' }
+                    attrs: {
+                        src: doc.logo, alt: doc.productionCompany || 'Documentary Logo',
+                        loading: 'lazy', decoding: 'async'
+                    }
                 })
             ]));
         }

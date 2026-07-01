@@ -36,7 +36,10 @@
 
         const cover = el('img', {
             className: 'book-cover',
-            attrs: { src: book.cover, alt: book.title }
+            attrs: {
+                src: book.cover, alt: book.title,
+                loading: 'lazy', decoding: 'async'
+            }
         });
 
         return el('div', { className: 'book-item' }, [

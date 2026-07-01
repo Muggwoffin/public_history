@@ -8,7 +8,8 @@
  * is preserved.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Archivo:wght@500;600;700&display=swap');
+/* Fonts are loaded via <link> in each page's <head> ("Fonts:" block)
+   rather than @import, which blocks rendering until this file arrives. */
 
 /* ============================================
    TOKENS
