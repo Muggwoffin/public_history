@@ -15,6 +15,27 @@
             el('p', { className: 'book-description', text: book.description })
         ]);
 
+        // Press and reader pull-quotes (optional per book)
+        if (Array.isArray(book.reviews) && book.reviews.length > 0) {
+            const reviews = el('div', { className: 'book-reviews' });
+            book.reviews.forEach(review => {
+                if (!review || !review.quote) return;
+                const quote = el('blockquote', { className: 'book-review' }, [
+                    el('p', {
+                        className: 'book-review-quote',
+                        text: '“' + review.quote + '”'
+                    })
+                ]);
+                if (review.source) {
+                    quote.appendChild(el('cite', {
+                        className: 'book-review-source', text: review.source
+                    }));
+                }
+                reviews.appendChild(quote);
+            });
+            if (reviews.childElementCount > 0) details.appendChild(reviews);
+        }
+
         const links = el('div', { className: 'book-links' });
         if (book.publisherLink) {
             links.appendChild(link(book.publisherLink, 'book-link', 'PUBLISHER →'));
@@ -36,7 +57,10 @@
 
         const cover = el('img', {
             className: 'book-cover',
-            attrs: { src: book.cover, alt: book.title }
+            attrs: {
+                src: book.cover, alt: book.title,
+                loading: 'lazy', decoding: 'async'
+            }
         });
 
         return el('div', { className: 'book-item' }, [

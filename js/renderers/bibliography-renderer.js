@@ -2,8 +2,13 @@
  * Bibliography Renderer
  * Renders a single bibliography (chosen by ?slug=) from the global
  * `bibliographies` data (bibliographies.js) into bibliography.html: a
- * masthead, the intro/provisos, a live text filter, and the sections as
- * hanging-indent lists. All text is inserted via SiteCore.el (textContent).
+ * masthead, the intro/provisos, a live text filter, a "suggest an
+ * addition" mailto action, and the sections as hanging-indent lists.
+ *
+ * Entry text between *asterisks* renders as <em> (used for book and
+ * journal titles). Each entry gets a stable id and a § anchor link so
+ * individual citations can be linked to directly. All text reaches the
+ * DOM via textContent (SiteCore.el / text nodes) — never innerHTML.
  */
 
 (function () {
@@ -14,6 +19,27 @@
     function slugFromQuery() {
         const m = window.location.search.match(/[?&]slug=([^&]+)/);
         return m ? decodeURIComponent(m[1]) : null;
+    }
+
+    function slugify(text) {
+        return text.toLowerCase()
+            .normalize('NFD').replace(/[̀-ͯ]/g, '') // strip accents
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .split('-').slice(0, 5).join('-');
+    }
+
+    /** Append `text` to `parent`, rendering *segments* between asterisks as <em>. */
+    function renderRich(parent, text) {
+        const parts = String(text).split('*');
+        parts.forEach((part, i) => {
+            if (part === '') return;
+            if (i % 2 === 1) {
+                parent.appendChild(el('em', { text: part }));
+            } else {
+                parent.appendChild(document.createTextNode(part));
+            }
+        });
     }
 
     function buildMasthead(head, bib) {
@@ -57,24 +83,56 @@
             host.appendChild(el('p', { className: 'bib-intro-p', text: paragraph }));
         });
 
-        // Toolbar: filter + live count + section jump links
+        // Toolbar: filter, then jump links + suggest action + live count
         const filter = el('input', {
             className: 'bib-filter',
             attrs: { type: 'search', placeholder: 'Filter by author, title or keyword…', 'aria-label': 'Filter entries' }
         });
         const count = el('span', { className: 'bib-count' });
         const jump = el('nav', { className: 'bib-jump', attrs: { 'aria-label': 'Jump to section' } });
-        host.appendChild(el('div', { className: 'bib-toolbar' }, [
-            filter,
-            el('div', { className: 'bib-toolbar-row' }, [jump, count])
-        ]));
+        const toolbarRow = el('div', { className: 'bib-toolbar-row' }, [jump, count]);
+        if (bib.contactEmail) {
+            const subject = encodeURIComponent('Suggestion for bibliography: ' + bib.title);
+            toolbarRow.insertBefore(el('a', {
+                className: 'bib-suggest',
+                text: 'Suggest an addition →',
+                attrs: { href: 'mailto:' + bib.contactEmail + '?subject=' + subject }
+            }), count);
+        }
+        host.appendChild(el('div', { className: 'bib-toolbar' }, [filter, toolbarRow]));
 
+        const usedIds = {};
         const sections = [];
         let total = 0;
+
         bib.sections.forEach((section, i) => {
             const id = 'bib-section-' + (i + 1);
             const list = el('ul', { className: 'bib-list' });
-            section.entries.forEach(text => list.appendChild(el('li', { className: 'bib-entry', text })));
+
+            section.entries.forEach(text => {
+                let entryId = 'e-' + slugify(text.replace(/[*—]/g, ' '));
+                if (usedIds[entryId]) {
+                    usedIds[entryId] += 1;
+                    entryId += '-' + usedIds[entryId];
+                } else {
+                    usedIds[entryId] = 1;
+                }
+
+                const span = el('span', { className: 'bib-entry-text' });
+                renderRich(span, text);
+
+                const anchor = el('a', {
+                    className: 'bib-anchor',
+                    text: '§',
+                    attrs: { href: '#' + entryId, 'aria-label': 'Link to this entry' }
+                });
+
+                list.appendChild(el('li', {
+                    className: 'bib-entry',
+                    attrs: { id: entryId }
+                }, [span, anchor]));
+            });
+
             const wrap = el('section', { className: 'bib-section', attrs: { id } }, [
                 el('h2', { className: 'bib-section-title', text: section.title }),
                 list
@@ -105,7 +163,8 @@
             sections.forEach(s => {
                 let shown = 0;
                 Array.from(s.list.children).forEach(li => {
-                    const match = !q || li.textContent.toLowerCase().indexOf(q) !== -1;
+                    const textEl = li.querySelector('.bib-entry-text') || li;
+                    const match = !q || textEl.textContent.toLowerCase().indexOf(q) !== -1;
                     li.hidden = !match;
                     if (match) { visible++; shown++; }
                 });
