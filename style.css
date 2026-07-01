@@ -938,6 +938,42 @@ section {
     margin-bottom: 1.6rem;
 }
 
+/* Press and reader pull-quotes on book cards */
+.book-reviews {
+    border-top: 1px solid var(--rule);
+    margin: 0 0 1.6rem;
+}
+
+.book-review {
+    margin: 0;
+    padding: 1rem 0 0.9rem;
+    border-bottom: 1px solid var(--rule);
+}
+
+.book-review-quote {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 0.45rem;
+}
+
+.book-review-source {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+}
+
+.book-review-source::before {
+    content: '— ';
+    color: var(--ink-faint);
+}
+
 .book-links {
     display: flex;
     flex-wrap: wrap;

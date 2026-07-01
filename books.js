@@ -13,7 +13,21 @@ const books = [
         "description": "Critically acclaimed book uncovering the intimate lives of international communists who lived in Moscow's Hotel Lux during the 1920s. Shortlisted for Irish Book Awards 2024 (History Book of Year). An Irish Times, Foreign Affairs and Big Issue Book of the Year.",
         "publisherLink": "https://footnotepress.com",
         "reviewsLink": null,
-        "bookshopLink": "https://uk.bookshop.org/p/books/hotel-lux-an-intimate-history-of-communism-s-forgotten-radicals-maurice-j-casey/7664562?ean=9781804442227&next=t"
+        "bookshopLink": "https://uk.bookshop.org/p/books/hotel-lux-an-intimate-history-of-communism-s-forgotten-radicals-maurice-j-casey/7664562?ean=9781804442227&next=t",
+        "reviews": [
+            {
+                "quote": "Hotel Lux is an unforgettable book, bringing to life not only its protagonists but an entire world, and offering a new glimpse of a vanished past",
+                "source": "Sally Rooney"
+            },
+            {
+                "quote": "Historian Maurice J Casey has a novelist's eye and a detective's instinct; talents that transform what might seem like a niche story into a compelling thriller.",
+                "source": "Irish Examiner"
+            },
+            {
+                "quote": "It lights its subjects with such sensitivity that it makes much of contemporary history look ghostly by comparison, so substantial is Casey's illumination of this lost world.",
+                "source": "The Irish Times"
+            }
+        ]
     }
 ];
 

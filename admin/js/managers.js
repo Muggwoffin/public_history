@@ -96,7 +96,12 @@
             { name: 'description', label: 'Description', type: 'textarea', rows: 4, required: true },
             { name: 'publisherLink', label: 'Publisher Link', type: 'url', placeholder: 'https://...' },
             { name: 'reviewsLink', label: 'Reviews Link', type: 'url', placeholder: 'https://...' },
-            { name: 'bookshopLink', label: 'Bookshop.org Purchase Link', type: 'url', placeholder: 'https://bookshop.org/...', help: 'Add Bookshop.org link for "Purchase Now" button' }
+            { name: 'bookshopLink', label: 'Bookshop.org Purchase Link', type: 'url', placeholder: 'https://bookshop.org/...', help: 'Add Bookshop.org link for "Purchase Now" button' },
+            {
+                name: 'reviews', label: 'Review pull-quotes', type: 'textarea', rows: 5,
+                fromItem: (b) => (b.reviews || []).map(r => `${r.quote} | ${r.source || ''}`).join('\n'),
+                help: 'One per line:  Quote | Source  — e.g.  An unforgettable book | Sally Rooney.  No quotation marks needed; they are added on the page.'
+            }
         ],
         summarize: (book) => ({
             title: book.title,
@@ -115,7 +120,15 @@
             description: values.description,
             publisherLink: orNull(values.publisherLink),
             reviewsLink: orNull(values.reviewsLink),
-            bookshopLink: orNull(values.bookshopLink)
+            bookshopLink: orNull(values.bookshopLink),
+            // "Quote | Source" per line; split on the LAST pipe so quotes
+            // containing a pipe keep their text intact.
+            reviews: values.reviews.split('\n').map(s => s.trim()).filter(Boolean).map(line => {
+                const i = line.lastIndexOf('|');
+                return i >= 0
+                    ? { quote: line.slice(0, i).trim(), source: line.slice(i + 1).trim() }
+                    : { quote: line, source: '' };
+            })
         })
     });
 
