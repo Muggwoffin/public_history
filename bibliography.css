@@ -129,6 +129,58 @@
 
 .bib-entry[hidden] { display: none; }
 
+/* ---- Per-entry anchor links + linked-entry highlight ----------------- */
+.bib-entry {
+    scroll-margin-top: 96px; /* clear the sticky nav when jumped to */
+}
+
+.bib-anchor {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    text-decoration: none;
+    margin-left: 0.45em;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.bib-entry:hover .bib-anchor,
+.bib-anchor:focus-visible {
+    opacity: 1;
+}
+
+.bib-anchor:hover {
+    color: var(--accent-deep);
+}
+
+@media (hover: none) {
+    .bib-anchor { opacity: 0.55; }
+}
+
+.bib-entry:target {
+    background: var(--accent-wash);
+    outline: 2px solid rgba(47, 125, 69, 0.25);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* ---- Suggest-an-addition action -------------------------------------- */
+.bib-suggest {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-deep);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.4rem 0.8rem;
+    white-space: nowrap;
+}
+
+.bib-suggest:hover {
+    background: var(--accent-wash);
+}
+
 .bib-ack {
     max-width: 44rem;
     margin: 2.4rem auto 0;
